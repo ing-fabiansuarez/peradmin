@@ -1,11 +1,11 @@
-VERSION FRAMWORK ULIZADA CodeIgniter 4.0.4
+VERSION FRAMWORK ULIZADA CodeIgniter 4.1.3
 
 * rename env por .env
         CI_ENVIRONMENT = development
-        app.baseURL = 'http://localhost/pera/'
+        app.baseURL = 'http://localhost/peradmin/'
 
 * Cambair app/Config/App
-        public $baseURL = 'http://localhost/pera/';
+        public $baseURL = 'http://localhost/peradmin/';
         public $indexPage = '';
 	public $appTimezone = 'America/Bogota';;
 
