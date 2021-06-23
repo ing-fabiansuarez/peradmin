@@ -37,7 +37,6 @@
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
-
 		<?= $this->include('structure/footer') ?>
 
 	</div>

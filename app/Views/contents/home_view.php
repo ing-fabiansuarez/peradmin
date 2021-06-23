@@ -2,7 +2,7 @@
 <?= $this->section('title') ?> - Home<?= $this->endSection() ?>
 <?= $this->section('preloader') ?>
 <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="<?= base_url() ?>/public/img/corporative/logo.png" alt="AdminLTELogo" height="60" width="60">
 </div>
 <?= $this->endSection() ?>
 
@@ -15,7 +15,8 @@
     <div class="col-md-3">
     </div>
     <div class="col-md-6">
-        <img src="<?= base_url() ?>/public/img/peraburgelogohome.png" alt="Logo" class="img-fluid" style="width: 100%;">
+    <h1>home</h1>
+        <!-- <img src="<?= base_url() ?>/public/img/corporative/logo.png" alt="Logo" class="img-fluid" style="width: 100%;"> -->
     </div>
     <div class="col-md-3">
     </div>
