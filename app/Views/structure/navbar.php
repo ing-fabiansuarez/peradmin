@@ -63,7 +63,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="https://localhost/pera/auth/logout">
+            <a class="nav-link" href="<?=base_url().route_to('logout')?>">
                 <i class="fas fa-sign-in-alt"></i>
             </a>
         </li>
