@@ -43,7 +43,9 @@
 							</p>
 						</a>
 					</li>
-					<li class="nav-header">REPORTES</li>
+					
+					<li class="nav-header" style="margin-top: 40px;">ADMIN OLD</li>
+					<li class="nav-header">Reportes</li>
 					<li class="nav-item">
 						<a href="#" class="nav-link">
 							<i class="nav-icon fas fa-users"></i>
@@ -56,7 +58,7 @@
 							<li class="nav-item">
 								<a href="<?=base_url().route_to('admin_old_report_between_dates',date("Y-m-").'01',date("Y-m-d"))?>" class="nav-link">
 									<i class="fas fa-calendar-week nav-icon"></i>
-									<p>Entre Fechas</p>
+									<p>Nuevos</p>
 								</a>
 							</li>
 						</ul>
