@@ -58,7 +58,7 @@
 							<li class="nav-item">
 								<a href="<?=base_url().route_to('admin_old_report_between_dates',date("Y-m-").'01',date("Y-m-d"))?>" class="nav-link">
 									<i class="fas fa-calendar-week nav-icon"></i>
-									<p>Nuevos</p>
+									<p>Nuevos Mayor</p>
 								</a>
 							</li>
 						</ul>

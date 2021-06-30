@@ -3,7 +3,7 @@
 namespace App\Controllers\AdminOld;
 
 use App\Controllers\BaseController;
-use App\Models\OldAdmin\ClienteModel;
+use App\Models\OldAdmin\Customer_oaModel;
 
 class ReportAdminOld extends BaseController
 {
@@ -18,16 +18,29 @@ class ReportAdminOld extends BaseController
 		if (!(checkdate((int)$startDateArray[1], (int)$startDateArray[2], (int)$startDateArray[0]) && checkdate((int)$finishDateArray[1], (int)$finishDateArray[2], (int)$finishDateArray[0]))) {
 			return "FECHAS NO TIENEN UN FORMATO CORRECTO";
 		}
-		return view('oldadmin/new_customers');
 		//:...........................................
 
+		$mdlOldAdminCustomers = new Customer_oaModel();
+		//dd($mdlOldAdminCustomers->find('1098823092')->getQuantityDeilOrderMayor(12));
 
+		return view('oldadmin/new_customers', [
+			'customers' => $mdlOldAdminCustomers->where("cli_fecha_creacion >= '" . $startDate . "' AND cli_fecha_creacion <= '" . $finishDate . "'")->findAll()
+		]);
 	}
 
 	public function validateFormRangeDate()
 	{
-		$mdlOldAdminCustomers = new ClienteModel();
-		d($mdlOldAdminCustomers->find('1098823092'));
-		dd($this->request->getPost());
+		d($arraydates = explode(' - ', $this->request->getPost('dates')));
+		$startDateArray = explode('/', $arraydates[0]);
+		$finishDateArray = explode('/', $arraydates[1]);
+		d($startDateArray);
+		if (count($startDateArray) != 3 || count($finishDateArray) != 3) {
+			return "FECHAS NO TIENEN UN FORMATO CORRECTO";
+		}
+		if (!(checkdate((int)$startDateArray[1], (int)$startDateArray[2], (int)$startDateArray[0]) && checkdate((int)$finishDateArray[1], (int)$finishDateArray[2], (int)$finishDateArray[0]))) {
+			return "FECHAS NO TIENEN UN FORMATO CORRECTO";
+		}
+		//:...........................................
+		return redirect()->to(base_url().route_to('admin_old_report_between_dates',$startDateArray[0].'-'.$startDateArray[1].'-'.$startDateArray[2],$finishDateArray[0].'-'.$finishDateArray[1].'-'.$finishDateArray[2]));
 	}
 }
