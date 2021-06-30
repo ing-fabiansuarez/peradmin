@@ -23,8 +23,10 @@ class EmployeeModel extends Model
 
     public function getEmployeeLogin(string $column, string $value)
     {
-        return $this->where($column, $value)
+        return $this->db->table('employee')
+            ->select('*')
+            ->join('jobtitle', 'employee.jobtitle_id_jobtitle = jobtitle.id_jobtitle')
+            ->where('employee.' . $column, $value)
             ->get()->getFirstRow();
-        //return $this->where($column,$value)->first();
     }
 }

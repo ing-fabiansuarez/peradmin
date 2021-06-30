@@ -44,26 +44,29 @@
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="fas fa-user-tie"></i>
-
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <span class="dropdown-item dropdown-header"><b>Perfil</b></span>
                 <div class="dropdown-divider"></div>
                 <div class="text-center">
-                    <img src="https://localhost/tienda/public/pictures/users/sin-image.png" alt="" class="img-fluid">
+                    <img src="<?= base_url() ?>/public/img/users/<?= session()->image_employee ?>" alt="" class="img-fluid">
                 </div>
 
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
-                    <i class="fas fa-user-tie mr-2"></i> Fabian Suarez </a>
-
+                    <i class="fas fa-user-tie mr-2"></i><?= session()->name_employee ?> </a>
                 <div class="dropdown-divider"></div>
-
-                <a href="https://localhost/tienda/adminpage/logout" class="dropdown-item dropdown-footer"><i class="fas fa-sign-in-alt"></i> Salida Segura</a>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-user-md mr-2"></i><?= session()->jobtitle_name ?> </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-clock mr-2"></i><?= session()->date_start_employee ?> </a>
+                <div class="dropdown-divider"></div>
+                <a href="<?= base_url() . route_to('logout') ?>" class="dropdown-item dropdown-footer"><i class="fas fa-sign-in-alt"></i> Salida Segura</a>
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<?=base_url().route_to('logout')?>">
+            <a class="nav-link" href="<?= base_url() . route_to('logout') ?>">
                 <i class="fas fa-sign-in-alt"></i>
             </a>
         </li>

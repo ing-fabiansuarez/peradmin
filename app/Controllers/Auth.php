@@ -43,7 +43,8 @@ class Auth extends BaseController
                 'name_employee' => $employee->name_employee,
                 'date_start_employee' => $employee->startdate_employee,
                 'image_employee' => $employee->photo_employee,
-                'is_logged' => true
+                'is_logged' => true,
+                'jobtitle_name' => $employee->name_jobtitle,
             ]);
             return redirect()->route('home_system');
         } else {
