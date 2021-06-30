@@ -15,10 +15,11 @@
     <div class="col-md-3">
     </div>
     <div class="col-md-6">
-    <h1>home</h1>
+      
         <!-- <img src="<?= base_url() ?>/public/img/corporative/logo.png" alt="Logo" class="img-fluid" style="width: 100%;"> -->
     </div>
     <div class="col-md-3">
+
     </div>
 </div>
 

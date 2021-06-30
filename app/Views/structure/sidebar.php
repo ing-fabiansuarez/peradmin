@@ -46,7 +46,7 @@
 					<li class="nav-header">REPORTES</li>
 					<li class="nav-item">
 						<a href="#" class="nav-link">
-							<i class="nav-icon fas fa-chart-pie"></i>
+							<i class="nav-icon fas fa-users"></i>
 							<p>
 								Clientes
 								<i class="right fas fa-angle-left"></i>
@@ -54,8 +54,8 @@
 						</a>
 						<ul class="nav nav-treeview">
 							<li class="nav-item">
-								<a href="pages/charts/chartjs.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
+								<a href="<?=base_url().route_to('admin_old_report_between_dates',date("Y-m-").'01',date("Y-m-d"))?>" class="nav-link">
+									<i class="fas fa-calendar-week nav-icon"></i>
 									<p>Entre Fechas</p>
 								</a>
 							</li>

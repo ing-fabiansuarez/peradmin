@@ -21,7 +21,7 @@ $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
-$routes->setAutoRoute(true);
+$routes->setAutoRoute(false);
 
 /*
  * --------------------------------------------------------------------
@@ -35,6 +35,10 @@ $routes->setAutoRoute(true);
 
 $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	$routes->get('', 'Home::index', ['as' => 'home_system']);
+
+	$routes->group('admin_old', ['namespace' => 'App\Controllers\AdminOld'], function ($routes) {
+		$routes->get('reportes/clientesentrefechas/(:segment)/(:segment)', 'ReportAdminOld::reportBetweenDates/$1/$2', ['as' => 'admin_old_report_between_dates']);
+	});
 });
 
 //routes of auth
