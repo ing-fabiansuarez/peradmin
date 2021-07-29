@@ -12,14 +12,14 @@ class Customer_oa extends Entity
         $mdlOrderMayor_oa = new Ordermayor_oaModel();
         return count($mdlOrderMayor_oa->where('cli_documento', $this->cli_documento)->findAll());
     }
-    public function getQuantityDeilOrderMayor($id_product)
+    public function getQuantityDeilOrderMayor($id_tipo_linea_produccion)
     {
         $mdlOrderMayor_oa = new Ordermayor_oaModel();
-        return count($mdlOrderMayor_oa->db->table('pedidos')
+        return $mdlOrderMayor_oa->db->table('pedidos')
         ->select('*')
         ->join('listapedidos', 'pedidos.ped_id = listapedidos.ped_id')
         ->where('pedidos.cli_documento', $this->cli_documento)
-        ->where('listapedidos.tip_id',$id_product)
-        ->get()->getResultArray());
+        ->where('pedidos.tip_id',$id_tipo_linea_produccion)
+        ->countAllResults();
     }
 }

@@ -43,7 +43,7 @@
 							</p>
 						</a>
 					</li>
-					
+
 					<li class="nav-header" style="margin-top: 40px;">ADMIN OLD</li>
 					<li class="nav-header">Reportes</li>
 					<li class="nav-item">
@@ -56,12 +56,20 @@
 						</a>
 						<ul class="nav nav-treeview">
 							<li class="nav-item">
-								<a href="<?=base_url().route_to('admin_old_report_between_dates',date("Y-m-").'01',date("Y-m-d"))?>" class="nav-link">
+								<a href="<?= base_url() . route_to('admin_old_report_between_dates', date("Y-m-d"), date("Y-m-d")) ?>" class="nav-link">
 									<i class="fas fa-calendar-week nav-icon"></i>
-									<p>Nuevos Mayor</p>
+									<p>Clientes entre fechas</p>
 								</a>
 							</li>
 						</ul>
+						<!-- <ul class="nav nav-treeview">
+							<li class="nav-item">
+								<a href="<?= base_url() . route_to('admin_old_report_between_dates', date("Y-m-d"), date("Y-m-d")) ?>" class="nav-link">
+									<i class="fas fa-calendar-week nav-icon"></i>
+									<p>Mayor Compra</p>
+								</a>
+							</li>
+						</ul> -->
 					</li>
 				</ul>
 			</nav>

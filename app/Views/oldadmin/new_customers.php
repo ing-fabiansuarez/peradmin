@@ -1,5 +1,5 @@
 <?= $this->extend('structure/main_view') ?>
-<?= $this->section('title') ?> - Home<?= $this->endSection() ?>
+<?= $this->section('title') ?> - Mayoristas<?= $this->endSection() ?>
 <?= $this->section('preloader') ?>
 <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src="<?= base_url() ?>/public/img/corporative/logo.png" alt="AdminLTELogo" height="60" width="60">
@@ -71,11 +71,11 @@
 </script>
 
 
-
 <?= $this->endSection() ?>
-
 <!-- ............................................CONTENIDO DE LA PAGINA................................................ -->
 <?= $this->section('content') ?>
+<h2>Reporte de Nuevos Mayoristas <br><?= $dates['start'].' a '.$dates['finish'] ?></h2>
+<br>
 <div class="row">
 
     <div class="col-md-6">
@@ -110,35 +110,40 @@
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>Identificaci&oacute;n</th>
                             <th>Cliente</th>
                             <th>WhatsApp</th>
                             <th>Email</th>
                             <th>Ciudad</th>
                             <th>Fecha de inicio</th>
-                            <th>Cantidad de tapabocas</th>
+                            <th>Cant. Alpargatas</th>
+                            <th>Cant. Ropa</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($customers as $customer) : ?>
-
                             <tr>
-                                <td><?= $customer->cli_nombres . '<br>' . $customer->cli_documento ?></td>
+                                <td><?= $customer->cli_documento  ?> </td>
+                                <td><?= $customer->cli_nombres ?></td>
                                 <td><?= $customer->cli_whatsapp ?> </td>
                                 <td><?= $customer->cli_email ?></td>
                                 <td><?= $customer->cli_ciudad ?></td>
                                 <td><?= $customer->cli_fecha_creacion ?></td>
                                 <td><?= $customer->getQuantityDeilOrderMayor(1) ?></td>
+                                <td><?= $customer->getQuantityDeilOrderMayor(2) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th>Identificaci&oacute;n</th>
                             <th>Cliente</th>
                             <th>WhatsApp</th>
                             <th>Email</th>
                             <th>Ciudad</th>
                             <th>Fecha de inicio</th>
-                            <th>Cantidad de tapabocas</th>
+                            <th>Cant. Alpargatas</th>
+                            <th>Cant. Ropa</th>
                         </tr>
                     </tfoot>
                 </table>

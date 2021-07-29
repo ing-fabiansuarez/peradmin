@@ -24,7 +24,11 @@ class ReportAdminOld extends BaseController
 		//dd($mdlOldAdminCustomers->find('1098823092')->getQuantityDeilOrderMayor(12));
 
 		return view('oldadmin/new_customers', [
-			'customers' => $mdlOldAdminCustomers->where("cli_fecha_creacion >= '" . $startDate . "' AND cli_fecha_creacion <= '" . $finishDate . "'")->findAll()
+			'customers' => $mdlOldAdminCustomers->where("cli_fecha_creacion >= '" . $startDate . "' AND cli_fecha_creacion <= '" . $finishDate . "'")->findAll(),
+			'dates' => [
+				'start' => $startDate,
+				'finish' => $finishDate
+			]
 		]);
 	}
 
@@ -41,6 +45,6 @@ class ReportAdminOld extends BaseController
 			return "FECHAS NO TIENEN UN FORMATO CORRECTO";
 		}
 		//:...........................................
-		return redirect()->to(base_url().route_to('admin_old_report_between_dates',$startDateArray[0].'-'.$startDateArray[1].'-'.$startDateArray[2],$finishDateArray[0].'-'.$finishDateArray[1].'-'.$finishDateArray[2]));
+		return redirect()->to(base_url() . route_to('admin_old_report_between_dates', $startDateArray[0] . '-' . $startDateArray[1] . '-' . $startDateArray[2], $finishDateArray[0] . '-' . $finishDateArray[1] . '-' . $finishDateArray[2]));
 	}
 }
