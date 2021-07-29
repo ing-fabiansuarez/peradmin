@@ -9,12 +9,8 @@
 <!-- ............................................CONTENIDO DE LA PAGINA................................................ -->
 
 <?= $this->section('content') ?>
-<div class="row">
-    <div class="col-md-3">
-    </div>
-    <div class="col-md-6">
-    </div>
-    <div class="col-md-3">
-    </div>
-</div>
+
+    
+  
+
 <?= $this->endSection() ?>
