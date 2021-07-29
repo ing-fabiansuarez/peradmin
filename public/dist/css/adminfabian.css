@@ -82,11 +82,6 @@ a:hover {
   padding: 0;
 }
 
-.bg-corporative {
-  background-color: #76b119 !important;
-  color: #fff;
-}
-
 .height-100 {
   height: 100%;
 }
@@ -129,14 +124,14 @@ a:hover {
 }
 
 .navbar-white .navbar-nav .nav-link {
-  color: black;
+  color: #000;
 }
 
 .navbar-white {
   background-color: #ffffff;
   border-bottom-left-radius: 60px;
-  
-  border-bottom-color:  #76b119;
+
+  border-bottom-color: #76b119;
   border-width: 5px;
 }
 
@@ -146,6 +141,53 @@ a:hover {
 [class*="sidebar-dark-"] {
   background-color: #202020;
   border-top-right-radius: 50px;
- 
 }
 
+.maintitle h2 {
+  padding-top: 20px;
+  line-height: 1.2;
+  font-family: "Patrick Hand", cursive;
+  font-size: 28px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  color: #000;
+  text-align: center;
+}
+
+.maintitle h2::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: #76b119;
+  bottom: 0;
+  left: calc(50% - 20px);
+}
+
+.btn-app {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 12px;
+  height: 50px;
+  margin: 0 0 0px 0px;
+  min-width: 50px;
+  padding: 5px 0px;
+  position: relative;
+  text-align: center;
+}
+.btn-app:hover {
+  color: #000;
+}
+
+.bg-corporative {
+  background-color: #76b119 !important;
+  color: #fff;
+}
+.bg-delete {
+  background-color: #df2525f5 !important;
+  color: #fff;
+}

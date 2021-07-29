@@ -56,7 +56,7 @@
 						</a>
 						<ul class="nav nav-treeview">
 							<li class="nav-item">
-								<a href="<?= base_url() . route_to('admin_old_report_between_dates', date("Y-m-d"), date("Y-m-d")) ?>" class="nav-link">
+								<a href="<?= base_url() . route_to('view_jobtitles') ?>" class="nav-link">
 									<i class="fas fa-calendar-week nav-icon"></i>
 									<p>Cargos</p>
 								</a>

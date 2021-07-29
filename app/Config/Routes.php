@@ -36,6 +36,14 @@ $routes->setAutoRoute(false);
 $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	$routes->get('', 'Home::index', ['as' => 'home_system']);
 
+	//employess
+	$routes->group('cargos', ['namespace' => 'App\Controllers\Employee'], function ($routes) {
+		$routes->get('', 'Jobtitles::index', ['as' => 'view_jobtitles']);
+		$routes->post('', 'Jobtitles::create', ['as' => 'create_new_jobtitles']);
+		$routes->post('delete', 'Jobtitles::delete', ['as' => 'delete_jobtitles']);
+		$routes->post('update', 'Jobtitles::update', ['as' => 'update_jobtitles']);
+	});
+
 	$routes->group('admin_old', ['namespace' => 'App\Controllers\AdminOld'], function ($routes) {
 		$routes->get('reportes/clientesentrefechas/(:segment)/(:segment)', 'ReportAdminOld::reportNewCustomers/$1/$2', ['as' => 'admin_old_report_between_dates']);
 		$routes->post('reportes/verificarfechas', 'ReportAdminOld::validateFormRangeDate', ['as' => 'admin_old_validate_dates']);
