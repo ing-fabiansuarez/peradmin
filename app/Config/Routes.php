@@ -36,12 +36,18 @@ $routes->setAutoRoute(false);
 $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	$routes->get('', 'Home::index', ['as' => 'home_system']);
 
-	//employess
+	//cargos
 	$routes->group('cargos', ['namespace' => 'App\Controllers\Employee'], function ($routes) {
 		$routes->get('', 'Jobtitles::index', ['as' => 'view_jobtitles']);
 		$routes->post('', 'Jobtitles::create', ['as' => 'create_new_jobtitles']);
 		$routes->post('crud/(:alpha)', 'Jobtitles::crud/$1', ['as' => 'delete_jobtitles']);
 	});
+
+	//empleados
+	$routes->group('empleados', ['namespace' => 'App\Controllers\Employee'], function ($routes) {
+		$routes->get('', 'Employee::index', ['as' => 'view_employee']);
+	});
+
 
 	$routes->group('admin_old', ['namespace' => 'App\Controllers\AdminOld'], function ($routes) {
 		$routes->get('reportes/clientesentrefechas/(:segment)/(:segment)', 'ReportAdminOld::reportNewCustomers/$1/$2', ['as' => 'admin_old_report_between_dates']);

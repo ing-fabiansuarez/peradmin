@@ -47,31 +47,21 @@
 					<li class="nav-header">PERMISOS SISTEMA</li>
 
 					<li class="nav-item">
-						<a href="#" class="nav-link">
-							<i class="nav-icon fas fa-users"></i>
+						<a href="<?= base_url() . route_to('view_jobtitles') ?>" class="nav-link">
+							<i class="nav-icon far fa-image"></i>
 							<p>
-								Empleados
-								<i class="right fas fa-angle-left"></i>
+								Cargos
 							</p>
 						</a>
-						<ul class="nav nav-treeview">
-							<li class="nav-item">
-								<a href="<?= base_url() . route_to('view_jobtitles') ?>" class="nav-link">
-									<i class="fas fa-calendar-week nav-icon"></i>
-									<p>Cargos</p>
-								</a>
-							</li>
-						</ul>
-						<ul class="nav nav-treeview">
-							<li class="nav-item">
-								<a href="<?= base_url() . route_to('admin_old_report_between_dates', date("Y-m-d"), date("Y-m-d")) ?>" class="nav-link">
-									<i class="fas fa-calendar-week nav-icon"></i>
-									<p>Asignar Permisos</p>
-								</a>
-							</li>
-						</ul>
+					</li>
 
-
+					<li class="nav-item">
+						<a href="<?= base_url() . route_to('view_employee') ?>" class="nav-link">
+							<i class="nav-icon far fa-image"></i>
+							<p>
+								Empleados
+							</p>
+						</a>
 					</li>
 
 					<li class="nav-header" style="margin-top: 40px;">ADMIN OLD</li>
