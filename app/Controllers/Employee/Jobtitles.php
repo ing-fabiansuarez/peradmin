@@ -56,12 +56,31 @@ class Jobtitles extends BaseController
                 ->with('msg_toastr', "toastr.error('NO SE PUDO CREAR EL CARGO." . $e->getMessage() . "')");
         }
     }
-    public function delete()
+    public function crud($action)
     {
-        echo "DELATE";
-    }
-    public function update()
-    {
-        echo "ACTULS";
+        switch ($action) {
+            case 'update':
+                try {
+                    $this->mdlJobtitle->update((int)$this->request->getPost('id'), [
+                        'name_jobtitle' => $this->request->getPost('name'),
+                        'salary_jobtitle' => floatval($this->request->getPost('salary'))
+                    ]);
+                    echo true;
+                } catch (Exception $e) {
+                    echo $e->getMessage();
+                }
+                break;
+            case 'delete':
+                try {
+                    $this->mdlJobtitle->delete((int)$this->request->getPost('id'));
+                    echo true;
+                } catch (Exception $e) {
+                    echo $e->getMessage();
+                }
+                break;
+            default:
+                echo false;
+                break;
+        }
     }
 }

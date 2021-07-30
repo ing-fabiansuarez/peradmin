@@ -40,8 +40,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	$routes->group('cargos', ['namespace' => 'App\Controllers\Employee'], function ($routes) {
 		$routes->get('', 'Jobtitles::index', ['as' => 'view_jobtitles']);
 		$routes->post('', 'Jobtitles::create', ['as' => 'create_new_jobtitles']);
-		$routes->post('delete', 'Jobtitles::delete', ['as' => 'delete_jobtitles']);
-		$routes->post('update', 'Jobtitles::update', ['as' => 'update_jobtitles']);
+		$routes->post('crud/(:alpha)', 'Jobtitles::crud/$1', ['as' => 'delete_jobtitles']);
 	});
 
 	$routes->group('admin_old', ['namespace' => 'App\Controllers\AdminOld'], function ($routes) {

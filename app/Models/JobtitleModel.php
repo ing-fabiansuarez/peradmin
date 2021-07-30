@@ -13,7 +13,8 @@ class JobtitleModel extends Model
     protected $useSoftDeletes = false;
 
     protected $allowedFields = [
-        'name_jobtitle', 
+        'id_jobtitle',
+        'name_jobtitle',
         'salary_jobtitle'
     ];
 }
