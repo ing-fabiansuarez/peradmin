@@ -63,7 +63,6 @@
 							</p>
 						</a>
 					</li>
-
 					<li class="nav-header" style="margin-top: 40px;">ADMIN OLD</li>
 					<li class="nav-header">Reportes</li>
 					<li class="nav-item">
@@ -83,6 +82,14 @@
 								</a>
 							</li>
 						</ul>
+					</li>
+					<li class="nav-item">
+						<a href="<?= base_url() . route_to('admin_old_report_by_references') ?>" class="nav-link">
+							<i class="nav-icon far fa-image"></i>
+							<p>
+								Referencias
+							</p>
+						</a>
 					</li>
 				</ul>
 			</nav>

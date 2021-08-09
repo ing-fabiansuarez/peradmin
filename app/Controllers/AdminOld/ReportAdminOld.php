@@ -7,6 +7,12 @@ use App\Models\OldAdmin\Customer_oaModel;
 
 class ReportAdminOld extends BaseController
 {
+
+	public function __construct()
+	{
+		
+	}
+
 	public function reportNewCustomers($startDate, $finishDate)
 	{
 		//validacion de las fechas que sean correctas
@@ -46,5 +52,10 @@ class ReportAdminOld extends BaseController
 		}
 		//:...........................................
 		return redirect()->to(base_url() . route_to('admin_old_report_between_dates', $startDateArray[0] . '-' . $startDateArray[1] . '-' . $startDateArray[2], $finishDateArray[0] . '-' . $finishDateArray[1] . '-' . $finishDateArray[2]));
+	}
+
+	public function view_report_references()
+	{
+		return view('oldadmin/references_by_products');
 	}
 }
