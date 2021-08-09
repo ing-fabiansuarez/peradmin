@@ -46,9 +46,16 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	//empleados
 	$routes->group('empleados', ['namespace' => 'App\Controllers\Employee'], function ($routes) {
 		$routes->get('', 'Employee::index', ['as' => 'view_employee']);
+		$routes->post('crud/(:num)', 'Employee::crud/$1', ['as' => 'crud_employee']);
 	});
 
+	//ajax
+	$routes->group('html', ['namespace' => 'App\Controllers\Ajax'], function ($routes) {
+		$routes->get('jobtitles', 'Ajax::ajaxJobtitlesHtml', ['as' => 'ajax_html_jobtitles']);
+		//$routes->get('inputspass/(:num)', 'Ajax::ajaxInputPasswordHtml/$1', ['as' => 'ajax_html_inputs_password']);
+	});
 
+	//el administrador viejo
 	$routes->group('admin_old', ['namespace' => 'App\Controllers\AdminOld'], function ($routes) {
 		$routes->get('reportes/clientesentrefechas/(:segment)/(:segment)', 'ReportAdminOld::reportNewCustomers/$1/$2', ['as' => 'admin_old_report_between_dates']);
 		$routes->post('reportes/verificarfechas', 'ReportAdminOld::validateFormRangeDate', ['as' => 'admin_old_validate_dates']);

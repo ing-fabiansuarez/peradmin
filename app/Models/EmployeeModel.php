@@ -17,8 +17,12 @@ class EmployeeModel extends Model
         'id_employee',
         'name_employee',
         'surname_employee',
+        'active_employee',
         'photo_employee',
-        'startdate_employee'
+        'startdate_employee',
+        'pass_employee',
+        'jobtitle_id_jobtitle',
+        'phonenumber_employee'
     ];
 
     public function getEmployeeLogin(string $column, string $value)

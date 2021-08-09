@@ -24,6 +24,117 @@
 <script src="<?= base_url() ?>/public/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url() ?>/public/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="<?= base_url() ?>/public/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="<?= base_url() ?>/public/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script>
+    $(function() {
+        bsCustomFileInput.init();
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        tableEmployee = $("#employee_table").DataTable({
+            responsive: true,
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+        });
+    });
+    $("#btn-create-employee").click(function() {
+        $("#modal_employee_header").css("background-color", "#6c757d");
+        $("#modal_employee_title").css("color", "#fff").text("Nuevo Empleado");
+        reloadjobtitles();
+        $("#modal-employee").modal("show");
+    });
+
+    function reloadjobtitles() {
+        $.ajax({
+            type: "get",
+            url: '<?= base_url() . route_to('ajax_html_jobtitles') ?>',
+            success: function(r) {
+                $("#select_jobtitles").html(r);
+            },
+        });
+    }
+
+    /* //ajax para traer los inputs del contraseñas
+     $("#select_access").change(function() {
+         getHtmlPass();
+     });
+     function getHtmlPass() {
+         let access = $("#select_access").val();
+         $.ajax({
+             type: "get",
+             url: '<?= base_url('html/inputspass') ?>' + '/' + access,
+             success: function(r) {
+                 $("#div_password").html(r);
+             },
+         });
+     } 
+     $("#pass").click(function() {
+         $("#p_danger").text("");
+     });
+     $("#pass_confirmation").click(function() {
+         $("#p_danger").text("");
+     });*/
+
+    $("#form_employee").submit(function(e) {
+        e.preventDefault();
+        //validations
+
+        //tomar los datos para enviarlos
+        cedula = $.trim($("#cedula_employee").val());
+        name = $.trim($("#name_employee").val());
+        surname = $.trim($("#surname_employee").val());
+        date = $.trim($("#date_employee").val());
+        jobtitle = $.trim($("#select_jobtitles").val());
+        phonenumber = $.trim($("#phonenumber_employee").val());
+
+        //peticion al servidor
+        $.ajax({
+            type: "post",
+            url: '<?= base_url('empleados/crud') ?>' + '/' + 1,
+            data: {
+                cedula: cedula,
+                name: name,
+                surname: surname,
+                date: date,
+                jobtitle: jobtitle,
+                phonenumber: phonenumber
+            },
+            success: function(data) {
+                if (data == true) {
+                    tableEmployee.row.add(['',cedula, name,surname,phonenumber,date,'',1,'','']).draw();
+                    toastr.success('Se guardaron los cambios.');
+                } else {
+                    toastr.error(data);
+                }
+
+            }
+        });
+
+        $("#modal-employee").modal("hide");
+    });
+</script>
+
 
 <?= $this->endSection() ?>
 
@@ -42,13 +153,22 @@
                     <h3 class="card-title">Cargos De La Empresa</h3>
                 </div>
                 <div class="card-body">
-                    <table class="table table-hover text-nowrap">
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <button id="btn-create-employee" type="button" class="btn btn-block btn-outline-secondary btn-lg">Crear Nuevo Empleado</button>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <br>
+                    <table id="employee_table" class="table table-hover text-nowrap">
                         <thead>
                             <tr>
                                 <th>Foto</th>
                                 <th>Cedula</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
+                                <th>Telefono</th>
                                 <th>Fecha de inicio</th>
                                 <th>Cargo</th>
                                 <th>Activo</th>
@@ -63,6 +183,7 @@
                                     <td><?= $employee->id_employee ?></td>
                                     <td><?= $employee->name_employee ?></td>
                                     <td><?= $employee->surname_employee ?></td>
+                                    <td><?= $employee->phonenumber_employee ?></td>
                                     <td><?= $employee->startdate_employee ?></td>
                                     <td>Cargo </td>
                                     <td><?= $employee->active_employee ?></td>
@@ -84,40 +205,82 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="modal-employee">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="form-modal">
-                    <div id="modal-header" class="modal-header">
-                        <h5 class="modal-title" id="title-modal"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                <div id="modal_employee_header" class="modal-header">
+                    <h4 id="modal_employee_title" class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="form_employee">
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label>Id Cargo</label>
-                            <input id="input_modal_id" type="text" class="form-control" placeholder="" disabled="">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Cedula</label>
+                                    <input id="cedula_employee" type="number" class="form-control" placeholder="Cedula">
+                                    <p class="text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Nombres</label>
+                                    <input id="name_employee" type="text" class="form-control" placeholder="Nombres">
+                                    <p class="text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Apellidos</label>
+                                    <input id="surname_employee" type="text" class="form-control" placeholder="Apellidos">
+                                    <p class="text-danger"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Fecha de Inicio</label>
+                                    <input id="date_employee" type="date" class="form-control">
+                                    <p class="text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Cargo</label>
+                                    <select id="select_jobtitles" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>N&uacute;mero Celular</label>
+                                    <input id="phonenumber_employee" type="number" class="form-control" placeholder="Número telefonico">
+                                    <p class="text-danger"></p>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label>Nombre Del Cargo</label>
-                            <input id="input_modal_name" name="name_jobtitle" type="text" class="form-control" placeholder="Cargo" value="<?= old('name_jobtitle') ?>">
-                            <p class="text-danger"><?= session('error_validate.name_jobtitle') ?></p>
-                        </div>
-                        <div class="form-group">
-                            <label>Salario</label>
-                            <input id="input_modal_salary" name="salary_jobtitle" type="number" step="any" class="form-control" placeholder="Sueldo" value="<?= old('salary_jobtitle') ?>">
-                            <p class="text-danger"><?= session('error_validate.salary_jobtitle') ?></p>
+                            <label>Foto de perfil</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Subir Archivo</label>
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button id="btn-submit-modal" type="submit" class="btn btn-primary"></button>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
                 </form>
             </div>
+            <!-- /.modal-content -->
         </div>
+        <!-- /.modal-dialog -->
     </div>
+
 </div>
 <?= $this->endSection() ?>
