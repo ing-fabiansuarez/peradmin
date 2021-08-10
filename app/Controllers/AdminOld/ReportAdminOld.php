@@ -4,13 +4,18 @@ namespace App\Controllers\AdminOld;
 
 use App\Controllers\BaseController;
 use App\Models\OldAdmin\Customer_oaModel;
+use App\Models\OldAdmin\Listapedidos_oaModel;
+use App\Models\OldAdmin\Product_oaModel;
+use App\Models\OldAdmin\TypeProduct_oaModel;
 
 class ReportAdminOld extends BaseController
 {
 
 	public function __construct()
 	{
-		
+		$this->mdlTypeModel = new TypeProduct_oaModel();
+		$this->mdlListapedidos = new Listapedidos_oaModel();
+		$this->mdlReferences = new Product_oaModel();
 	}
 
 	public function reportNewCustomers($startDate, $finishDate)
@@ -56,6 +61,52 @@ class ReportAdminOld extends BaseController
 
 	public function view_report_references()
 	{
-		return view('oldadmin/references_by_products');
+		return view('oldadmin/references_by_products', [
+			'type' => $this->mdlTypeModel->findAll()
+		]);
+	}
+
+	public function view_report_references_genered()
+	{
+		$arraydates = explode(' - ', $this->request->getPost('dates'));
+		$startDate = str_replace('/', '-', $arraydates[0]);
+		$finishDate = str_replace('/', '-', $arraydates[1]);
+		$product = $this->request->getPostGet('product');
+		$nameProduct = $this->mdlTypeModel->find($product)['tip_nombre'];
+
+		$refActives = $this->mdlReferences->select('pro_ref,pro_nombre')->where('tip_id', $product)->where('pro_activo !=', 'no')->get()->getResultArray();
+
+		$arrayResult = array();
+		foreach ($refActives as $ref) {
+			$quantityMayor = $this->mdlListapedidos->db->table('listapedidos')
+				->select('*')
+				->join('pedidos', 'listapedidos.ped_id = pedidos.ped_id')
+				->where('listapedidos.pro_ref', $ref['pro_ref'])
+				->where('listapedidos.tip_id', $product)
+				->where('pedidos.ped_fechaInicio >=', $startDate)
+				->where('pedidos.ped_fechaInicio <=', $finishDate)
+				->countAllResults();
+
+			$quantityDetal = $this->mdlListapedidos->db->table('listapedidosdetal')
+				->select('*')
+				->join('pedidosdetal', 'listapedidosdetal.detal_id = pedidosdetal.detal_id')
+				->where('listapedidosdetal.pro_ref', $ref['pro_ref'])
+				->where('listapedidosdetal.tip_id', $product)
+				->where('pedidosdetal.ped_fechaInicio >=', $startDate)
+				->where('pedidosdetal.ped_fechaInicio <=', $finishDate)
+				->countAllResults();
+
+			array_push($arrayResult, array_merge($ref, [
+				'quantity' => $quantityMayor + $quantityDetal,
+				'quantitymayor' => $quantityMayor,
+				'quantitydetal' => $quantityDetal
+			]));
+		}
+		return view('oldadmin/references_by_products_genered', [
+			'arrayresult' => $arrayResult,
+			'startdate' => $startDate,
+			'finishdate' => $finishDate,
+			'namecategory' => $nameProduct
+		]);
 	}
 }

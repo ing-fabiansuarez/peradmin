@@ -74,7 +74,7 @@
 <?= $this->endSection() ?>
 <!-- ............................................CONTENIDO DE LA PAGINA................................................ -->
 <?= $this->section('content') ?>
-<h2>Reporte de Nuevos Mayoristas <br><?= $dates['start'].' a '.$dates['finish'] ?></h2>
+<h2>Reporte de Nuevos Mayoristas <br><?= $dates['start'] . ' a ' . $dates['finish'] ?></h2>
 <br>
 <div class="row">
 
@@ -89,11 +89,8 @@
                         </span>
                     </div>
                     <input name="dates" type="text" class="form-control float-right" id="reservation">
-
                     <input type="submit" value="Buscar">
-
                 </div>
-                <!-- /.input group -->
             </div>
         </form>
     </div>
@@ -105,7 +102,6 @@
             <div class="card-header">
                 <h3 class="card-title">Nuevos Clientes</h3>
             </div>
-            <!-- /.card-header -->
             <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>

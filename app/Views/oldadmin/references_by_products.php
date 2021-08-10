@@ -1,5 +1,5 @@
 <?= $this->extend('structure/main_view') ?>
-<?= $this->section('title') ?>Mayoristas<?= $this->endSection() ?>
+<?= $this->section('title') ?>Reporte por referencia<?= $this->endSection() ?>
 <?= $this->section('preloader') ?>
 <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src="<?= base_url() ?>/public/img/corporative/logo.png" alt="AdminLTELogo" height="60" width="60">
@@ -24,7 +24,11 @@
 <script>
     $(function() {
         //Date range picker
+        today = new Date();
         $('#date').daterangepicker({
+            minDate: new Date((new Date().getFullYear()), new Date().getMonth(), new Date().getDate() - 180),
+            maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
+            defaultDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
             locale: {
                 format: 'YYYY/MM/DD'
             }
@@ -34,7 +38,9 @@
 <?= $this->endSection() ?>
 <!-- ............................................CONTENIDO DE LA PAGINA................................................ -->
 <?= $this->section('content') ?>
-<br>
+<div class="maintitle">
+    <h2>Reporte por referencia</h2>
+</div>
 <div class="row">
     <div class="col-md-2">
 
@@ -46,10 +52,10 @@
                 <div class="info-box-content">
                     <span class="info-box-text"><b>Producto</b></span>
                     <span class="info-box-number">
-                        <select class="form-control" name="selck">
-                            <option value="kljfsd">Alpargatas</option>
-                            <option value="jlkfds">Camisetas</option>
-                            <option value="">Body Manga Sisa</option>
+                        <select class="form-control" name="product">
+                            <?php foreach ($type as $category) : ?>
+                                <option value="<?= $category['tip_id'] ?>"><?= $category['tip_nombre'] ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </span>
                 </div>

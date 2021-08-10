@@ -60,6 +60,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->get('reportes/clientesentrefechas/(:segment)/(:segment)', 'ReportAdminOld::reportNewCustomers/$1/$2', ['as' => 'admin_old_report_between_dates']);
 		$routes->post('reportes/verificarfechas', 'ReportAdminOld::validateFormRangeDate', ['as' => 'admin_old_validate_dates']);
 		$routes->get('reportes/referencias', 'ReportAdminOld::view_report_references', ['as' => 'admin_old_report_by_references']);
+		$routes->post('reportes/referencias', 'ReportAdminOld::view_report_references_genered', ['as' => 'admin_old_report_by_references_genered']);
 	});
 });
 
