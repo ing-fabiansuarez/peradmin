@@ -4,6 +4,7 @@ namespace App\Controllers\Employee;
 
 use App\Controllers\BaseController;
 use App\Models\EmployeeModel;
+
 use Exception;
 
 class Employee extends BaseController
@@ -13,6 +14,7 @@ class Employee extends BaseController
     {
         //inicializacion de los modelos
         $this->mdlEmployee = new EmployeeModel();
+        $this->validator = \Config\Services::validation();
     }
 
     public function index()
@@ -27,11 +29,11 @@ class Employee extends BaseController
 
         switch ($action) {
             case 1:
-
                 $this->mdlEmployee->setValidationRules(
-                    $this->mdlEmployee->getValidationRules(['except' => ['pass_employee', 'pass_confirm']])
+                    $this->validator->getRuleGroup('employeeRules')
                 );
-                if ($this->mdlEmployee->validate($this->request->getPost())) {
+
+                if (d($this->mdlEmployee->validate($this->request))) {
                     $newEmployee = [
                         'id_employee' => $this->request->getPost('cedula_employee'),
                         'name_employee' => $this->request->getPost('name_employee'),
@@ -44,13 +46,10 @@ class Employee extends BaseController
                     ];
                     try {
                         $this->mdlEmployee->insert($newEmployee);
-                        print true;
                     } catch (Exception $e) {
-                        print $e->getMessage();
                     }
                 } else {
-
-                    d($this->mdlEmployee->errors());
+                   
                 }
 
                 break;
