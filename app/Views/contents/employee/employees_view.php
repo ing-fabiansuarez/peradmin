@@ -136,6 +136,13 @@ use CodeIgniter\Database\BaseUtils;
     <h2>Empleados</h2>
 </div>
 <div class="row">
+    <?php if (!empty(session('error'))) : ?>
+        <div class="alert alert-danger alert-dismissible col-md-12">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-ban"></i> <?= session('error.title') ?></h5>
+            <?= session('error') ?>
+        </div>
+    <?php endif ?>
     <div class="col-md-5">
         <div class="card card-success shadow-sm">
             <div class="card-header">
@@ -147,7 +154,7 @@ use CodeIgniter\Database\BaseUtils;
                 </div>
             </div>
             <div class="card-body" style="display: block;">
-                <form method="post" action="<?= base_url() . route_to('crud_employee', 1) ?>">
+                <form method="post" action="<?= base_url() . route_to('crud_employee', 1) ?>" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">

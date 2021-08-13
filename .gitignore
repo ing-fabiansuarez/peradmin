@@ -124,3 +124,6 @@ nb-configuration.xml
 /phpunit*.xml
 /.phpunit.*.cache
 
+
+#personalizados fabian suarez
+public/img/users/

@@ -41,7 +41,7 @@ class Validation
 	// Rules
 	//--------------------------------------------------------------------
 
-	public $employeeRules = [
+	public $newEmployeeRules = [
 		'id_employee' => [
 			'rules'  => 'required|is_natural|is_unique[employee.id_employee]',
 			'errors' => [
@@ -90,6 +90,10 @@ class Validation
 				'valid_email' => 'Please check the Email field. It does not appear to be valid.'
 			]
 		],
+
+	];
+
+	public $newPass = [
 		'pass_employee'    => [
 			'rules'  => 'required|min_length[8]',
 			'errors' => [
