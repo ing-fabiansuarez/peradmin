@@ -191,3 +191,7 @@ a:hover {
   background-color: #df2525f5 !important;
   color: #fff;
 }
+
+label {
+  margin-bottom: 0;
+}

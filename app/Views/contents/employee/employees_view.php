@@ -140,11 +140,11 @@ use CodeIgniter\Database\BaseUtils;
         <div class="alert alert-danger alert-dismissible col-md-12">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             <h5><i class="icon fas fa-ban"></i> <?= session('error.title') ?></h5>
-            <?= session('error') ?>
+            <?= session('error.body') ?>
         </div>
-    <?php endif ?>
-    <div class="col-md-5">
-        <div class="card card-success shadow-sm">
+    <?php endif; ?>
+    <div class="col-md-12">
+        <div class="card card-success shadow-sm m-4">
             <div class="card-header">
                 <h3 class="card-title">Nuevo Empleado</h3>
                 <div class="card-tools">
@@ -159,22 +159,22 @@ use CodeIgniter\Database\BaseUtils;
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Cedula</label>
-                                <input name="cedula_employee" type="number" class="form-control" placeholder="Cedula">
-                                <p class="text-danger"></p>
+                                <input name="cedula_employee" type="number" class="form-control" placeholder="Cedula" value="<?= old('cedula_employee') ?>">
+                                <p class="text-danger"><?= session('errorsinputs.id_employee') ?></p>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Nombres</label>
-                                <input name="name_employee" type="text" class="form-control" placeholder="Nombres">
-                                <p class="text-danger"></p>
+                                <input name="name_employee" type="text" class="form-control" placeholder="Nombres" value="<?= old('name_employee') ?>">
+                                <p class="text-danger"><?= session('errorsinputs.name_employee') ?></p>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Apellidos</label>
-                                <input name="surname_employee" type="text" class="form-control" placeholder="Apellidos">
-                                <p class="text-danger"></p>
+                                <input name="surname_employee" type="text" class="form-control" placeholder="Apellidos" value="<?= old('surname_employee') ?>">
+                                <p class="text-danger"><?= session('errorsinputs.surname_employee') ?></p>
                             </div>
                         </div>
                     </div>
@@ -183,30 +183,32 @@ use CodeIgniter\Database\BaseUtils;
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Fecha de Inicio</label>
-                                <input name="date_employee" type="date" class="form-control">
-                                <p class="text-danger"></p>
+                                <input name="date_employee" type="date" class="form-control" value="<?= old('date_employee') ?>">
+                                <p class="text-danger"><?= session('errorsinputs.startdate_employee') ?></p>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Cargo</label>
-                                <select name="select_jobtitles" id="select_jobtitles" class="form-control">
+                                <select name="select_jobtitles" id="select_jobtitles" class="form-control" value="<?= old('select_jobtitles') ?>">
                                 </select>
+                                <p class="text-danger"><?= session('errorsinputs.jobtitle_id_jobtitle') ?></p>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>N&uacute;mero Celular</label>
-                                <input name="phonenumber_employee" type="number" class="form-control" placeholder="Número telefonico">
-                                <p class="text-danger"></p>
+                                <input name="phonenumber_employee" type="number" class="form-control" placeholder="Número telefonico" value="<?= old('phonenumber_employee') ?>">
+                                <p class="text-danger"><?= session('errorsinputs.phonenumber_employee') ?></p>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Foto de perfil</label>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="photo_perfil">
+                            <input type="file" class="custom-file-input" name="photo_perfil" value="<?= old('photo_perfil') ?>" required>
                             <label class="custom-file-label" for="customFile">Subir Archivo</label>
+                            <p class="text-danger"><?= session('errorsinputs.photo_employee') ?></p>
                         </div>
                     </div>
 
@@ -216,17 +218,17 @@ use CodeIgniter\Database\BaseUtils;
                 </form>
             </div>
         </div>
-    </div>
-    <div class="col-md-7">
+  
+   
         <div class="card card-secondary">
             <div class="card-header">
-                <h3 class="card-title">Cargos De La Empresa</h3>
+                <h3 class="card-title">Lista de Empleados</h3>
             </div>
             <div class="card-body">
                 <table id="employee_table" class="table table-hover text-nowrap">
                     <thead>
                         <tr>
-                            <th>Foto</th>
+
                             <th>Cedula</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
@@ -234,6 +236,7 @@ use CodeIgniter\Database\BaseUtils;
                             <th>Fecha de inicio</th>
                             <th>Cargo</th>
                             <th>Activo</th>
+                            <th>Foto</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -241,7 +244,7 @@ use CodeIgniter\Database\BaseUtils;
                     <tbody>
                         <?php foreach ($employees as $employee) : ?>
                             <tr>
-                                <td><?= $employee->photo_employee ?> </td>
+
                                 <td><?= $employee->id_employee ?></td>
                                 <td><?= $employee->name_employee ?></td>
                                 <td><?= $employee->surname_employee ?></td>
@@ -249,6 +252,7 @@ use CodeIgniter\Database\BaseUtils;
                                 <td><?= $employee->startdate_employee ?></td>
                                 <td>Cargo </td>
                                 <td><?= $employee->active_employee ?></td>
+                                <td><img src="<?= base_url() ?>/public/img/users/<?= $employee->photo_employee ?>" alt="Foto" class="img-fluid prodimg"></td>
                                 <td>
                                     <button id="btn-update" type="button" class="btn btn-app bg-corporative">
                                         <i class="fas fa-edit"></i> Editar

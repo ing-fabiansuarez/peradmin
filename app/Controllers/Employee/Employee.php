@@ -20,7 +20,7 @@ class Employee extends BaseController
     public function index()
     {
         return view('contents/employee/employees_view', [
-            'employees' => $this->mdlEmployee->findAll()
+            'employees' => $this->mdlEmployee->orderBy('updated_at_employee','desc')->findAll()
         ]);
     }
 
@@ -52,20 +52,20 @@ class Employee extends BaseController
                     $height_image = $Image->getFile()->origWidth;
                     $desired_width = 250;
                     $Image->reorient()->resize($desired_width, ($width_image / $height_image) * $desired_width)->save($filepath);
-
                     //se crea el registro en la base de datso
                     if ($this->mdlEmployee->insert([
                         'id_employee' => $this->request->getPost('cedula_employee'),
                         'name_employee' => $this->request->getPost('name_employee'),
                         'surname_employee' => $this->request->getPost('surname_employee'),
                         'active_employee' => 1,
-                        'photo_employee' => $newName . '.' . $ext,
+                        'photo_employee' => $newName . $ext,
                         'startdate_employee' => $this->request->getPost('date_employee'),
                         'jobtitle_id_jobtitle' => $this->request->getPost('select_jobtitles'),
                         'phonenumber_employee' => $this->request->getPost('phonenumber_employee'),
                     ])) {
                         return redirect()->back()->with('msg', "Creado Correctamente!!!");
                     } else {
+                        unlink($filepath);
                         return redirect()->back()->with('errorsinputs', $this->mdlEmployee->errors())->withInput();
                     }
                 } else {
