@@ -42,7 +42,7 @@ class Validation
 	//--------------------------------------------------------------------
 
 	public $newEmployeeRules = [
-		'id_employee' => [
+		'cedula_employee' => [
 			'rules'  => 'required|is_natural|is_unique[employee.id_employee]',
 			'errors' => [
 				'required' => 'You must choose a Username.'
@@ -60,25 +60,13 @@ class Validation
 				'valid_email' => 'Please check the Email field. It does not appear to be valid.'
 			]
 		],
-		'active_employee'    => [
-			'rules'  => 'required|is_natural',
-			'errors' => [
-				'valid_email' => 'Please check the Email field. It does not appear to be valid.'
-			]
-		],
-		'photo_employee'    => [
-			'rules'  => 'required',
-			'errors' => [
-				'valid_email' => 'Please check the Email field. It does not appear to be valid.'
-			]
-		],
-		'startdate_employee'    => [
+		'date_employee'    => [
 			'rules'  => 'required|valid_date[Y-m-d]',
 			'errors' => [
 				'valid_email' => 'Please check the Email field. It does not appear to be valid.'
 			]
 		],
-		'jobtitle_id_jobtitle'    => [
+		'select_jobtitles'    => [
 			'rules'  => 'required|is_not_unique[jobtitle.id_jobtitle]',
 			'errors' => [
 				'valid_email' => 'Please check the Email field. It does not appear to be valid.'

@@ -136,6 +136,15 @@ use CodeIgniter\Database\BaseUtils;
     <h2>Empleados</h2>
 </div>
 <div class="row">
+    <div class="col-md-2">
+    </div>
+    <?php if (!empty(session('msg'))) : ?>
+        <div class="alert alert-success alert-dismissible col-md-8">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-ban"></i> <?= session('msg.title') ?></h5>
+            <?= session('msg.body') ?>
+        </div>
+    <?php endif; ?>
     <?php if (!empty(session('error'))) : ?>
         <div class="alert alert-danger alert-dismissible col-md-12">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -143,6 +152,8 @@ use CodeIgniter\Database\BaseUtils;
             <?= session('error.body') ?>
         </div>
     <?php endif; ?>
+</div>
+<div class="row">
     <div class="col-md-12">
         <div class="card card-success shadow-sm m-4">
             <div class="card-header">
@@ -160,7 +171,7 @@ use CodeIgniter\Database\BaseUtils;
                             <div class="form-group">
                                 <label>Cedula</label>
                                 <input name="cedula_employee" type="number" class="form-control" placeholder="Cedula" value="<?= old('cedula_employee') ?>">
-                                <p class="text-danger"><?= session('errorsinputs.id_employee') ?></p>
+                                <p class="text-danger"><?= session('errorsinputs.cedula_employee') ?></p>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -184,7 +195,7 @@ use CodeIgniter\Database\BaseUtils;
                             <div class="form-group">
                                 <label>Fecha de Inicio</label>
                                 <input name="date_employee" type="date" class="form-control" value="<?= old('date_employee') ?>">
-                                <p class="text-danger"><?= session('errorsinputs.startdate_employee') ?></p>
+                                <p class="text-danger"><?= session('errorsinputs.date_employee') ?></p>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -192,7 +203,7 @@ use CodeIgniter\Database\BaseUtils;
                                 <label>Cargo</label>
                                 <select name="select_jobtitles" id="select_jobtitles" class="form-control" value="<?= old('select_jobtitles') ?>">
                                 </select>
-                                <p class="text-danger"><?= session('errorsinputs.jobtitle_id_jobtitle') ?></p>
+                                <p class="text-danger"><?= session('errorsinputs.select_jobtitles') ?></p>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -214,12 +225,14 @@ use CodeIgniter\Database\BaseUtils;
 
                     <div class="modal-footer justify-content-between">
                         <button type="submit" class="btn btn-primary">Guardar Empleado</button>
+                        <button type="submit" class="btn btn-primary">Listado de Empleados</button>
                     </div>
+
                 </form>
             </div>
         </div>
-  
-   
+
+
         <div class="card card-secondary">
             <div class="card-header">
                 <h3 class="card-title">Lista de Empleados</h3>
