@@ -40,6 +40,9 @@ use CodeIgniter\Database\BaseUtils;
     $(document).ready(function() {
         reloadjobtitles();
         tableEmployee = $("#employee_table").DataTable({
+            "order": [
+                [4, "desc"]
+            ],
             responsive: true,
             language: {
                 "decimal": "",
@@ -222,12 +225,9 @@ use CodeIgniter\Database\BaseUtils;
                             <p class="text-danger"><?= session('errorsinputs.photo_employee') ?></p>
                         </div>
                     </div>
-
                     <div class="modal-footer justify-content-between">
                         <button type="submit" class="btn btn-primary">Guardar Empleado</button>
-                        <button type="submit" class="btn btn-primary">Listado de Empleados</button>
                     </div>
-
                 </form>
             </div>
         </div>
