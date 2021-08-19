@@ -1,7 +1,3 @@
-<?php
-
-use CodeIgniter\Database\BaseUtils;
-?>
 <?= $this->extend('structure/main_view') ?>
 <?= $this->section('title') ?>Empleados<?= $this->endSection() ?>
 <?= $this->section('preloader') ?>
@@ -17,6 +13,8 @@ use CodeIgniter\Database\BaseUtils;
 <!-- DataTables -->
 <link rel="stylesheet" href="<?= base_url() ?>/public/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="<?= base_url() ?>/public/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<!-- Animation -->
+<link href="<?= base_url() ?>/public/plugins/aos/aos.css" rel="stylesheet">
 <?= $this->endSection() ?>
 <?= $this->section('js') ?>
 <!-- SweetAlert2 -->
@@ -30,6 +28,8 @@ use CodeIgniter\Database\BaseUtils;
 <script src="<?= base_url() ?>/public/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <!-- bs-custom-file-input -->
 <script src="<?= base_url() ?>/public/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- animation -->
+<script src="<?= base_url() ?>/public/plugins/aos/aos.js"></script>
 <script>
     $(function() {
         bsCustomFileInput.init();
@@ -37,6 +37,8 @@ use CodeIgniter\Database\BaseUtils;
 </script>
 
 <script>
+    
+    var action;
     $(document).ready(function() {
         reloadjobtitles();
         tableEmployee = $("#employee_table").DataTable({
@@ -77,20 +79,80 @@ use CodeIgniter\Database\BaseUtils;
         });
     }
 
-
     $(document).on("click", "#btn_delete_employee", function() {
+        action = 4;
         rowTable = $(this).closest("tr");
-        id = parseFloat(rowTable.find('td:eq(0)').text());
-        console.log(id);
+        cedula = rowTable.find('td:eq(0)').text();
+        names = rowTable.find('td:eq(1)').text();
+        surnames = rowTable.find('td:eq(2)').text();
+        date = rowTable.find('td:eq(4)').text();
+        phone = rowTable.find('td:eq(3)').text();
+        photo = rowTable.find('td:eq(7)').find("img").attr("src");
+        jobtitle = rowTable.find('td:eq(5)').text();
         //atributos del titulo
         $("#modal_employee_title").text("¿Seguro que desea ELIMINAR el registro?");
         $("#modal_employee_header").removeClass('bg-corporative');
         $("#modal_employee_header").addClass('bg-delete');
-        $("#cedula_employee").val(id);
+
+        //deshabilitar inputs
+        $("#cedula_employee_modal").attr('disabled', '');
+        $("#name_employee_modal").attr('disabled', '');
+        $("#surname_employee_modal").attr('disabled', '');
+        $("#date_employee_modal").attr('disabled', '');
+        $("#phonenumber_employee_modal").attr('disabled', '');
+
+        //poner el texto del modal
+        $("#cedula_label").text(cedula);
+        $("#cargo_label").text(jobtitle);
+        $("#cedula_employee_modal").val(cedula);
+        $("#name_employee_modal").val(names);
+        $("#surname_employee_modal").val(surnames);
+        $("#date_employee_modal").val(date);
+        $("#phonenumber_employee_modal").val(phone);
+        $("#photo_employee_modal").attr("src", photo);
+
         $("#modal-employee").modal("show");
+
     });
 
-    $("#form_employee").submit(function(e) {
+    $(document).on("click", "#btn_update_employee", function() {
+        action = 3;
+        rowTable = $(this).closest("tr");
+        cedula = rowTable.find('td:eq(0)').text();
+        names = rowTable.find('td:eq(1)').text();
+        surnames = rowTable.find('td:eq(2)').text();
+        date = rowTable.find('td:eq(4)').text();
+        phone = rowTable.find('td:eq(3)').text();
+        photo = rowTable.find('td:eq(7)').find("img").attr("src");
+        jobtitle = rowTable.find('td:eq(5)').text();
+
+        //deshabilitar y habilitar inputs
+        $("#cedula_employee_modal").attr('disabled', '');
+        $("#name_employee_modal").removeAttr('disabled', '');
+        $("#surname_employee_modal").removeAttr('disabled', '');
+        $("#date_employee_modal").removeAttr('disabled', '');
+        $("#phonenumber_employee_modal").removeAttr('disabled', '');
+
+        //atributos de interfaz
+        $("#modal_employee_title").text("Editar el empleado");
+        $("#modal_employee_header").removeClass('bg-delete');
+        $("#modal_employee_header").addClass('bg-corporative');
+
+        //poner el texto del modal
+        $("#cedula_label").text(cedula);
+        $("#cargo_label").text(jobtitle);
+        $("#cedula_employee_modal").val(cedula);
+        $("#name_employee_modal").val(names);
+        $("#surname_employee_modal").val(surnames);
+        $("#date_employee_modal").val(date);
+        $("#phonenumber_employee_modal").val(phone);
+        $("#photo_employee_modal").attr("src", photo);
+
+        $("#modal-employee").modal("show");
+
+    });
+
+    $("#form_edit_employee").submit(function(e) {
         e.preventDefault();
         //validations
 
@@ -267,7 +329,7 @@ use CodeIgniter\Database\BaseUtils;
                                 <td><?= $employee->active_employee ?></td>
                                 <td><img src="<?= base_url() ?>/public/img/users/<?= $employee->photo_employee ?>" alt="Foto" class="img-fluid prodimg"></td>
                                 <td>
-                                    <button id="btn-update" type="button" class="btn btn-app bg-corporative">
+                                    <button id="btn_update_employee" type="button" class="btn btn-app bg-corporative">
                                         <i class="fas fa-edit"></i> Editar
                                     </button>
                                 </td>
@@ -293,68 +355,63 @@ use CodeIgniter\Database\BaseUtils;
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form_employee">
-                <div class="modal-body">
+            <div class="modal-body">
+                <form id="form_edit_employee" method="post" action="">
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-1">
+                        </div>
+                        <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Cedula</label>
-                                <input id="cedula_employee" type="number" class="form-control" placeholder="Cedula">
-                                <p class="text-danger"></p>
+                                <div class="member align-items-start aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100">
+                                    <div class="text-center">
+                                        <img id="photo_employee_modal" alt="Foto de perfil" class="img-fluid">
+                                        <b><label id="cedula_label"></label></b><br><label id="cargo_label"></label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label>Nombres</label>
-                                <input id="name_employee" type="text" class="form-control" placeholder="Nombres">
-                                <p class="text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label>Apellidos</label>
-                                <input id="surname_employee" type="text" class="form-control" placeholder="Apellidos">
-                                <p class="text-danger"></p>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="col-sm-7">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Cedula</label>
+                                        <input id="cedula_employee_modal" type="number" class="form-control" placeholder="Cedula" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Nombres</label>
+                                        <input id="name_employee_modal" type="text" class="form-control" placeholder="Nombres" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Apellidos</label>
+                                        <input id="surname_employee_modal" type="text" class="form-control" placeholder="Apellidos" required>
 
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label>Fecha de Inicio</label>
-                                <input id="date_employee" type="date" class="form-control">
-                                <p class="text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label>Cargo</label>
-                                <select id="select_jobtitles" class="form-control">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label>N&uacute;mero Celular</label>
-                                <input id="phonenumber_employee" type="number" class="form-control" placeholder="Número telefonico">
-                                <p class="text-danger"></p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Fecha de Inicio</label>
+                                        <input id="date_employee_modal" type="date" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>N&uacute;mero Celular</label>
+                                        <input id="phonenumber_employee_modal" type="number" class="form-control" placeholder="Número telefonico" required>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>Foto de perfil</label>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="photo_perfil">
-                            <label class="custom-file-label" for="customFile">Subir Archivo</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-            </form>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            </div>
         </div>
         <!-- /.modal-content -->
     </div>

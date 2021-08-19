@@ -195,3 +195,13 @@ a:hover {
 label {
   margin-bottom: 0;
 }
+
+.member {
+  position: relative;
+  box-shadow: 0px 2px 15px rgb(0 0 0 / 10%);
+  padding: 15px;
+  border-radius: 5px;
+  background: rgb(156, 156, 156);
+  transition: 0.5s;
+  margin-bottom: 15px;
+}
