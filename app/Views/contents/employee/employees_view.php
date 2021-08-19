@@ -173,21 +173,21 @@ use CodeIgniter\Database\BaseUtils;
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Cedula</label>
-                                <input name="cedula_employee" type="number" class="form-control" placeholder="Cedula" value="<?= old('cedula_employee') ?>">
+                                <input name="cedula_employee" type="number" class="form-control" placeholder="Cedula" value="<?= old('cedula_employee') ?>" required>
                                 <p class="text-danger"><?= session('errorsinputs.cedula_employee') ?></p>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Nombres</label>
-                                <input name="name_employee" type="text" class="form-control" placeholder="Nombres" value="<?= old('name_employee') ?>">
+                                <input name="name_employee" type="text" class="form-control" placeholder="Nombres" value="<?= old('name_employee') ?>" required>
                                 <p class="text-danger"><?= session('errorsinputs.name_employee') ?></p>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Apellidos</label>
-                                <input name="surname_employee" type="text" class="form-control" placeholder="Apellidos" value="<?= old('surname_employee') ?>">
+                                <input name="surname_employee" type="text" class="form-control" placeholder="Apellidos" value="<?= old('surname_employee') ?>" required>
                                 <p class="text-danger"><?= session('errorsinputs.surname_employee') ?></p>
                             </div>
                         </div>
@@ -197,14 +197,14 @@ use CodeIgniter\Database\BaseUtils;
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Fecha de Inicio</label>
-                                <input name="date_employee" type="date" class="form-control" value="<?= old('date_employee') ?>">
+                                <input name="date_employee" type="date" class="form-control" value="<?= old('date_employee') ?>" required>
                                 <p class="text-danger"><?= session('errorsinputs.date_employee') ?></p>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Cargo</label>
-                                <select name="select_jobtitles" id="select_jobtitles" class="form-control" value="<?= old('select_jobtitles') ?>">
+                                <select name="select_jobtitles" id="select_jobtitles" class="form-control" value="<?= old('select_jobtitles') ?>" required>
                                 </select>
                                 <p class="text-danger"><?= session('errorsinputs.select_jobtitles') ?></p>
                             </div>
@@ -212,7 +212,7 @@ use CodeIgniter\Database\BaseUtils;
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>N&uacute;mero Celular</label>
-                                <input name="phonenumber_employee" type="number" class="form-control" placeholder="Número telefonico" value="<?= old('phonenumber_employee') ?>">
+                                <input name="phonenumber_employee" type="number" class="form-control" placeholder="Número telefonico" value="<?= old('phonenumber_employee') ?>" required>
                                 <p class="text-danger"><?= session('errorsinputs.phonenumber_employee') ?></p>
                             </div>
                         </div>

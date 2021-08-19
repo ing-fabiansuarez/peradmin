@@ -45,37 +45,44 @@ class Validation
 		'cedula_employee' => [
 			'rules'  => 'required|is_natural|is_unique[employee.id_employee]',
 			'errors' => [
-				'required' => 'You must choose a Username.'
+				'required' => 'La cedula es requerida.',
+				'is_natural' => 'La cedula debe contener solo numeros.',
+				'is_unique' => 'Ese número de cedula ya existe.',
 			]
 		],
 		'name_employee'    => [
 			'rules'  => 'required|alpha_numeric_space',
 			'errors' => [
-				'valid_email' => 'Please check the Email field. It does not appear to be valid.'
+				'required' => 'El nombre es requerida.',
+				'alpha_numeric_space' => 'Hay caracteres que no son validos.'
 			]
 		],
 		'surname_employee'    => [
 			'rules'  => 'required|alpha_numeric_space',
 			'errors' => [
-				'valid_email' => 'Please check the Email field. It does not appear to be valid.'
+				'required' => 'El apellido es requerida.',
+				'alpha_numeric_space' => 'Hay caracteres que no son validos.'
 			]
 		],
 		'date_employee'    => [
 			'rules'  => 'required|valid_date[Y-m-d]',
 			'errors' => [
-				'valid_email' => 'Please check the Email field. It does not appear to be valid.'
+				'required' => 'La fecha es requerida.',
+				'valid_date' => 'Por favor ingresa una fecha valida.'
 			]
 		],
 		'select_jobtitles'    => [
 			'rules'  => 'required|is_not_unique[jobtitle.id_jobtitle]',
 			'errors' => [
-				'valid_email' => 'Please check the Email field. It does not appear to be valid.'
+				'required' => 'El cargo es requerida.',
+				'is_not_unique' => 'El cargo no exite.'
 			]
 		],
 		'phonenumber_employee'    => [
 			'rules'  => 'required|is_natural',
 			'errors' => [
-				'valid_email' => 'Please check the Email field. It does not appear to be valid.'
+				'required' => 'El telefono es requerida.',
+				'is_natural' => 'El numero de telefono debe contener solo numeros.',
 			]
 		],
 
