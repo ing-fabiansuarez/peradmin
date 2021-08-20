@@ -85,7 +85,45 @@ class Validation
 				'is_natural' => 'El numero de telefono debe contener solo numeros.',
 			]
 		],
+	];
 
+	public $editEmployee = [
+		'cedula_employee' => [
+			'rules'  => 'required|is_natural|is_not_unique[employee.id_employee]',
+			'errors' => [
+				'required' => 'La cedula es requerida.',
+				'is_natural' => 'La cedula debe contener solo numeros.',
+				'is_unique' => 'Ese número de cedula ya existe.',
+			]
+		],
+		'name_employee'    => [
+			'rules'  => 'required|alpha_numeric_space',
+			'errors' => [
+				'required' => 'El nombre es requerida.',
+				'alpha_numeric_space' => 'Hay caracteres que no son validos.'
+			]
+		],
+		'surname_employee'    => [
+			'rules'  => 'required|alpha_numeric_space',
+			'errors' => [
+				'required' => 'El apellido es requerida.',
+				'alpha_numeric_space' => 'Hay caracteres que no son validos.'
+			]
+		],
+		'date_employee'    => [
+			'rules'  => 'required|valid_date[Y-m-d]',
+			'errors' => [
+				'required' => 'La fecha es requerida.',
+				'valid_date' => 'Por favor ingresa una fecha valida.'
+			]
+		],
+		'phonenumber_employee'    => [
+			'rules'  => 'required|is_natural',
+			'errors' => [
+				'required' => 'El telefono es requerida.',
+				'is_natural' => 'El numero de telefono debe contener solo numeros.',
+			]
+		],
 	];
 
 	public $newPass = [

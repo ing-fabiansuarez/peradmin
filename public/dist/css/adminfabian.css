@@ -191,7 +191,10 @@ a:hover {
   background-color: #df2525f5 !important;
   color: #fff;
 }
-
+.bg-yellow {
+  background-color: #ffee00 !important;
+  color: #fff;
+}
 label {
   margin-bottom: 0;
 }

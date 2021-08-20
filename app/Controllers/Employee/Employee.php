@@ -34,7 +34,6 @@ class Employee extends BaseController
                 ))) {
                     return redirect()->back()->with('errorsinputs', $this->validator->getErrors())->withInput();
                 }
-
                 $file = $this->request->getFile('photo_perfil');
                 if ($file->isValid() && !$file->hasMoved()) {
                     $ext = '.' . $file->getClientExtension();
@@ -81,10 +80,42 @@ class Employee extends BaseController
             case 2:
                 break;
             case 3:
+                if (!($this->validate(
+                    $this->rulesvalidation->getRuleGroup('editEmployee')
+                ))) {
+                    $text = '';
+                    foreach ($this->validator->getErrors() as $error) {
+                        $text .= '*' . $error . '<br>';
+                    }
+                    print $text;
+                    return;
+                }
+                try {
+                    $this->mdlEmployee->update($this->request->getPost('cedula_employee'), [
+                        'name_employee' => $this->request->getPost('name_employee'),
+                        'surname_employee' => $this->request->getPost('surname_employee'),
+                        'startdate_employee' => $this->request->getPost('date_employee'),
+                        'phonenumber_employee' => $this->request->getPost('phonenumber_employee')
+                    ]);
+                    print true;
+                } catch (Exception $e) {
+                    print $e->getMessage();
+                }
+                return;
                 break;
             case 4:
+                if (!($this->validate(
+                    $this->rulesvalidation->getRuleGroup('editEmployee')
+                ))) {
+                    $text = '';
+                    foreach ($this->validator->getErrors() as $error) {
+                        $text .= '*' . $error . '<br>';
+                    }
+                    print $text;
+                    return;
+                }
                 try {
-                    $this->mdlEmployee->delete($this->request->getPost('cedula'));
+                    $this->mdlEmployee->where('id_employee', $this->request->getPost('cedula_employee'))->delete();
                     print true;
                 } catch (Exception $e) {
                     print $e->getMessage();
