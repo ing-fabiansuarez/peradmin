@@ -37,7 +37,6 @@
 </script>
 
 <script>
-    
     var action;
     $(document).ready(function() {
         reloadjobtitles();
@@ -94,6 +93,10 @@
         $("#modal_employee_header").removeClass('bg-corporative');
         $("#modal_employee_header").addClass('bg-delete');
 
+        $("#btn_save_changes").text('Eliminar Registro');
+        $("#btn_save_changes").removeClass('bg-corporative');
+        $("#btn_save_changes").addClass('bg-delete');
+
         //deshabilitar inputs
         $("#cedula_employee_modal").attr('disabled', '');
         $("#name_employee_modal").attr('disabled', '');
@@ -137,6 +140,10 @@
         $("#modal_employee_title").text("Editar el empleado");
         $("#modal_employee_header").removeClass('bg-delete');
         $("#modal_employee_header").addClass('bg-corporative');
+
+        $("#btn_save_changes").text('Guardar los cambios');
+        $("#btn_save_changes").removeClass('bg-delete');
+        $("#btn_save_changes").addClass('bg-corporative');
 
         //poner el texto del modal
         $("#cedula_label").text(cedula);
@@ -410,7 +417,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                <button id="btn_save_changes" type="submit" class="btn btn-primary"></button>
             </div>
         </div>
         <!-- /.modal-content -->
