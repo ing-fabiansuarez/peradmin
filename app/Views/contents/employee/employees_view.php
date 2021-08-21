@@ -282,9 +282,11 @@
                                 <tr>
                                     <td style="max-width: 60px;"><img src="<?= base_url() ?>/public/img/users/<?= $employee->photo_employee ?>" alt="Foto" class="img-fluid prodimg"></td>
                                     <td>
-                                        <button id="btn_update_permissions" type="button" class="btn btn-app bg-yellow">
-                                            <i class="fas fa-drum"></i> Permisos
-                                        </button>
+                                        <a href="<?= base_url() . route_to('view_employee_permissions', $employee->id_employee) ?>">
+                                            <button id="btn_update_permissions" type="button" class="btn btn-app bg-yellow">
+                                                <i class="fas fa-drum"></i> Permisos
+                                            </button>
+                                        </a>
                                         <button id="btn_update_employee" type="button" class="btn btn-app bg-corporative">
                                             <i class="fas fa-edit"></i> Editar
                                         </button>
@@ -413,32 +415,32 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Cedula</label>
-                                            <input id="cedula_employee_modal" type="number" class="form-control" placeholder="Cedula" >
+                                            <input id="cedula_employee_modal" type="number" class="form-control" placeholder="Cedula">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Nombres</label>
-                                            <input id="name_employee_modal" type="text" class="form-control" placeholder="Nombres" >
+                                            <input id="name_employee_modal" type="text" class="form-control" placeholder="Nombres">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Apellidos</label>
-                                            <input id="surname_employee_modal" type="text" class="form-control" placeholder="Apellidos" >
+                                            <input id="surname_employee_modal" type="text" class="form-control" placeholder="Apellidos">
 
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Fecha de Inicio</label>
-                                            <input id="date_employee_modal" type="date" class="form-control" >
+                                            <input id="date_employee_modal" type="date" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>N&uacute;mero Celular</label>
-                                            <input id="phonenumber_employee_modal" type="number" class="form-control" placeholder="Número telefonico" >
+                                            <input id="phonenumber_employee_modal" type="number" class="form-control" placeholder="Número telefonico">
                                         </div>
                                     </div>
                                 </div>

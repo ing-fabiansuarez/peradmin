@@ -14,7 +14,7 @@ class PermissionModel extends Model
     protected $useSoftDeletes = false;
 
     protected $allowedFields = [
-        'employee_id_employee', 
+        'employee_id_employee',
         'Permission_id_permission'
     ];
 
@@ -35,5 +35,10 @@ class PermissionModel extends Model
         }
     }
 
-
+    public function getAllPermissions()
+    {
+        return dd($this->db->table('permission')
+            ->select('*')
+            ->get()->getResultArray());
+    }
 }
