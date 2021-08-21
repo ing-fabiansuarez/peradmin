@@ -69,7 +69,14 @@
         var action;
 
         $(document).on("click", "#btn-update", function() {
-            rowTable = $(this).closest("tr");
+
+
+            //arregla para que tome la tabla correcta cuando sea responsive
+            rowTable = $(this).parents('tr'); //Get the current row
+            if (rowTable.hasClass('child')) { //Check if the current row is a child row
+                rowTable = rowTable.prev(); //If it is, then point to the row before it (its 'parent')
+            }
+
             id = parseInt(rowTable.find('td:eq(0)').text());
             name = rowTable.find('td:eq(1)').text();
             salary = parseFloat(rowTable.find('td:eq(2)').text());
@@ -98,7 +105,13 @@
 
         });
         $(document).on("click", "#btn-delete", function() {
-            rowTable = $(this).closest("tr");
+
+            //arregla para que tome la tabla correcta cuando sea responsive
+            rowTable = $(this).parents('tr'); //Get the current row
+            if (rowTable.hasClass('child')) { //Check if the current row is a child row
+                rowTable = rowTable.prev(); //If it is, then point to the row before it (its 'parent')
+            }
+
             id = parseInt(rowTable.find('td:eq(0)').text());
             name = rowTable.find('td:eq(1)').text();
             salary = parseFloat(rowTable.find('td:eq(2)').text());
