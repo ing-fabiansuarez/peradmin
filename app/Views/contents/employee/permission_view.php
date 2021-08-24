@@ -7,10 +7,14 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('css') ?>
+<!-- Toastr -->
+<link rel="stylesheet" href="<?= base_url() ?>/public/plugins/toastr/toastr.min.css">
 <link href="<?= base_url() ?>/public/plugins/bootstrap-switch/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet">
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
+<!-- Toastr -->
+<script src="<?= base_url() ?>/public/plugins/toastr/toastr.min.js"></script>
 <!-- Bootstrap Switch -->
 <script src="<?= base_url() ?>/public/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <script>
@@ -19,41 +23,27 @@
     })
     $(document).ready(function() {
         getPermissions();
+     
 
         function getPermissions() {
             $.ajax({
-                url: "<?= base_url().route_to('ajax_permissionsby') ?>/" + action,
+                url: "<?= base_url() . route_to('ajax_permissionsby', 1098823092) ?>",
                 type: "POST",
-                data: {
-                    cedula_employee: cedula,
-                    name_employee: names,
-                    surname_employee: surnames,
-                    date_employee: date,
-                    phonenumber_employee: phone
-                },
                 success: function(data1) {
-                    console.log(data1);
-                    if (data1 == 1) {
-                        if (action == 3) {
-                            inforow = tableEmployee.row(rowTable).data();
-                            inforow[3] = names;
-                            inforow[4] = surnames;
-                            inforow[6] = phone;
-                            inforow[9] = date;
-                            tableEmployee.row(rowTable).data(inforow).draw();
-                            toastr.success('Se guardaron los cambios.');
-                            $("#modal-employee").modal("hide");
-                        } else if (action == 4) {
-                            tableEmployee.row(rowTable).remove().draw();
-                            toastr.error('Se elimino correctamente.');
-                            $("#modal-employee").modal("hide");
+                    $("#aa").prop('checked');
+                    try {
+                        var permisos = JSON.parse(data1);
+                        console.log(permisos);
+
+                        for (var i in permisos) {
+                            console.log(permisos[i])
                         }
-                    } else {
+                    } catch (e) {
                         toastr.error(data1);
                     }
                 },
                 error: function() {
-                    alert('no se coneto');
+                    alert('No se pudo conectar con el servidor');
                 }
             });
         }
@@ -118,11 +108,12 @@
                                     <h3 class="card-title">Permisos</h3>
                                 </div>
                                 <div class="card-body">
-                                    <ul class="list-group">
+                                    <input id="aa" type="checkbox" name="my-checkbox" data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                    <ul id="list_permissions" class="list-group">
                                         <?php foreach ($permissions as $permission) : ?>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 <?= $permission['name_permission'] . '<br>' . $permission['description_permission'] ?>
-                                                <input type="checkbox" name="my-checkbox" data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                                <input id="<?= $permission['id_permission'] ?>" type="checkbox" name="my-checkbox" data-bootstrap-switch data-off-color="danger" data-on-color="success">
                                             </li>
                                         <?php endforeach; ?>
                                     </ul>
