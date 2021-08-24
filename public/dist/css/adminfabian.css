@@ -195,6 +195,13 @@ a:hover {
   background-color: #ffee00 !important;
   color: #fff;
 }
+
+.bg-hola {
+  border-top: 5px solid #ff0000;
+  background-color: #ffe7e7 !important;
+  color: #000;
+}
+
 label {
   margin-bottom: 0;
 }

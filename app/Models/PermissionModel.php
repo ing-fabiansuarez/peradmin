@@ -37,8 +37,8 @@ class PermissionModel extends Model
 
     public function getAllPermissions()
     {
-        return dd($this->db->table('permission')
+        return $this->db->table('permission')
             ->select('*')
-            ->get()->getResultArray());
+            ->get()->getResultArray();
     }
 }

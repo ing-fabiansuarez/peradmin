@@ -208,6 +208,7 @@
                         } else if (action == 4) {
                             tableEmployee.row(rowTable).remove().draw();
                             toastr.error('Se elimino correctamente.');
+                            $("#modal-employee").modal("hide");
                         }
                     } else {
                         toastr.error(data1);
@@ -273,8 +274,6 @@
                                 <th>Fecha de creación</th>
                                 <th>Inicio en la empresa</th>
                                 <th>Activo</th>
-
-
                             </tr>
                         </thead>
                         <tbody>
