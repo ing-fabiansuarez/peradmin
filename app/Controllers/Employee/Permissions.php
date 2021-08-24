@@ -10,7 +10,6 @@ class Permissions extends BaseController
 {
     public function __construct()
     {
-        $this->mdlPermission = new PermissionModel();
         $this->mdlEmployee = new EmployeeModel();
     }
 

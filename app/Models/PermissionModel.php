@@ -41,4 +41,18 @@ class PermissionModel extends Model
             ->select('*')
             ->get()->getResultArray();
     }
+
+    public function getAllPermissionsBy($cedula)
+    {
+        $arrayResult = array();
+        foreach ($this->db->table('employee_has_permission')
+            ->select('id_permission')
+            ->join('permission', 'employee_has_permission.permission_id_permission = permission.id_permission')
+            ->where('employee_has_permission.employee_id_employee', $cedula)
+            ->where('employee_has_permission.active_permission', 1)
+            ->get()->getResultArray() as $permission) {
+            array_push($arrayResult, $permission['id_permission']);
+        }
+        return $arrayResult;
+    }
 }

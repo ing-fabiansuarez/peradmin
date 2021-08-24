@@ -51,9 +51,9 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	});
 
 	//ajax
-	$routes->group('html', ['namespace' => 'App\Controllers\Ajax', 'filter' => 'auth'], function ($routes) {
+	$routes->group('api', ['namespace' => 'App\Controllers\Ajax', 'filter' => 'auth'], function ($routes) {
 		$routes->get('jobtitles', 'Ajax::ajaxJobtitlesHtml', ['as' => 'ajax_html_jobtitles']);
-		//$routes->get('inputspass/(:num)', 'Ajax::ajaxInputPasswordHtml/$1', ['as' => 'ajax_html_inputs_password']);
+		$routes->add('permissions/(:segment)', 'Ajax::ajaxPermissionBy/$1', ['as' => 'ajax_permissionsby']);
 	});
 
 	//el administrador viejo

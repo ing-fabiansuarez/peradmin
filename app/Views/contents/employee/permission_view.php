@@ -22,7 +22,7 @@
 
         function getPermissions() {
             $.ajax({
-                url: "<?= base_url() ?>/empleados/crud/" + action,
+                url: "<?= base_url().route_to('ajax_permissionsby') ?>/" + action,
                 type: "POST",
                 data: {
                     cedula_employee: cedula,

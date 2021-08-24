@@ -3,13 +3,16 @@
 namespace App\Controllers\Ajax;
 
 use App\Controllers\BaseController;
+use App\Models\EmployeeModel;
 use App\Models\JobtitleModel;
+use App\Models\PermissionModel;
 
 class Ajax extends BaseController
 {
 	public function __construct()
 	{
 		$this->mdlJobtitle = new JobtitleModel();
+		$this->mdlEmployee = new EmployeeModel();
 	}
 	public function ajaxJobtitlesHtml()
 	{
@@ -47,5 +50,20 @@ class Ajax extends BaseController
 				echo "";
 				break;
 		}
+	}
+
+	public function ajaxPermissionBy($cedula)
+	{
+		//validacion de permisos
+		if (!$this->mdlPermission->hasPermission(8)) {
+			print "no tienes permisos";
+			return;
+		}
+		//validar si el empleado existe
+		if (!$employee = $this->mdlEmployee->find($cedula)) {
+			print "El empleado no exite";
+			return;
+		}
+		return json_encode($employee->getPermissions());
 	}
 }
