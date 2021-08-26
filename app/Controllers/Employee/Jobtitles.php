@@ -17,6 +17,10 @@ class Jobtitles extends BaseController
 
     public function index()
     {
+        //validacion de permisos del sistema
+        if (!$this->mdlPermission->hasPermission(9)) {
+            return view('permission/donthavepermission');
+        }
         return view('contents/employee/jobtitle_view', [
             'jobtitles' => $this->mdlJobtitle->findAll(),
         ]);
@@ -24,6 +28,11 @@ class Jobtitles extends BaseController
 
     public function create()
     {
+        //validacion de permisos del sistema
+        if (!$this->mdlPermission->hasPermission(2)) {
+            return redirect()->back()
+                ->with('msg_toastr', "toastr.error('NO TIENES PERMISOS PARA EJECUTAR ESTA ACCIÓN.')");
+        }
         //se valida el formulario
         if (!$this->validate(
             [
@@ -60,6 +69,11 @@ class Jobtitles extends BaseController
     {
         switch ($action) {
             case 'update':
+                //validacion de permisos del sistema
+                if (!$this->mdlPermission->hasPermission(3)) {
+                    echo "NO TIENES PERMISOS PARA EJECUTAR ESTA ACCIÓN";
+                    return;
+                }
                 try {
                     $this->mdlJobtitle->update((int)$this->request->getPost('id'), [
                         'name_jobtitle' => $this->request->getPost('name'),
@@ -71,6 +85,11 @@ class Jobtitles extends BaseController
                 }
                 break;
             case 'delete':
+                //validacion de permisos del sistema
+                if (!$this->mdlPermission->hasPermission(4)) {
+                    echo "NO TIENES PERMISOS PARA EJECUTAR ESTA ACCIÓN";
+                    return;
+                }
                 try {
                     $this->mdlJobtitle->delete((int)$this->request->getPost('id'));
                     echo true;

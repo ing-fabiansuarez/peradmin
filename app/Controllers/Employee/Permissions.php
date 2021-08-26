@@ -16,6 +16,10 @@ class Permissions extends BaseController
 
     public function view_permissions($cedula)
     {
+        //validacion de permisos del sistema
+        if (!$this->mdlPermission->hasPermission(8)) {
+            return view('permission/donthavepermission');
+        }
         return view('contents/employee/permission_view', [
             'permissions' => $this->mdlPermission->getAllPermissions(),
             'employee' => $this->mdlEmployee->find($cedula)

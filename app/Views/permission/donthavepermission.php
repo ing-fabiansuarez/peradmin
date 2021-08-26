@@ -1,5 +1,5 @@
-<?= $this->extend('admin/structure/main_admin_view') ?>
-<?= $this->section('title') ?> - Permisos<?= $this->endSection() ?>
+<?= $this->extend('structure/main_view') ?>
+<?= $this->section('title') ?>No tiene permisos<?= $this->endSection() ?>
 <?= $this->section('js') ?>
 <?= $this->endSection() ?>
 <?= $this->section('css') ?>
@@ -31,12 +31,12 @@
         <div class="col-md-8">
             <div class="card card-widget widget-user">
                 <!-- Add the bg color to the header using any of the bg-* classes -->
-                <div class="widget-user-header bg-info">
-                    <h3 class="widget-user-username"><?= session()->name_employee ?></h3>
-                    <h5 class="widget-user-desc"><?= session()->id_employee ?></h5>
+                <div class="widget-user-header bg-corporative">
+                    <h3 class="widget-user-username"><b><?= session()->name_employee ?></b></h3>
+                    <h5 class="widget-user-desc"><?= session()->jobtitle_name ?></h5>
                 </div>
                 <div class="widget-user-image">
-                    <img class="img-circle elevation-2" src="<?= base_url('public/admin/dist/img/employees') . '/' . session()->image_employee ?>" alt="User Avatar">
+                    <img class="img-circle elevation-2" src="<?= base_url('public/img/users') . '/' . session()->image_employee ?>" alt="User Avatar">
                 </div>
                 <div class="card-footer">
                     <div class="row">

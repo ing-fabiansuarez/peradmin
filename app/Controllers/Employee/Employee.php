@@ -19,6 +19,10 @@ class Employee extends BaseController
 
     public function index()
     {
+        //validacion de permisos del sistema
+        if (!$this->mdlPermission->hasPermission(10)) {
+            return view('permission/donthavepermission');
+        }
         return view('contents/employee/employees_view', [
             'employees' => $this->mdlEmployee->orderBy('updated_at_employee', 'desc')->findAll()
         ]);
@@ -29,6 +33,13 @@ class Employee extends BaseController
 
         switch ($action) {
             case 1:
+                //validacion de permisos del sistema
+                if (!$this->mdlPermission->hasPermission(5)) {
+                    return redirect()->back()->with('error', [
+                        'body' => 'No tienes permisos para crear empleados',
+                        'title' => 'No tienes permisos'
+                    ])->withInput();
+                }
                 if (!($this->validate(
                     $this->rulesvalidation->getRuleGroup('newEmployeeRules')
                 ))) {
@@ -80,6 +91,11 @@ class Employee extends BaseController
             case 2:
                 break;
             case 3:
+                //validacion de permisos del sistema
+                if (!$this->mdlPermission->hasPermission(6)) {
+                    print "NO TIENES PERMISOS";
+                    return;
+                }
                 if (!($this->validate(
                     $this->rulesvalidation->getRuleGroup('editEmployee')
                 ))) {
@@ -104,6 +120,11 @@ class Employee extends BaseController
                 return;
                 break;
             case 4:
+                //validacion de permisos del sistema
+                if (!$this->mdlPermission->hasPermission(7)) {
+                    print "NO TIENES PERMISOS";
+                    return;
+                }
                 if (!($this->validate(
                     $this->rulesvalidation->getRuleGroup('editEmployee')
                 ))) {

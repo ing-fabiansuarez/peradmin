@@ -140,7 +140,6 @@ a:hover {
 }
 [class*="sidebar-dark-"] {
   background-color: #202020;
-  border-top-right-radius: 50px;
 }
 
 .maintitle h2 {
