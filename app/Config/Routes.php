@@ -48,6 +48,8 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->get('', 'Employee::index', ['as' => 'view_employee']);
 		$routes->post('crud/(:num)', 'Employee::crud/$1', ['as' => 'crud_employee']);
 		$routes->get('permisos/(:segment)', 'Permissions::view_permissions/$1', ['as' => 'view_employee_permissions']);
+		$routes->post('update/(:segment)', 'Permissions::update_permissions/$1', ['as' => 'update_employee_permission']);
+		$routes->post('password/(:segment)', 'Permissions::updatePassword/$1', ['as' => 'update_password_employee']);
 	});
 
 	//ajax

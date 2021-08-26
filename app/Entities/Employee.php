@@ -25,7 +25,13 @@ class Employee extends Entity
     }
 
     public function getPermissions()
-    {//retorna un array con los id de permisos que tien el empleado
+    { //retorna un array con los id de permisos que tien el empleado
         return $this->mdlPermission->getAllPermissionsBy($this->id_employee);
+    }
+
+    public function setPassword(string $pass)
+    {
+        $this->pass_employee = md5($pass);
+        return $this;
     }
 }

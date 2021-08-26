@@ -15,7 +15,8 @@ class PermissionModel extends Model
 
     protected $allowedFields = [
         'employee_id_employee',
-        'Permission_id_permission'
+        'permission_id_permission',
+        'active_permission'
     ];
 
     public function hasPermission($permission, $cedula = null)
@@ -40,6 +41,14 @@ class PermissionModel extends Model
         return $this->db->table('permission')
             ->select('*')
             ->get()->getResultArray();
+    }
+
+    public function findPermission($id_permission)
+    {
+        return ($this->db->table('permission')
+            ->select('*')
+            ->where('permission.id_permission', $id_permission)
+            ->get()->getFirstRow('array'));
     }
 
     public function getAllPermissionsBy($cedula)

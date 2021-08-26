@@ -130,13 +130,15 @@ class Validation
 		'pass_employee'    => [
 			'rules'  => 'required|min_length[8]',
 			'errors' => [
-				'valid_email' => 'Please check the Email field. It does not appear to be valid.'
+				'required' => 'Es requerida la contraseña.',
+				'min_length' =>'La contraseña debe tener minimo 8 digitos.'
 			]
 		],
 		'pass_confirm'    => [
 			'rules'  => 'required_with[pass_employee]|matches[pass_employee]',
 			'errors' => [
-				'valid_email' => 'Please check the Email field. It does not appear to be valid.'
+				'required_with' => 'Es requerida la confirmación de la contraseña',
+				'matches' => 'Las contraseñas no coinciden.'
 			]
 		],
 	];

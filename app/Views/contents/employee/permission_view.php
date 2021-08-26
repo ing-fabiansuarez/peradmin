@@ -29,6 +29,9 @@
                         var permisos = JSON.parse(data1);
                         console.log(permisos);
                         for (var i in permisos) {
+                            if (permisos[i] == 1) {
+                                $("#div_passwords").css("display", "block");
+                            }
                             console.log(i);
                             cadena = "#" + permisos[i];
                             $(cadena).prop('checked', true);
@@ -68,7 +71,6 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-md-4">
-
                             <div class="card card-secondary">
                                 <div class="card-header">
                                     <h3 class="card-title">Informaci&oacute;n</h3>
@@ -106,6 +108,28 @@
                                 </div>
 
                             </div>
+                            <div id="div_passwords" class="card card-secondary" style="display: none;">
+                                <div class="card-header">
+                                    <h3 class="card-title">Establecer o Cambiar Contraseña</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class='row'>
+                                        <div class='col-sm-12'>
+                                            <form action="<?= base_url() . route_to('update_password_employee', $employee->id_employee) ?>" method="post">
+                                                <div class='form-group'>
+                                                    <label>Contraseña</label>
+                                                    <input name='pass_employee' type='password' class='form-control' placeholder='Contraseña'>
+                                                </div>
+                                                <div class='form-group'>
+                                                    <label>Confirmar contraseña</label>
+                                                    <input name='pass_confirm' type='password' class='form-control' placeholder='Confirmar Contraseña'>
+                                                </div><br>
+                                                <button id="btn_save_changes" type="submit" class="btn btn-primary bg-corporative">Establecer</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-8">
                             <div class="card card-secondary">
@@ -113,7 +137,14 @@
                                     <h3 class="card-title">Permisos</h3>
                                 </div>
                                 <div class="card-body">
-                                    <form action="" method="post">
+                                    <?php if (!empty(session('msg'))) : ?>
+                                        <div class="alert <?= session('msg.class') ?> alert-dismissible col-md-12">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            <h5><?= session('msg.icon') ?><?= session('msg.title') ?></h5>
+                                            <?= session('msg.body') ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <form action="<?= base_url() . route_to('update_employee_permission', $employee->id_employee) ?>" method="post">
                                         <ul id="list_permissions" class="list-group">
                                             <?php foreach ($permissions as $permission) : ?>
                                                 <li class="list-group-item d-flex justify-content-between align-items-center">

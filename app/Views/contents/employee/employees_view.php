@@ -184,7 +184,7 @@
             phone = $.trim($("#phonenumber_employee_modal").val());
 
             $.ajax({
-                url: "http://localhost/peradmin/empleados/crud/" + action,
+                url: "<?= base_url() ?>/empleados/crud/" + action,
                 type: "POST",
                 data: {
                     cedula_employee: cedula,
@@ -224,8 +224,6 @@
         });
     });
 </script>
-
-
 <?= $this->endSection() ?>
 
 <!-- ............................................CONTENIDO DE LA PAGINA................................................ -->
@@ -427,7 +425,6 @@
                                         <div class="form-group">
                                             <label>Apellidos</label>
                                             <input id="surname_employee_modal" type="text" class="form-control" placeholder="Apellidos">
-
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -452,11 +449,8 @@
                     </div>
                 </form>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
-
 </div>
 
 <?= $this->endSection() ?>
