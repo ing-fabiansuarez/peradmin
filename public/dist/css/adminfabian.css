@@ -215,3 +215,7 @@ label {
   transition: 0.5s;
   margin-bottom: 15px;
 }
+
+.widget-user .card-footer {
+  padding-top: 100px;
+}

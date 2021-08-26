@@ -56,7 +56,7 @@ class Ajax extends BaseController
 	{
 		//validacion de permisos
 		if (!$this->mdlPermission->hasPermission(8)) {
-			print "no tienes permisos";
+			print "No tienes permisos";
 			return;
 		}
 		//validar si el empleado existe
