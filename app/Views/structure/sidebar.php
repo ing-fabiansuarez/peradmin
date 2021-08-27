@@ -36,6 +36,17 @@
 					</a>
 				</li>
 
+				<li class="nav-header">PEDIDOS</li>
+
+				<li class="nav-item">
+					<a href="<?= base_url() . route_to('view_order') ?>" class="nav-link">
+						<i class="nav-icon fas fa-plus-square"></i>
+						<p>
+							Crear
+						</p>
+					</a>
+				</li>
+
 				<li class="nav-header">PERMISOS SISTEMA</li>
 
 				<li class="nav-item">

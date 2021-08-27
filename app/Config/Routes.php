@@ -52,6 +52,12 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->post('password/(:segment)', 'Permissions::updatePassword/$1', ['as' => 'update_password_employee']);
 	});
 
+	//pedidos
+	$routes->group('pedido', ['namespace' => 'App\Controllers\Order', 'filter' => 'auth'], function ($routes) {
+		$routes->get('', 'Order::index', ['as' => 'view_order']);
+		$routes->post('loadcustomer', 'Order::load_customer', ['as' => 'load_customer_by_order']);
+	});
+
 	//ajax
 	$routes->group('api', ['namespace' => 'App\Controllers\Ajax', 'filter' => 'auth'], function ($routes) {
 		$routes->get('jobtitles', 'Ajax::ajaxJobtitlesHtml', ['as' => 'ajax_html_jobtitles']);
