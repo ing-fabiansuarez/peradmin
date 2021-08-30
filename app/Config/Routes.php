@@ -58,6 +58,11 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->post('loadcustomer', 'Order::load_customer', ['as' => 'load_customer_by_order']);
 	});
 
+	//cliente
+	$routes->group('cliente', ['namespace' => 'App\Controllers\Order', 'filter' => 'auth'], function ($routes) {
+		$routes->post('crear/(:num)', 'Customer::crud/$1', ['as' => 'create_customer']);
+	});
+
 	//ajax
 	$routes->group('api', ['namespace' => 'App\Controllers\Ajax', 'filter' => 'auth'], function ($routes) {
 		$routes->get('jobtitles', 'Ajax::ajaxJobtitlesHtml', ['as' => 'ajax_html_jobtitles']);

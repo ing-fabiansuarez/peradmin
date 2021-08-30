@@ -30,4 +30,8 @@ class CustomerModel extends Model
     protected $validationRules    = [];
 
     protected $validationMessages = [];
+
+    public function getCustomerByID($id){
+        return $this->where('numberidenti_customer', $id)->first();
+    }
 }

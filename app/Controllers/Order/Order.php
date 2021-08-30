@@ -4,6 +4,7 @@ namespace App\Controllers\Order;
 
 use App\Controllers\BaseController;
 use App\Models\CustomerModel;
+use App\Models\TypeidentificationModel;
 
 class Order extends BaseController
 {
@@ -12,6 +13,7 @@ class Order extends BaseController
     {
         //inicializacion de los modelos
         $this->mdlCustomer = new CustomerModel();
+        $this->typeidentification = new TypeidentificationModel();
         $this->rulesvalidation = \Config\Services::validation();
     }
 
@@ -21,7 +23,15 @@ class Order extends BaseController
         if (!$this->mdlPermission->hasPermission(12)) {
             return view('permission/donthavepermission');
         }
-        return view('contents/order/new_order_view');
+        if (!empty(session('customer_new_order'))) {
+            $customer = $this->mdlCustomer->find(session('customer_new_order'));
+        } else {
+            $customer = null;
+        }
+        return view('contents/order/new_order_view', [
+            'customer' => $customer,
+            'typeofidentification' =>  $this->typeidentification->findAll()
+        ]);
     }
 
     public function load_customer()
@@ -30,18 +40,24 @@ class Order extends BaseController
         if (!$this->mdlPermission->hasPermission(12)) {
             return view('permission/donthavepermission');
         }
-        if (!$customer = $this->mdlCustomer->where('numberidenti_customer', $this->request->getPost('identification'))->first()) {
+        if (!$customer = $this->mdlCustomer->getCustomerByID($this->request->getPost('identification'))) {
             session()->remove('customer_new_order');
             return redirect()->back()->with('msg', [
                 'icon' => '<i class="icon fas fa-exclamation-triangle"></i>',
                 'class' => 'alert-warning',
-                'title' => 'No se puedo Cambiar!',
-                'body' => 'No tienes permisos para cambiar las contraseñas de los empleados'
-            ]);
+                'title' => 'Usuario No Exite!',
+                'body' => 'El usuario con la cedula ' . $this->request->getPost('identification') . ' no exite.'
+            ])->withInput();
         }
         session()->set([
-            'customer_new_order' => $this->request->getPost('identification'),
+            'customer_new_order' => $customer->id_customer,
         ]);
-        dd(session()->get());
+        return redirect()->back();
+        /* ->with('msg', [
+            'icon' => '<i class="icon fas fa-check"></i>',
+            'class' => 'alert-success',
+            'title' => 'Usuario Cargado!',
+            'body' => 'El usuario con la cedula ' . $this->request->getPost('identification') . ' fue cargado.'
+        ]) */
     }
 }

@@ -131,7 +131,7 @@ class Validation
 			'rules'  => 'required|min_length[8]',
 			'errors' => [
 				'required' => 'Es requerida la contraseña.',
-				'min_length' =>'La contraseña debe tener minimo 8 digitos.'
+				'min_length' => 'La contraseña debe tener minimo 8 digitos.'
 			]
 		],
 		'pass_confirm'    => [
@@ -139,6 +139,38 @@ class Validation
 			'errors' => [
 				'required_with' => 'Es requerida la confirmación de la contraseña',
 				'matches' => 'Las contraseñas no coinciden.'
+			]
+		],
+	];
+
+	public $newCustomer = [
+		'identification' => [
+			'rules'  => 'required|is_unique[customer.numberidenti_customer]',
+			'errors' => [
+				'required' => 'La cedula es requerida.',
+				'is_natural' => 'La cedula debe contener solo numeros.',
+				'is_unique' => 'Ese número de identificación ya existe.',
+			]
+		],
+		'type'    => [
+			'rules'  => 'required|is_not_unique[type_of_identification.id_typeofidentification]',
+			'errors' => [
+				'required' => 'La fecha es requerida.',
+				'is_not_unique' => 'El tipo de identificación es desconocida.'
+			]
+		],
+		'name_customer'    => [
+			'rules'  => 'required|alpha_numeric_space',
+			'errors' => [
+				'required' => 'El nombre es requerida.',
+				'alpha_numeric_space' => 'Hay caracteres que no son validos.'
+			]
+		],
+		'surname_customer'    => [
+			'rules'  => 'required|alpha_numeric_space',
+			'errors' => [
+				'required' => 'El apellido es requerida.',
+				'alpha_numeric_space' => 'Hay caracteres que no son validos.'
 			]
 		],
 	];
