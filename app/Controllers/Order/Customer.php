@@ -66,7 +66,6 @@ class Customer extends BaseController
                 $customer->name_customer = $this->request->getPost('name_customer');
                 $customer->surname_customer = $this->request->getPost('surname_customer');
                 $customer->type_of_identification_id = $this->request->getPost('type');
-                $customer;
                 $this->mdlCustomer->update($this->request->getPost('identification'), $customer);
                 return redirect()->back();
                 break;

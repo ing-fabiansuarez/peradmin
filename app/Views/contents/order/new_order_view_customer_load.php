@@ -16,11 +16,10 @@
 
 <?= $this->section('content') ?>
 <div class="container-fluid">
+    <br>
     <div class="row">
         <div class="col-md-3">
-            <div class="maintitle">
-                <h2>Nuevo Pedido</h2>
-            </div>
+
             <div class="card">
                 <form action="<?= base_url() . route_to('create_customer', 3) ?>" method="post">
                     <div class="card-body">
@@ -35,7 +34,7 @@
                         </div>
                     </div>
                     <div class="card-footer text-center">
-                        <button type="submit" class="btn btn-primary">Guardar los cambios</button>
+                        <button type="submit" class="btn">Guardar los cambios</button>
                         <a href="<?= base_url() . route_to('clean_customer') ?>" class="btn btn-primary">Limpiar</a>
                     </div>
                 </form>
@@ -47,10 +46,67 @@
                     <?= session('msg.body') ?>
                 </div>
             <?php endif; ?>
+
         </div>
 
         <div class="col-md-9">
+            <div class="card">
+                <form action="<?= base_url() . route_to('create_customer', 3) ?>" method="post">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card" style="margin-bottom: 0;">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label>Fecha de Producci&oacute;n</label>
+                                            <input type="date" class="form-control" min="<?= date("Y-m-d") ?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Linea de Producci&oacute;n</label>
+                                            <select class="form-control">
+                                                <?php foreach ($productionline as $line) : ?>
+                                                    <option value="<?= $line['id_productionline'] ?>"><?= $line['name_productionline'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tipo de pedido</label>
+                                            <select class="form-control">
+                                                <?php foreach ($typeorder as $type) : ?>
+                                                    <option value="<?= $type['id_typeoforder'] ?>"><?= $type['name_typeoforder'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card" style="margin-bottom: 0;">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label>Departamento</label>
+                                            <select class="form-control">
+                                                <?php foreach ($productionline as $line) : ?>
+                                                    <option value="<?= $line['id_productionline'] ?>"><?= $line['name_productionline'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ciudad</label>
+                                            <select class="form-control">
+                                                <?php foreach ($typeorder as $type) : ?>
+                                                    <option value="<?= $type['id_typeoforder'] ?>"><?= $type['name_typeoforder'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

@@ -4,7 +4,9 @@ namespace App\Controllers\Order;
 
 use App\Controllers\BaseController;
 use App\Models\CustomerModel;
+use App\Models\ProductionlineModel;
 use App\Models\TypeidentificationModel;
+use App\Models\TypeorderModel;
 
 class Order extends BaseController
 {
@@ -13,6 +15,8 @@ class Order extends BaseController
     {
         //inicializacion de los modelos
         $this->mdlCustomer = new CustomerModel();
+        $this->mdlProductionLine = new ProductionlineModel();
+        $this->mdlTypeOrder = new TypeorderModel();
         $this->typeidentification = new TypeidentificationModel();
         $this->rulesvalidation = \Config\Services::validation();
     }
@@ -27,7 +31,9 @@ class Order extends BaseController
             $customer = $this->mdlCustomer->find(session('customer_new_order'));
             return view('contents/order/new_order_view_customer_load', [
                 'customer' => $customer,
-                'typeofidentification' =>  $this->typeidentification->findAll()
+                'typeofidentification' =>  $this->typeidentification->findAll(),
+                'productionline' => $this->mdlProductionLine->findAll(),
+                'typeorder' => $this->mdlTypeOrder->findAll()
             ]);
         } else {
             $customer = null;
