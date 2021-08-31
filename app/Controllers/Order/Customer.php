@@ -29,7 +29,8 @@ class Customer extends BaseController
                 ))) {
                     return redirect()->back()->with('input_customer', $this->validator->getErrors())->withInput();
                 }
-                $customer = new EntitiesCustomer([
+                $customer = new EntitiesCustomer();
+                $customer->fill([
                     'type_of_identification_id' => $this->request->getPost('type'),
                     'numberidenti_customer' => $this->request->getPost('identification'),
                     'name_customer' => $this->request->getPost('name_customer'),

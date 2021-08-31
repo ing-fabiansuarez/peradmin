@@ -46,7 +46,7 @@
                     <form method="post" action="">
                         <div class="card-body">
                             <b><?= $customer->name_customer . ' ' . $customer->surname_customer ?></b><br>
-                            <?= $customer->type_of_identification_id ?><br>N° <?= $customer->numberidenti_customer ?>
+                            <?= $customer->getTypeDocument()['name_typeofidentification'] ?><br>N° <?= $customer->numberidenti_customer ?>
                         </div>
                     </form>
                 </div>
