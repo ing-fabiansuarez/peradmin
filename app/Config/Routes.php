@@ -56,6 +56,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	$routes->group('pedido', ['namespace' => 'App\Controllers\Order', 'filter' => 'auth'], function ($routes) {
 		$routes->get('', 'Order::index', ['as' => 'view_order']);
 		$routes->post('loadcustomer', 'Order::load_customer', ['as' => 'load_customer_by_order']);
+		$routes->get('cleancustomer', 'Order::clean_customer', ['as' => 'clean_customer']);
 	});
 
 	//cliente

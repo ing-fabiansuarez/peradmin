@@ -25,6 +25,10 @@ class Order extends BaseController
         }
         if (!empty(session('customer_new_order'))) {
             $customer = $this->mdlCustomer->find(session('customer_new_order'));
+            return view('contents/order/new_order_view_customer_load', [
+                'customer' => $customer,
+                'typeofidentification' =>  $this->typeidentification->findAll()
+            ]);
         } else {
             $customer = null;
         }
@@ -53,11 +57,11 @@ class Order extends BaseController
             'customer_new_order' => $customer->id_customer,
         ]);
         return redirect()->back();
-        /* ->with('msg', [
-            'icon' => '<i class="icon fas fa-check"></i>',
-            'class' => 'alert-success',
-            'title' => 'Usuario Cargado!',
-            'body' => 'El usuario con la cedula ' . $this->request->getPost('identification') . ' fue cargado.'
-        ]) */
+    }
+
+    public function clean_customer()
+    {
+        session()->remove('customer_new_order');
+        return redirect()->back();
     }
 }

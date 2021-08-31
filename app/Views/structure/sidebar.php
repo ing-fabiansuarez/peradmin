@@ -4,15 +4,15 @@
 		<span class="brand-text font-weight-light">PeRa DK</span>
 	</a>
 	<div class="sidebar">
-		<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+		<div class="user-panel justify-content-center mt-1 pb-1 mb-1 d-flex">
 			<div class="image">
-				<img src="<?= base_url() ?>/public/img/users/<?= session()->image_employee ?>" class="img-circle elevation-2" alt="User">
+				<img src="<?= base_url() ?>/public/img/users/<?= session()->image_employee ?>" class="img-circle" alt="User">
 			</div>
-			<div class="info">
-				<a href="#" class="d-block">
-					<?= session()->name_employee ?><br><?= session()->jobtitle_name ?>
-				</a>
-			</div>
+		</div>
+		<div class="user-panel justify-content-center mt-3 pb-3 mb-3 d-flex">
+			<a href="#" class="d-block text-center">
+				<?= session()->name_employee ?><br><?= session()->jobtitle_name ?>
+			</a>
 		</div>
 		<div class="form-inline">
 			<div class="input-group" data-widget="sidebar-search">

@@ -218,3 +218,8 @@ label {
 .widget-user .card-footer {
   padding-top: 100px;
 }
+
+.user-panel img {
+  height: auto;
+  width: 6rem;
+}

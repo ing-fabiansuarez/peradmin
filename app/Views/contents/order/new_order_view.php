@@ -41,18 +41,8 @@
                     <?= session('msg.body') ?>
                 </div>
             <?php endif; ?>
-            <?php if ($customer != null) : ?>
-                <div class="card">
-                    <form method="post" action="">
-                        <div class="card-body">
-                            <b><?= $customer->name_customer . ' ' . $customer->surname_customer ?></b><br>
-                            <?= $customer->getTypeDocument()['name_typeofidentification'] ?><br>N° <?= $customer->numberidenti_customer ?>
-                        </div>
-                    </form>
-                </div>
-            <?php endif; ?>
+
         </div>
-        <?php if ($customer == null) : ?>
             <div class="col-md-5">
                 <br>
                 <div class="card card-primary">
@@ -93,7 +83,9 @@
                     <!-- /.card-body -->
                 </div>
             </div>
-        <?php endif; ?>
+        <div class="col-md-9">
+
+        </div>
     </div>
 </div>
 <?= $this->endSection() ?>

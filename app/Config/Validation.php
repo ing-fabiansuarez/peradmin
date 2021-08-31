@@ -174,4 +174,36 @@ class Validation
 			]
 		],
 	];
+
+	public $editCustomer = [
+		'identification' => [
+			'rules'  => 'required|is_not_unique[customer.id_customer]',
+			'errors' => [
+				'required' => 'La cedula es requerida.',
+				'is_natural' => 'La cedula debe contener solo numeros.',
+				'is_not_unique' => 'El cliente no existe.',
+			]
+		],
+		'type'    => [
+			'rules'  => 'required|is_not_unique[type_of_identification.id_typeofidentification]',
+			'errors' => [
+				'required' => 'La fecha es requerida.',
+				'is_not_unique' => 'El tipo de identificación es desconocida.'
+			]
+		],
+		'name_customer'    => [
+			'rules'  => 'required|alpha_numeric_space',
+			'errors' => [
+				'required' => 'El nombre es requerida.',
+				'alpha_numeric_space' => 'Hay caracteres que no son validos.'
+			]
+		],
+		'surname_customer'    => [
+			'rules'  => 'required|alpha_numeric_space',
+			'errors' => [
+				'required' => 'El apellido es requerida.',
+				'alpha_numeric_space' => 'Hay caracteres que no son validos.'
+			]
+		],
+	];
 }
