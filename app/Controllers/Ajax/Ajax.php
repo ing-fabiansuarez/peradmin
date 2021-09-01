@@ -3,6 +3,7 @@
 namespace App\Controllers\Ajax;
 
 use App\Controllers\BaseController;
+use App\Models\CityModel;
 use App\Models\EmployeeModel;
 use App\Models\JobtitleModel;
 use App\Models\PermissionModel;
@@ -13,6 +14,7 @@ class Ajax extends BaseController
 	{
 		$this->mdlJobtitle = new JobtitleModel();
 		$this->mdlEmployee = new EmployeeModel();
+		$this->modelCity = new CityModel();
 	}
 	public function ajaxJobtitlesHtml()
 	{
@@ -50,6 +52,20 @@ class Ajax extends BaseController
 				echo "";
 				break;
 		}
+	}
+
+	public function ajaxHtmlCities()
+	{
+		$modelCity = new CityModel();
+		$cities = $modelCity->where('department_city', $this->request->getPostGet('department'))->orderBy('name_city', 'ASC')->findAll();
+		$cadena = "<select class='custom-select' name='city' required>
+        <option value=''>* Ciudad</option>
+        ";
+		foreach ($cities as $city) {
+			$cadena = $cadena . '<option value="' . $city['idcity'] . '">' . $city['name_city'] . '</option>';
+		}
+		echo $cadena . "</select>";
+		return true;
 	}
 
 	public function ajaxPermissionBy($cedula)

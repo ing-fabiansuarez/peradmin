@@ -47,7 +47,7 @@
                 <br>
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Nuevo Usuario</h3>
+                        <h3 class="card-title">Nuevo Cliente</h3>
                     </div>
                     <div class="card-body">
                         <form action="<?= base_url() . route_to('create_customer', 1) ?>" method="post">

@@ -57,6 +57,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->get('', 'Order::index', ['as' => 'view_order']);
 		$routes->post('loadcustomer', 'Order::load_customer', ['as' => 'load_customer_by_order']);
 		$routes->get('cleancustomer', 'Order::clean_customer', ['as' => 'clean_customer']);
+		$routes->post('crear', 'Order::create_order', ['as' => 'create_order']);
 	});
 
 	//cliente
@@ -68,6 +69,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	$routes->group('api', ['namespace' => 'App\Controllers\Ajax', 'filter' => 'auth'], function ($routes) {
 		$routes->get('jobtitles', 'Ajax::ajaxJobtitlesHtml', ['as' => 'ajax_html_jobtitles']);
 		$routes->add('permissions/(:segment)', 'Ajax::ajaxPermissionBy/$1', ['as' => 'ajax_permissionsby']);
+		$routes->post('htmlcities', 'Ajax::ajaxHtmlCities', ['as' => 'ajax_html_cities']);
 	});
 
 	//el administrador viejo

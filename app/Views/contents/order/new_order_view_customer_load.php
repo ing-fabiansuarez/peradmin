@@ -10,16 +10,36 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
+<script>
+    $(document).ready(function() {
+        reloadcities();
+        $("#select_department").change(function() {
+            reloadcities();
+        });
+    });
+
+    function reloadcities() {
+        $.ajax({
+            type: "post",
+            url: "<?= base_url() . route_to('ajax_html_cities') ?>",
+            data: "department=" + $("#select_department").val(),
+            success: function(r) {
+                $("#cities").html(r);
+            },
+        });
+    }
+</script>
 <?= $this->endSection() ?>
 
 <!-- ............................................CONTENIDO DE LA PAGINA................................................ -->
 
 <?= $this->section('content') ?>
-<div class="container-fluid">
+<div class="container">
     <br>
     <div class="row">
         <div class="col-md-3">
-
+            <a href="<?= base_url() . route_to('clean_customer') ?>" type="button" class="btn btn-default btn-block">LIMPIAR PANTALLA</a>
+            <br>
             <div class="card">
                 <form action="<?= base_url() . route_to('create_customer', 3) ?>" method="post">
                     <div class="card-body">
@@ -35,7 +55,6 @@
                     </div>
                     <div class="card-footer text-center">
                         <button type="submit" class="btn">Guardar los cambios</button>
-                        <a href="<?= base_url() . route_to('clean_customer') ?>" class="btn btn-primary">Limpiar</a>
                     </div>
                 </form>
             </div>
@@ -51,11 +70,11 @@
 
         <div class="col-md-9">
             <div class="card">
-                <form action="<?= base_url() . route_to('create_customer', 3) ?>" method="post">
+                <form action="<?= base_url() . route_to('create_order') ?>" method="post">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="card" style="margin-bottom: 0;">
+                                <div class="card">
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label>Fecha de Producci&oacute;n</label>
@@ -77,15 +96,28 @@
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
+                                        <div class="form-group">
+                                            <label>Informaci&oacute;n Rotulo</label>
+                                            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                        </div>
                                     </div>
                                 </div>
+                                <button type="submit" class="btn btn-block btn-primary btn-lg">Crear Pedido</button>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <div class="card" style="margin-bottom: 0;">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label>Departamento</label>
+                                            <label>Transportadora</label>
                                             <select class="form-control">
+                                                <?php foreach ($transporters as $row) : ?>
+                                                    <option value="<?= $row['id_transporter'] ?>"><?= $row['name_transporter'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Departamento</label>
+                                            <select id="select_department" class="form-control">
                                                 <?php foreach ($departments as $row) : ?>
                                                     <option value="<?= $row['id_department'] ?>"><?= $row['name_department'] ?></option>
                                                 <?php endforeach; ?>
@@ -94,16 +126,31 @@
                                         <div class="form-group">
                                             <label>Ciudad</label>
                                             <select class="form-control">
-                                                <?php foreach ($typeorder as $type) : ?>
-                                                    <option value="<?= $type['id_typeoforder'] ?>"><?= $type['name_typeoforder'] ?></option>
-                                                <?php endforeach; ?>
+                                                <div id="cities">
+
+                                                </div>
                                             </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Barrio</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Direcci&oacute;n</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>WhatsApp</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Correo Electr&oacute;nico</label>
+                                            <input type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </form>
             </div>
