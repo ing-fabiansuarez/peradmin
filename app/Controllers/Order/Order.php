@@ -4,6 +4,7 @@ namespace App\Controllers\Order;
 
 use App\Controllers\BaseController;
 use App\Models\CustomerModel;
+use App\Models\DepartmentModel;
 use App\Models\ProductionlineModel;
 use App\Models\TypeidentificationModel;
 use App\Models\TypeorderModel;
@@ -17,6 +18,7 @@ class Order extends BaseController
         $this->mdlCustomer = new CustomerModel();
         $this->mdlProductionLine = new ProductionlineModel();
         $this->mdlTypeOrder = new TypeorderModel();
+        $this->mdlDepartment = new DepartmentModel();
         $this->typeidentification = new TypeidentificationModel();
         $this->rulesvalidation = \Config\Services::validation();
     }
@@ -33,7 +35,8 @@ class Order extends BaseController
                 'customer' => $customer,
                 'typeofidentification' =>  $this->typeidentification->findAll(),
                 'productionline' => $this->mdlProductionLine->findAll(),
-                'typeorder' => $this->mdlTypeOrder->findAll()
+                'typeorder' => $this->mdlTypeOrder->findAll(),
+                'departments' => $this->mdlDepartment->findAll()
             ]);
         } else {
             $customer = null;

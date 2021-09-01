@@ -86,8 +86,8 @@
                                         <div class="form-group">
                                             <label>Departamento</label>
                                             <select class="form-control">
-                                                <?php foreach ($productionline as $line) : ?>
-                                                    <option value="<?= $line['id_productionline'] ?>"><?= $line['name_productionline'] ?></option>
+                                                <?php foreach ($departments as $row) : ?>
+                                                    <option value="<?= $row['id_department'] ?>"><?= $row['name_department'] ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
