@@ -56,15 +56,14 @@ class Ajax extends BaseController
 
 	public function ajaxHtmlCities()
 	{
-		$modelCity = new CityModel();
-		$cities = $modelCity->where('department_city', $this->request->getPostGet('department'))->orderBy('name_city', 'ASC')->findAll();
-		$cadena = "<select class='custom-select' name='city' required>
+		$cities = $this->modelCity->where('department_id', $this->request->getPostGet('department'))->orderBy('name_city', 'ASC')->findAll();
+		$cadena = "
         <option value=''>* Ciudad</option>
         ";
 		foreach ($cities as $city) {
-			$cadena = $cadena . '<option value="' . $city['idcity'] . '">' . $city['name_city'] . '</option>';
+			$cadena = $cadena . '<option value="' . $city['id_city'] . '">' . $city['name_city'] . '</option>';
 		}
-		echo $cadena . "</select>";
+		echo $cadena ;
 		return true;
 	}
 

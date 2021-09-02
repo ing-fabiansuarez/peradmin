@@ -24,7 +24,7 @@
             url: "<?= base_url() . route_to('ajax_html_cities') ?>",
             data: "department=" + $("#select_department").val(),
             success: function(r) {
-                $("#cities").html(r);
+                $("#cities_select").html(r);
             },
         });
     }
@@ -78,27 +78,31 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label>Fecha de Producci&oacute;n</label>
-                                            <input type="date" class="form-control" min="<?= date("Y-m-d") ?>">
+                                            <input value="<?= old('date_production') ?>" name="date_production" type="date" class="form-control" min="<?= date("Y-m-d") ?>" required>
+                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.date_production') ?></p>
                                         </div>
                                         <div class="form-group">
                                             <label>Linea de Producci&oacute;n</label>
-                                            <select class="form-control">
+                                            <select name="prodution_line" class="form-control" required>
                                                 <?php foreach ($productionline as $line) : ?>
                                                     <option value="<?= $line['id_productionline'] ?>"><?= $line['name_productionline'] ?></option>
                                                 <?php endforeach; ?>
                                             </select>
+                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.prodution_line') ?></p>
                                         </div>
                                         <div class="form-group">
                                             <label>Tipo de pedido</label>
-                                            <select class="form-control">
+                                            <select name="type_order" class="form-control" required>
                                                 <?php foreach ($typeorder as $type) : ?>
                                                     <option value="<?= $type['id_typeoforder'] ?>"><?= $type['name_typeoforder'] ?></option>
                                                 <?php endforeach; ?>
                                             </select>
+                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.type_order') ?></p>
                                         </div>
                                         <div class="form-group">
                                             <label>Informaci&oacute;n Rotulo</label>
-                                            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                            <textarea value="<?= old('observation_order') ?>" name="observation_order" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.observation_order') ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -109,15 +113,16 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label>Transportadora</label>
-                                            <select class="form-control">
+                                            <select name="transporter_order" class="form-control" required>
                                                 <?php foreach ($transporters as $row) : ?>
                                                     <option value="<?= $row['id_transporter'] ?>"><?= $row['name_transporter'] ?></option>
                                                 <?php endforeach; ?>
                                             </select>
+                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.transporter_order') ?></p>
                                         </div>
                                         <div class="form-group">
                                             <label>Departamento</label>
-                                            <select id="select_department" class="form-control">
+                                            <select id="select_department" class="form-control" required>
                                                 <?php foreach ($departments as $row) : ?>
                                                     <option value="<?= $row['id_department'] ?>"><?= $row['name_department'] ?></option>
                                                 <?php endforeach; ?>
@@ -125,27 +130,29 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Ciudad</label>
-                                            <select class="form-control">
-                                                <div id="cities">
-
-                                                </div>
+                                            <select name="city_order" id="cities_select" class='form-control' required>
                                             </select>
+                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.city_order') ?></p>
                                         </div>
                                         <div class="form-group">
                                             <label>Barrio</label>
-                                            <input type="text" class="form-control">
+                                            <input value="<?= old('neighborhood_order') ?>" name="neighborhood_order" type="text" class="form-control" required>
+                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.neighborhood_order') ?></p>
                                         </div>
                                         <div class="form-group">
                                             <label>Direcci&oacute;n</label>
-                                            <input type="text" class="form-control">
+                                            <input value="<?= old('adress_order') ?>" name="adress_order" type="text" class="form-control" required>
+                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.adress_order') ?></p>
                                         </div>
                                         <div class="form-group">
                                             <label>WhatsApp</label>
-                                            <input type="text" class="form-control">
+                                            <input min="1000000000" max="9999999999" value="<?= old('whatsapp_order') ?>" name="whatsapp_order" type="number" class="form-control" required>
+                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.whatsapp_order') ?></p>
                                         </div>
                                         <div class="form-group">
                                             <label>Correo Electr&oacute;nico</label>
-                                            <input type="text" class="form-control">
+                                            <input value="<?= old('email_order') ?>" name="email_order" type="email" class="form-control" required>
+                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.email_order') ?></p>
                                         </div>
                                     </div>
                                 </div>

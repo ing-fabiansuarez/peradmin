@@ -65,7 +65,7 @@ class Validation
 			]
 		],
 		'date_employee'    => [
-			'rules'  => 'required|valid_date[Y-m-d]',
+			'rules'  => 'required|valid_date[dd/mm/Y]',
 			'errors' => [
 				'required' => 'La fecha es requerida.',
 				'valid_date' => 'Por favor ingresa una fecha valida.'
@@ -203,6 +203,74 @@ class Validation
 			'errors' => [
 				'required' => 'El apellido es requerida.',
 				'alpha_numeric_space' => 'Hay caracteres que no son validos.'
+			]
+		],
+	];
+
+	public $newOrder = [
+		'date_production' => [
+			'rules'  => 'required|valid_date[Y-m-d]',
+			'errors' => [
+				'required' => 'Fecha requerida.',
+				'valid_date' => 'Fecha invalida.',
+			]
+		],
+		'prodution_line'    => [
+			'rules'  => 'required|is_not_unique[production_line.id_productionline]',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'is_not_unique' => 'No exite la linea de producción.'
+			]
+		],
+		'type_order'    => [
+			'rules'  => 'required|is_not_unique[type_of_order.id_typeoforder]',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'is_not_unique' => 'No exite el tipo de pedido.'
+			]
+		],
+		'transporter_order'    => [
+			'rules'  => 'required|is_not_unique[transporter.id_transporter]',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'is_not_unique' => 'No exite la transportadora.'
+			]
+		],
+		'city_order'    => [
+			'rules'  => 'required|is_not_unique[city.id_city]',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'is_not_unique' => 'No exite la ciudad.'
+			]
+		],
+		'neighborhood_order'    => [
+			'rules'  => 'required|alpha_numeric_punct',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'alpha_numeric_punct' => 'Hay caracteres que no son validos.'
+			]
+		],
+		'adress_order'    => [
+			'rules'  => 'required|alpha_numeric_punct',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'alpha_numeric_punct' => 'Hay caracteres que no son validos.'
+			]
+		],
+		'whatsapp_order'    => [
+			'rules'  => 'required|is_natural|max_length[10]|min_length[10]',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'max_length' => 'Debe contener 10 caracteres.',
+				'min_length' => 'Debe contener 10 caracteres.',
+				'is_natural' => 'Solo se aceptan números naturales'
+			]
+		],
+		'email_order'    => [
+			'rules'  => 'required|valid_email',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'valid_email' => 'Es un correo invalido.'
 			]
 		],
 	];
