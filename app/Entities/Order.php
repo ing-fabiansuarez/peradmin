@@ -2,6 +2,8 @@
 
 namespace App\Entities;
 
+use App\Models\CustomerModel;
+use App\Models\EmployeeModel;
 use App\Models\InfoAdressModel;
 use CodeIgniter\Entity\Entity;
 
@@ -25,5 +27,24 @@ class Order extends Entity
             'home_infoadress' => $homeadress
         ]);
         return $this;
+    }
+
+    public function getCreatedByNameComplete()
+    {
+        $mdlEmployee = new EmployeeModel();
+        $employee = $mdlEmployee->find($this->created_by_order);
+        return $employee->name_employee . ' ' . $employee->surname_employee;
+    }
+
+    public function getCustomer()
+    {
+        $mdlCustomer = new CustomerModel();
+        return $mdlCustomer->find($this->customer_id);
+    }
+
+    public function getInfoAdress()
+    {
+        $mdlInfoAdress = new InfoAdressModel();
+        return $mdlInfoAdress->find($this->info_adress_id);
     }
 }

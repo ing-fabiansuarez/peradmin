@@ -39,7 +39,11 @@ class Order extends BaseController
             if (!$order = $this->mdlOrder->find(session('order_loaded'))) {
                 $customer = null;
             } else {
-                return view('contents/order/order_loaded', []);
+                return view('contents/order/order_loaded', [
+                    'customer' => $order->getCustomer(),
+                    'order' => $order,
+                    'infoadress' => $order->getInfoAdress()
+                ]);
             }
         } else if (!empty(session('customer_new_order'))) {
             if (!$customer = $this->mdlCustomer->find(session('customer_new_order'))) {
