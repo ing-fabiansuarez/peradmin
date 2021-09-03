@@ -14,6 +14,11 @@ a:hover {
 .form-control {
   padding: 0rem 0.75rem;
   color: black;
+  height: calc(2rem + 2px);
+}
+.custom-select{
+  height: calc(2rem + 2px);
+  padding: 0rem 1.75rem 0rem .75rem;
 }
 
 .card-verdepera {

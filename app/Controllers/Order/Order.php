@@ -8,6 +8,7 @@ use App\Models\CustomerModel;
 use App\Models\DepartmentModel;
 use App\Models\OrderModel;
 use App\Models\ProductionlineModel;
+use App\Models\ProductModel;
 use App\Models\TransporterModel;
 use App\Models\TypeidentificationModel;
 use App\Models\TypeorderModel;
@@ -23,6 +24,7 @@ class Order extends BaseController
         $this->mdlTypeOrder = new TypeorderModel();
         $this->mdlDepartment = new DepartmentModel();
         $this->mdlTransporter = new TransporterModel();
+        $this->mdlProduct = new ProductModel();
         $this->mdlOrder = new OrderModel();
         $this->typeidentification = new TypeidentificationModel();
         $this->rulesvalidation = \Config\Services::validation();
@@ -42,7 +44,8 @@ class Order extends BaseController
                 return view('contents/order/order_loaded', [
                     'customer' => $order->getCustomer(),
                     'order' => $order,
-                    'infoadress' => $order->getInfoAdress()
+                    'infoadress' => $order->getInfoAdress(),
+                    'products' => $this->mdlProduct->where('active',1)->findAll()
                 ]);
             }
         } else if (!empty(session('customer_new_order'))) {
@@ -91,7 +94,6 @@ class Order extends BaseController
         $newOrder->fill([
             'id_order' => time(),
             'date_production' => $this->request->getPost('date_production'),
-            'production_line_id' => $this->request->getPost('prodution_line'),
             'type_of_order_id' => $this->request->getPost('type_order'),
             'customer_id' => session()->get('customer_new_order'),
             'info_order' => $this->request->getPost('observation_order'),

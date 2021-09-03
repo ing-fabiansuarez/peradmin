@@ -70,6 +70,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->get('jobtitles', 'Ajax::ajaxJobtitlesHtml', ['as' => 'ajax_html_jobtitles']);
 		$routes->add('permissions/(:segment)', 'Ajax::ajaxPermissionBy/$1', ['as' => 'ajax_permissionsby']);
 		$routes->post('htmlcities', 'Ajax::ajaxHtmlCities', ['as' => 'ajax_html_cities']);
+		$routes->post('htmlsizes', 'Ajax::ajaxHtmlSizes', ['as' => 'ajax_html_sizes']);
 	});
 
 	//el administrador viejo

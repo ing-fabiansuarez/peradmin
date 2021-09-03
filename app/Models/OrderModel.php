@@ -16,7 +16,6 @@ class OrderModel extends Model
     protected $allowedFields = [
         'id_order',
         'date_production',
-        'production_line_id',
         'type_of_order_id',
         'info_adress_id',
         'customer_id',

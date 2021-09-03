@@ -7,6 +7,7 @@ use App\Models\CityModel;
 use App\Models\EmployeeModel;
 use App\Models\JobtitleModel;
 use App\Models\PermissionModel;
+use App\Models\SizeModel;
 
 class Ajax extends BaseController
 {
@@ -15,6 +16,7 @@ class Ajax extends BaseController
 		$this->mdlJobtitle = new JobtitleModel();
 		$this->mdlEmployee = new EmployeeModel();
 		$this->modelCity = new CityModel();
+		$this->mdlSize = new SizeModel();
 	}
 	public function ajaxJobtitlesHtml()
 	{
@@ -63,7 +65,19 @@ class Ajax extends BaseController
 		foreach ($cities as $city) {
 			$cadena = $cadena . '<option value="' . $city['id_city'] . '">' . $city['name_city'] . '</option>';
 		}
-		echo $cadena ;
+		echo $cadena;
+		return true;
+	}
+	public function	ajaxHtmlSizes()
+	{
+		$query = $this->mdlSize->where('product_id', $this->request->getPostGet('product'))->orderBy('name_size', 'ASC')->findAll();
+		$cadena = "
+        <option value=''>* Tallas</option>
+        ";
+		foreach ($query as $row) {
+			$cadena = $cadena . '<option value="' . $row['id_size'] . '">' . $row['name_size'] . '</option>';
+		}
+		echo $cadena;
 		return true;
 	}
 
