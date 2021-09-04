@@ -7,6 +7,7 @@ use App\Models\CityModel;
 use App\Models\EmployeeModel;
 use App\Models\JobtitleModel;
 use App\Models\PermissionModel;
+use App\Models\ReferenceModel;
 use App\Models\SizeModel;
 
 class Ajax extends BaseController
@@ -17,6 +18,7 @@ class Ajax extends BaseController
 		$this->mdlEmployee = new EmployeeModel();
 		$this->modelCity = new CityModel();
 		$this->mdlSize = new SizeModel();
+		$this->mdlReference = new ReferenceModel();
 	}
 	public function ajaxJobtitlesHtml()
 	{
@@ -94,5 +96,18 @@ class Ajax extends BaseController
 			return;
 		}
 		return json_encode($employee->getPermissions());
+	}
+
+	public function ajaxHtmlReferences()
+	{
+		$query = $this->mdlReference->where('product_id', $this->request->getPostGet('product'))->orderBy('num_reference', 'ASC')->findAll();
+		$cadena = "
+        <option value=''>* Referencias</option>
+        ";
+		foreach ($query as $row) {
+			$cadena = $cadena . '<option value="' . $row['num_reference'] . '">' . $row['num_reference'] . ' - ' . $row['name_reference'] . '</option>';
+		}
+		echo $cadena;
+		return true;
 	}
 }

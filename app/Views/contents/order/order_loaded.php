@@ -13,7 +13,9 @@
 <script>
     $(document).ready(function() {
         loadsizes();
+        loadreferences();
         $("#select_product").change(function() {
+            loadreferences();
             loadsizes();
         });
     });
@@ -25,6 +27,17 @@
             data: "product=" + $("#select_product").val(),
             success: function(r) {
                 $("#select_sizes").html(r);
+            },
+        });
+    }
+
+    function loadreferences() {
+        $.ajax({
+            type: "post",
+            url: "<?= base_url() . route_to('ajax_html_references') ?>",
+            data: "product=" + $("#select_product").val(),
+            success: function(r) {
+                $("#select_references").html(r);
             },
         });
     }
@@ -159,7 +172,9 @@
                         </div>
                         <div class="form-group">
                             <label>Referencia</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Num Referencia">
+                            <select id="select_references" class="custom-select">
+
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Tallas</label>
