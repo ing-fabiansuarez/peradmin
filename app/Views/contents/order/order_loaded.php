@@ -14,9 +14,11 @@
     $(document).ready(function() {
         loadsizes();
         loadreferences();
+        loadobservations();
         $("#select_product").change(function() {
             loadreferences();
             loadsizes();
+            loadobservations();
         });
     });
 
@@ -38,6 +40,17 @@
             data: "product=" + $("#select_product").val(),
             success: function(r) {
                 $("#select_references").html(r);
+            },
+        });
+    }
+
+    function loadobservations() {
+        $.ajax({
+            type: "post",
+            url: "<?= base_url() . route_to('ajax_html_observations') ?>",
+            data: "product=" + $("#select_product").val(),
+            success: function(r) {
+                $("#div_observation").html(r);
             },
         });
     }
@@ -181,6 +194,9 @@
                             <select id="select_sizes" class="custom-select">
 
                             </select>
+                        </div>
+                        <div id="div_observation">
+
                         </div>
                         <div class="form-group">
                             <label>Catidad</label>

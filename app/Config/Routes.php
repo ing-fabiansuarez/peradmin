@@ -72,6 +72,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->post('htmlcities', 'Ajax::ajaxHtmlCities', ['as' => 'ajax_html_cities']);
 		$routes->post('htmlsizes', 'Ajax::ajaxHtmlSizes', ['as' => 'ajax_html_sizes']);
 		$routes->post('htmlreferences', 'Ajax::ajaxHtmlReferences', ['as' => 'ajax_html_references']);
+		$routes->post('htmlobservation', 'Ajax::ajaxHtmlObsevation', ['as' => 'ajax_html_observations']);
 	});
 
 	//el administrador viejo

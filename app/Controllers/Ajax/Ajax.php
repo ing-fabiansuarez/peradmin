@@ -110,4 +110,24 @@ class Ajax extends BaseController
 		echo $cadena;
 		return true;
 	}
+
+	public function ajaxHtmlObsevation()
+	{
+		if ($this->request->getPostGet('product') == 1 || $this->request->getPostGet('product') == 2 || $this->request->getPostGet('product') == 3) {
+			$cadena =
+				"
+					<div class='form-group'>
+                        <label>Observación</label>
+						<select id='select_product' class='custom-select'>
+							<option value=''>* Ninguna</option>
+							<option value=''>Con empeine</option>
+							<option value=''>Con bastante empeine</option>
+							<option value=''>Pie delgado</option>
+						</select>
+					</div>
+				";
+			echo $cadena;
+		}
+		return;
+	}
 }
