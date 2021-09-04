@@ -45,7 +45,7 @@ class Order extends BaseController
                     'customer' => $order->getCustomer(),
                     'order' => $order,
                     'infoadress' => $order->getInfoAdress(),
-                    'products' => $this->mdlProduct->where('active',1)->findAll()
+                    'products' => $this->mdlProduct->where('active', 1)->findAll()
                 ]);
             }
         } else if (!empty(session('customer_new_order'))) {
@@ -132,5 +132,25 @@ class Order extends BaseController
     {
         session()->remove('customer_new_order');
         return redirect()->to(base_url() . route_to('view_order'));
+    }
+
+    public function add_product()
+    {
+        //validacion de permisos del sistema
+        if (!$this->mdlPermission->hasPermission(15)) {
+            return view('permission/donthavepermission');
+        }
+        //validar los datos del formulario
+        /* if (!($this->validate(
+            $this->rulesvalidation->getRuleGroup('newOrder')
+        ))) {
+            return redirect()->to(base_url() . route_to('view_order'))->with('input_order', $this->validator->getErrors())->withInput();
+        } */
+        echo "vamos agregadno";
+        $reference_num = 0;
+        $reference_product_id = 0;
+        $observation = 0;
+        $pricesale_detailorder = 0;
+        $size_id = 0;
     }
 }

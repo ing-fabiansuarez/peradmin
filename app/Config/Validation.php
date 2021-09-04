@@ -274,4 +274,35 @@ class Validation
 			]
 		],
 	];
+
+	public $newDetailOrder = [
+		'product_id' => [
+			'rules'  => 'required|valid_date[Y-m-d]',
+			'errors' => [
+				'required' => 'Fecha requerida.',
+				'valid_date' => 'Fecha invalida.',
+			]
+		],
+		'reference_id'    => [
+			'rules'  => 'required|is_not_unique[production_line.id_productionline]',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'is_not_unique' => 'No exite la linea de producción.'
+			]
+		],
+		'size_id'    => [
+			'rules'  => 'required|is_not_unique[type_of_order.id_typeoforder]',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'is_not_unique' => 'No exite el tipo de pedido.'
+			]
+		],
+		'quantity'    => [
+			'rules'  => 'required|is_not_unique[transporter.id_transporter]',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'is_not_unique' => 'No exite la transportadora.'
+			]
+		],
+	];
 }
