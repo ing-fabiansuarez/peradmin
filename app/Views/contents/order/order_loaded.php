@@ -131,8 +131,16 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
+
                 <a href="<?= base_url() . route_to('clean_customer') ?>" type="button" class="btn btn-block btn-outline-dark btn-lg">LIMPIAR PANTALLA</a>
                 <br>
+                <?php if (!empty(session('msg'))) : ?>
+                    <div class="alert <?= session('msg.class') ?> alert-dismissible col-md-12">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h5><?= session('msg.icon') ?><?= session('msg.title') ?></h5>
+                        <?= session('msg.body') ?>
+                    </div>
+                <?php endif; ?>
                 <div class="card card-primary collapsed-card">
                     <div class="card-header">
                         <h3 class="card-title">Cliente</h3>
@@ -352,11 +360,14 @@
                                                 <td><?= $row['name_product'] ?><br><?= $row['observation'] ?></td>
                                                 <td><?= $row['reference_num'] ?> - <?= $row['name_reference'] ?></td>
                                                 <td><?= $row['name_size'] ?></td>
-                                                <td><?= $row['pricesale_detailorder'] ?></td>
+                                                <td>$ <?= number_format($row['pricesale_detailorder']) ?></td>
                                                 <td>
-                                                    <button id="btn_delete_employee" type="button" class="btn bg-delete">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
+                                                    <form action="" method="post">
+                                                        <input type="hidden" name="id_detail_order" value="<?= $row['id_detailorder'] ?>">
+                                                        <button id="btn_delete_employee" type="submit" class="btn bg-delete">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

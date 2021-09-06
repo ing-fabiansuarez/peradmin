@@ -137,10 +137,6 @@ class Order extends BaseController
 
     public function add_product()
     {
-        //validacion de permisos del sistema
-        if (!$this->mdlPermission->hasPermission(15)) {
-            return view('permission/donthavepermission');
-        }
         //validar los datos del formulario
         if (!($this->validate(
             $this->rulesvalidation->getRuleGroup('newDetailOrder')
@@ -148,6 +144,19 @@ class Order extends BaseController
             return redirect()->to(base_url() . route_to('view_order'))->with('input_details', $this->validator->getErrors())->withInput();
         }
         $order = $this->mdlOrder->find($this->request->getPost('id_order'));
+
+        //validar si es el dueño del pedido
+        if (session('cedula_employee') != $order->created_by_order) {
+            if (!$this->mdlPermission->hasPermission(16)) {
+                return redirect()->back()->with('msg', [
+                    'icon' => '<i class="icon fas fa-exclamation-triangle"></i>',
+                    'class' => 'alert-warning',
+                    'title' => 'Alerta!',
+                    'body' => 'No puedes modificar este pedido, este pedido no es tuyo.'
+                ]);
+            }
+        }
+
         $reference_num = $this->request->getPost('reference_id');
         $product_id = $this->request->getPost('product_id');
         $observation = $this->request->getPost('observation');
@@ -161,5 +170,18 @@ class Order extends BaseController
             $order->addDetail($product_id, $reference_num, $observation, $size_id, $price);
         }
         return redirect()->to(base_url() . route_to('view_order'));
+    }
+
+    public function deleteDetailProduct()
+    {
+        //validar los datos del formulario
+        if (!($this->validate(
+            $this->rulesvalidation->getRuleGroup('newDetailOrder')
+        ))) {
+            return redirect()->to(base_url() . route_to('view_order'))->with('input_details', $this->validator->getErrors())->withInput();
+        }
+
+
+        VAMOS AQUI
     }
 }
