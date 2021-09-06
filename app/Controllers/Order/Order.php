@@ -15,7 +15,6 @@ use App\Models\TypeorderModel;
 
 class Order extends BaseController
 {
-
     public function __construct()
     {
         //inicializacion de los modelos
@@ -45,7 +44,8 @@ class Order extends BaseController
                     'customer' => $order->getCustomer(),
                     'order' => $order,
                     'infoadress' => $order->getInfoAdress(),
-                    'products' => $this->mdlProduct->where('active', 1)->findAll()
+                    'products' => $this->mdlProduct->where('active', 1)->findAll(),
+                    'detail_of_order' => $order->getDetailList()
                 ]);
             }
         } else if (!empty(session('customer_new_order'))) {
@@ -141,16 +141,24 @@ class Order extends BaseController
             return view('permission/donthavepermission');
         }
         //validar los datos del formulario
-        /* if (!($this->validate(
-            $this->rulesvalidation->getRuleGroup('newOrder')
+        if (!($this->validate(
+            $this->rulesvalidation->getRuleGroup('newDetailOrder')
         ))) {
-            return redirect()->to(base_url() . route_to('view_order'))->with('input_order', $this->validator->getErrors())->withInput();
-        } */
-        echo "vamos agregadno";
-        $reference_num = 0;
-        $reference_product_id = 0;
-        $observation = 0;
-        $pricesale_detailorder = 0;
-        $size_id = 0;
+            return redirect()->to(base_url() . route_to('view_order'))->with('input_details', $this->validator->getErrors())->withInput();
+        }
+        $order = $this->mdlOrder->find($this->request->getPost('id_order'));
+        $reference_num = $this->request->getPost('reference_id');
+        $product_id = $this->request->getPost('product_id');
+        $observation = $this->request->getPost('observation');
+        if ($observation == '') {
+            $observation = null;
+        }
+        $size_id = $this->request->getPost('size_id');
+        $quantity = $this->request->getPost('quantity');
+        $price = $this->request->getPost('precio');
+        for ($i = 0; $i <  $quantity; $i++) {
+            $order->addDetail($product_id, $reference_num, $observation, $size_id,$price); 
+        }
+        return redirect()->to(base_url() . route_to('view_order'));
     }
 }

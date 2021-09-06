@@ -277,31 +277,38 @@ class Validation
 
 	public $newDetailOrder = [
 		'product_id' => [
-			'rules'  => 'required|valid_date[Y-m-d]',
+			'rules'  => 'required|is_not_unique[product.id_product]',
 			'errors' => [
-				'required' => 'Fecha requerida.',
-				'valid_date' => 'Fecha invalida.',
+				'required' => 'Es requerida.',
+				'is_not_unique' => 'No exite.',
 			]
 		],
 		'reference_id'    => [
-			'rules'  => 'required|is_not_unique[production_line.id_productionline]',
+			'rules'  => 'required|is_not_unique[reference.num_reference]',
 			'errors' => [
-				'required' => 'Es requerido.',
-				'is_not_unique' => 'No exite la linea de producción.'
+				'required' => 'Es requerida.',
+				'is_not_unique' => 'No exite.',
 			]
 		],
 		'size_id'    => [
-			'rules'  => 'required|is_not_unique[type_of_order.id_typeoforder]',
+			'rules'  => 'required|is_not_unique[size.id_size]',
 			'errors' => [
-				'required' => 'Es requerido.',
-				'is_not_unique' => 'No exite el tipo de pedido.'
+				'required' => 'Es requerida.',
+				'is_not_unique' => 'No exite.',
 			]
 		],
 		'quantity'    => [
-			'rules'  => 'required|is_not_unique[transporter.id_transporter]',
+			'rules'  => 'required|is_natural',
 			'errors' => [
-				'required' => 'Es requerido.',
-				'is_not_unique' => 'No exite la transportadora.'
+				'required' => 'Es requerida.',
+				'is_natural' => 'Debe se un número positivo entero.',
+			]
+		],
+		'precio'    => [
+			'rules'  => 'required|decimal',
+			'errors' => [
+				'required' => 'Es requerida.',
+				'decimal' => 'Debe se un número positivo entero.',
 			]
 		],
 	];

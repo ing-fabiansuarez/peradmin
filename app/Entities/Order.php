@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Models\CustomerModel;
+use App\Models\DetailorderModel;
 use App\Models\EmployeeModel;
 use App\Models\InfoAdressModel;
 use CodeIgniter\Entity\Entity;
@@ -10,9 +11,11 @@ use CodeIgniter\Entity\Entity;
 class Order extends Entity
 {
     protected $dates = ['created_at_order'];
+    private $mdlDetailOrder;
 
     public function __construct()
     {
+        $this->mdlDetailOrder = new DetailorderModel();
     }
 
     public function setInfoAdress($transporter, $city, $whtapp, $email, $neighborhood, $homeadress)
@@ -46,5 +49,28 @@ class Order extends Entity
     {
         $mdlInfoAdress = new InfoAdressModel();
         return $mdlInfoAdress->find($this->info_adress_id);
+    }
+
+    public function addDetail($product_id, $reference, $observation, $size_id, $price)
+    {
+        return $this->mdlDetailOrder->insert([
+            'order_id' => $this->attributes['id_order'],
+            'reference_num' => $reference,
+            'reference_product_id' => $product_id,
+            'observation' => $observation,
+            'pricesale_detailorder' => $price,
+            'size_id' => $size_id
+        ]);
+    }
+
+    public function getDetailList()
+    {
+        return $this->mdlDetailOrder->db->table('detailorder')
+            ->select('*')
+            ->join('product', 'detailorder.reference_product_id = product.id_product')
+            ->join('reference', 'detailorder.reference_num = reference.num_reference AND detailorder.reference_product_id = reference.product_id')
+            ->join('size', 'detailorder.size_id = size.id_size')
+            ->where('detailorder.order_id', $this->id_order)
+            ->get()->getResultArray();
     }
 }

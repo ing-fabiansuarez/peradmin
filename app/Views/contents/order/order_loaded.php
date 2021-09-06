@@ -49,10 +49,12 @@
         loadsizes();
         loadreferences();
         loadobservations();
+        setPrice();
         $("#select_product").change(function() {
             loadreferences();
             loadsizes();
             loadobservations();
+            setPrice();
         });
     });
 
@@ -85,6 +87,20 @@
             data: "product=" + $("#select_product").val(),
             success: function(r) {
                 $("#div_observation").html(r);
+            },
+        });
+    }
+
+    function setPrice() {
+        $.ajax({
+            type: "post",
+            url: "<?= base_url() . route_to('ajax_price_product') ?>",
+            data: {
+                product: $("#select_product").val(),
+                type_order: <?= $order->type_of_order_id ?>
+            },
+            success: function(r) {
+                $("#input_price").val(r);
             },
         });
     }
@@ -206,95 +222,133 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="<?= base_url() . route_to('add_product_order') ?>" method="post">
-                            <div class="form-group">
-                                <label>Producto</label>
-                                <select name="product_id" id="select_product" class="custom-select">
-                                    <?php foreach ($products as $row) : ?>
-                                        <option value="<?= $row['id_product'] ?>"><?= $row['name_product'] ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Referencia</label>
-                                <select name="reference_id" id="select_references" class="custom-select">
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="info-box bg-headerordermayor">
+                        <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
 
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Tallas</label>
-                                <select name="size_id" id="select_sizes" class="custom-select">
+                        <div class="info-box-content">
+                            <span class="info-box-text"><b>PEDIDO AL MAYOR</b></span>
+                            <span class="info-box-number">41,410</span>
 
-                                </select>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 100%"></div>
                             </div>
-                            <div id="div_observation">
-                            </div>
-                            <div class="form-group">
-                                <label>Catidad</label>
-                                <select name="quantity" class="custom-select">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                    <option>11</option>
-                                    <option>12</option>
-                                    <option>13</option>
-                                    <option>14</option>
-                                    <option>15</option>
-                                    <option>16</option>
-                                    <option>17</option>
-                                    <option>17</option>
-                                    <option>19</option>
-                                    <option>20</option>
-                                    <option>30</option>
-                                    <option>50</option>
-                                    <option>100</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-block btn-secondary btn-sm">AGREGAR</button>
-                        </form>
+                            <span class="progress-description">
+                                70% Increase in 30 Days
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
                     </div>
                 </div>
-            </div>
-            <div class="col-md-7">
-                <div class="card card-secondary">
-                    <div class="card-header">
-                        <h3 class="card-title">Detalle del pedido</h3>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="<?= base_url() . route_to('add_product_order') ?>" method="post">
+                                    <input type="hidden" name="id_order" value="<?= $order->id_order ?>">
+                                    <div class="form-group">
+                                        <label>Producto</label>
+                                        <select name="product_id" id="select_product" class="custom-select">
+                                            <?php foreach ($products as $row) : ?>
+                                                <option value="<?= $row['id_product'] ?>"><?= $row['name_product'] ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.product_id') ?></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Referencia</label>
+                                        <select name="reference_id" id="select_references" class="custom-select">
+                                        </select>
+                                        <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.reference_id') ?></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tallas</label>
+                                        <select name="size_id" id="select_sizes" class="custom-select">
+                                        </select>
+                                        <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.size_id') ?></p>
+                                    </div>
+                                    <div id="div_observation">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Cantidad</label>
+                                        <select name="quantity" class="custom-select">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="30">30</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                        <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.quantity') ?></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Precio</label>
+                                        <input id="input_price" name="precio" type="number" class="form-control" placeholder="$">
+                                        <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.precio') ?></p>
+                                    </div>
+                                    <button type="submit" class="btn btn-block btn-secondary btn-sm">AGREGAR</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <table id="detail_order_table" class="table table-hover text-nowrap">
-                            <thead>
-                                <tr>
-                                    <th>N</th>
-                                    <th>Producto</th>
-                                    <th>Referencia</th>
-                                    <th>Talla</th>
-                                    <th>Observaci&oacute;n</th>
-                                    <th>Precio</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="col-md-9">
+                        <div class="card card-secondary">
+                            <div class="card-header">
+                                <h3 class="card-title">Detalle del pedido</h3>
+                            </div>
+                            <div class="card-body">
+                                <table id="detail_order_table" class="table table-hover text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>N°</th>
+                                            <th>Producto</th>
+                                            <th>Referencia</th>
+                                            <th>Talla</th>
+                                            <th>Precio</th>
+                                            <th></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $counter = 0;
+                                        foreach ($detail_of_order as $row) :
+                                            $counter += 1; ?>
+                                            <tr>
+                                                <td><?= $counter ?></td>
+                                                <td><?= $row['name_product'] ?><br><?= $row['observation'] ?></td>
+                                                <td><?= $row['reference_num'] ?> - <?= $row['name_reference'] ?></td>
+                                                <td><?= $row['name_size'] ?></td>
+                                                <td><?= $row['pricesale_detailorder'] ?></td>
+                                                <td>
+                                                    <button id="btn_delete_employee" type="button" class="btn bg-delete">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

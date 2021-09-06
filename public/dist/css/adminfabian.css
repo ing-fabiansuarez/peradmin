@@ -16,9 +16,9 @@ a:hover {
   color: black;
   height: calc(2rem + 2px);
 }
-.custom-select{
+.custom-select {
   height: calc(2rem + 2px);
-  padding: 0rem 1.75rem 0rem .75rem;
+  padding: 0rem 1.75rem 0rem 0.75rem;
 }
 
 .card-verdepera {
@@ -189,6 +189,10 @@ a:hover {
 
 .bg-corporative {
   background-color: #76b119 !important;
+  color: #fff;
+}
+.bg-headerordermayor {
+  background-color: #3194d6  !important;
   color: #fff;
 }
 .bg-delete {

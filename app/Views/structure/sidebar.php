@@ -18,7 +18,7 @@
 			<div class="input-group" data-widget="sidebar-search">
 				<input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
 				<div class="input-group-append">
-					<button class="btn btn-sidebar">
+					<button style="font-size:0.8rem" class="btn btn-sidebar">
 						<i class="fas fa-search fa-fw"></i>
 					</button>
 				</div>
@@ -42,7 +42,7 @@
 					<a href="<?= base_url() . route_to('view_order') ?>" class="nav-link">
 						<i class="nav-icon fas fa-plus-square"></i>
 						<p>
-							Crear
+							Ingresar
 						</p>
 					</a>
 				</li>

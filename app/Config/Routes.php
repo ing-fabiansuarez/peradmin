@@ -74,6 +74,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->post('htmlsizes', 'Ajax::ajaxHtmlSizes', ['as' => 'ajax_html_sizes']);
 		$routes->post('htmlreferences', 'Ajax::ajaxHtmlReferences', ['as' => 'ajax_html_references']);
 		$routes->post('htmlobservation', 'Ajax::ajaxHtmlObsevation', ['as' => 'ajax_html_observations']);
+		$routes->post('price', 'Ajax::ajaxPriceProduct', ['as' => 'ajax_price_product']);
 	});
 
 	//el administrador viejo

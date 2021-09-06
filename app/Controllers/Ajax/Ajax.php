@@ -7,6 +7,7 @@ use App\Models\CityModel;
 use App\Models\EmployeeModel;
 use App\Models\JobtitleModel;
 use App\Models\PermissionModel;
+use App\Models\PriceModel;
 use App\Models\ReferenceModel;
 use App\Models\SizeModel;
 
@@ -19,6 +20,7 @@ class Ajax extends BaseController
 		$this->modelCity = new CityModel();
 		$this->mdlSize = new SizeModel();
 		$this->mdlReference = new ReferenceModel();
+		$this->mdlPrice = new PriceModel();
 	}
 	public function ajaxJobtitlesHtml()
 	{
@@ -118,16 +120,24 @@ class Ajax extends BaseController
 				"
 					<div class='form-group'>
                         <label>Observación</label>
-						<select id='select_product' class='custom-select'>
+						<select name='observation' id='select_product' class='custom-select'>
 							<option value=''>* Ninguna</option>
-							<option value=''>Con empeine</option>
-							<option value=''>Con bastante empeine</option>
-							<option value=''>Pie delgado</option>
+							<option value='un empeine'>Con empeine</option>
+							<option value='doble empeine'>Con bastante empeine</option>
+							<option value='pie delgado'>Pie delgado</option>
 						</select>
 					</div>
 				";
-			echo $cadena;
+		} else {
+			$cadena = '<input type="hidden" name="observation" value="">';
 		}
+		echo $cadena;
+		return;
+	}
+
+	public function ajaxPriceProduct()
+	{
+		echo $this->mdlPrice->select('unit_price')->where('product_id_product', $this->request->getPostGet('product'))->where('type_of_order_id_typeoforder', $this->request->getPostGet('type_order'))->first()['unit_price'];
 		return;
 	}
 }
