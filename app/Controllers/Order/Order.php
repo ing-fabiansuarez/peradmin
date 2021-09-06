@@ -131,6 +131,7 @@ class Order extends BaseController
     public function clean_customer()
     {
         session()->remove('customer_new_order');
+        session()->remove('order_loaded');
         return redirect()->to(base_url() . route_to('view_order'));
     }
 
@@ -157,7 +158,7 @@ class Order extends BaseController
         $quantity = $this->request->getPost('quantity');
         $price = $this->request->getPost('precio');
         for ($i = 0; $i <  $quantity; $i++) {
-            $order->addDetail($product_id, $reference_num, $observation, $size_id,$price); 
+            $order->addDetail($product_id, $reference_num, $observation, $size_id, $price);
         }
         return redirect()->to(base_url() . route_to('view_order'));
     }

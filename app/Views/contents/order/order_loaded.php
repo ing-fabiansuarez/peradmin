@@ -21,9 +21,9 @@
 <script>
     $(document).ready(function() {
         tableDetailOrder = $("#detail_order_table").DataTable({
-            "order": [
-                [4, "desc"]
-            ],
+            /* "order": [
+                [1, "desc"]
+            ], */
             responsive: true,
             language: {
                 "decimal": "",
@@ -131,7 +131,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <button type="button" class="btn btn-block btn-default btn-lg">LIMPIAR PANTALLA</button>
+                <a href="<?= base_url() . route_to('clean_customer') ?>" type="button" class="btn btn-block btn-outline-dark btn-lg">LIMPIAR PANTALLA</a>
                 <br>
                 <div class="card card-primary collapsed-card">
                     <div class="card-header">
@@ -228,14 +228,14 @@
                         <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text"><b>PEDIDO AL MAYOR</b></span>
-                            <span class="info-box-number">41,410</span>
+                            <span class="info-box-text"><b>PEDIDO AL <?= $order->getTypeOrder()['name_typeoforder'] ?></b></span>
+                            <span class="info-box-number">Pedido a nombre de <?= $order->getCustomer()->name_customer ?> <?= $order->getCustomer()->surname_customer ?></span>
 
                             <div class="progress">
                                 <div class="progress-bar" style="width: 100%"></div>
                             </div>
                             <span class="progress-description">
-                                70% Increase in 30 Days
+                                Por el total de $ <b><?= number_format(55000) ?></b>
                             </span>
                         </div>
                         <!-- /.info-box-content -->
@@ -310,6 +310,22 @@
                         </div>
                     </div>
                     <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <button type="button" class="btn btn-block btn-outline-success btn-sm">Pasar a producci&oacute;n</button>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="button" class="btn btn-block btn-outline-success btn-sm">Generar PDF</button>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="button" class="btn btn-block btn-outline-success btn-sm">Generar R&oacute;tulo</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="card card-secondary">
                             <div class="card-header">
                                 <h3 class="card-title">Detalle del pedido</h3>

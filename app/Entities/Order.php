@@ -6,6 +6,7 @@ use App\Models\CustomerModel;
 use App\Models\DetailorderModel;
 use App\Models\EmployeeModel;
 use App\Models\InfoAdressModel;
+use App\Models\TypeorderModel;
 use CodeIgniter\Entity\Entity;
 
 class Order extends Entity
@@ -72,5 +73,11 @@ class Order extends Entity
             ->join('size', 'detailorder.size_id = size.id_size')
             ->where('detailorder.order_id', $this->id_order)
             ->get()->getResultArray();
+    }
+
+    public function getTypeOrder()
+    {
+        $this->mdlTypeOrder = new TypeorderModel();
+        return $this->mdlTypeOrder->find($this->type_of_order_id);
     }
 }
