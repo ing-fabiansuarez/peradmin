@@ -79,6 +79,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->post('htmlreferences', 'Ajax::ajaxHtmlReferences', ['as' => 'ajax_html_references']);
 		$routes->post('htmlobservation', 'Ajax::ajaxHtmlObsevation', ['as' => 'ajax_html_observations']);
 		$routes->post('price', 'Ajax::ajaxPriceProduct', ['as' => 'ajax_price_product']);
+		$routes->post('getlastadress/(:segment)', 'Ajax::getLastAdress/$1', ['as' => 'ajax_get_last_adress']);
 	});
 
 	//el administrador viejo

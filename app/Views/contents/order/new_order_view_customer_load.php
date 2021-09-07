@@ -13,9 +13,11 @@
 <script>
     $(document).ready(function() {
         reloadcities();
+        loadlastinformation();
         $("#select_department").change(function() {
             reloadcities();
         });
+
     });
 
     function reloadcities() {
@@ -25,6 +27,31 @@
             data: "department=" + $("#select_department").val(),
             success: function(r) {
                 $("#cities_select").html(r);
+            },
+        });
+    }
+
+    function loadlastinformation() {
+        $.ajax({
+            type: "post",
+            url: "<?= base_url() . route_to('ajax_get_last_adress', $customer->id_customer) ?>",
+            dataType: 'json',
+            success: function(r) {
+                if (r != null) {
+                    $("#select_department option[value='" + r['department_id'] + "']").attr("selected", true);
+                    $("#type_order_select option[value='" + r['type_of_order_id'] + "']").attr("selected", true);
+                    $("#input_neighborhood").val(r['neighborhood_infoadress']);
+                    $("#input_adress").val(r['home_infoadress']);
+                    $("#input_whatsapp").val(r['whatsapp_infoadress']);
+                    $("#input_email").val(r['email_infoadress']);
+                    $("#select_trasporter option[value='" + r['id_transporter'] + "']").attr("selected", true);
+                    reloadcities();
+                    $("#cities_select option[value='" + r['id_city'] + "']").attr("selected", true);
+                    console.log(r);
+                } else {
+                    console.log('no tiene pedidos anteriores');
+                }
+
             },
         });
     }
@@ -76,10 +103,9 @@
                             <div class="col-md-4">
                                 <div class="card">
                                     <div class="card-body">
-                                       
                                         <div class="form-group">
                                             <label>Tipo de pedido</label>
-                                            <select name="type_order" class="form-control" required>
+                                            <select id="type_order_select" name="type_order" class="form-control" required>
                                                 <?php foreach ($typeorder as $type) : ?>
                                                     <option value="<?= $type['id_typeoforder'] ?>"><?= $type['name_typeoforder'] ?></option>
                                                 <?php endforeach; ?>
@@ -100,7 +126,7 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label>Transportadora</label>
-                                            <select name="transporter_order" class="form-control" required>
+                                            <select id="select_trasporter" name="transporter_order" class="form-control" required>
                                                 <?php foreach ($transporters as $row) : ?>
                                                     <option value="<?= $row['id_transporter'] ?>"><?= $row['name_transporter'] ?></option>
                                                 <?php endforeach; ?>
@@ -123,22 +149,22 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Barrio</label>
-                                            <input value="<?= old('neighborhood_order') ?>" name="neighborhood_order" type="text" class="form-control" required>
+                                            <input id="input_neighborhood" value="<?= old('neighborhood_order') ?>" name="neighborhood_order" type="text" class="form-control" required>
                                             <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.neighborhood_order') ?></p>
                                         </div>
                                         <div class="form-group">
                                             <label>Direcci&oacute;n</label>
-                                            <input value="<?= old('adress_order') ?>" name="adress_order" type="text" class="form-control" required>
+                                            <input id="input_adress" value="<?= old('adress_order') ?>" name="adress_order" type="text" class="form-control" required>
                                             <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.adress_order') ?></p>
                                         </div>
                                         <div class="form-group">
                                             <label>WhatsApp</label>
-                                            <input min="1000000000" max="9999999999" value="<?= old('whatsapp_order') ?>" name="whatsapp_order" type="number" class="form-control" required>
+                                            <input id="input_whatsapp" min="1000000000" max="9999999999" value="<?= old('whatsapp_order') ?>" name="whatsapp_order" type="number" class="form-control" required>
                                             <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.whatsapp_order') ?></p>
                                         </div>
                                         <div class="form-group">
                                             <label>Correo Electr&oacute;nico</label>
-                                            <input value="<?= old('email_order') ?>" name="email_order" type="email" class="form-control" required>
+                                            <input id="input_email" value="<?= old('email_order') ?>" name="email_order" type="email" class="form-control" required>
                                             <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.email_order') ?></p>
                                         </div>
                                     </div>

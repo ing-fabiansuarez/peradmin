@@ -4,6 +4,7 @@ namespace App\Controllers\Ajax;
 
 use App\Controllers\BaseController;
 use App\Models\CityModel;
+use App\Models\CustomerModel;
 use App\Models\EmployeeModel;
 use App\Models\JobtitleModel;
 use App\Models\PermissionModel;
@@ -21,6 +22,7 @@ class Ajax extends BaseController
 		$this->mdlSize = new SizeModel();
 		$this->mdlReference = new ReferenceModel();
 		$this->mdlPrice = new PriceModel();
+		$this->mdlCustomer = new CustomerModel();
 	}
 	public function ajaxJobtitlesHtml()
 	{
@@ -137,7 +139,21 @@ class Ajax extends BaseController
 
 	public function ajaxPriceProduct()
 	{
-		echo $this->mdlPrice->select('unit_price')->where('product_id_product', $this->request->getPostGet('product'))->where('type_of_order_id_typeoforder', $this->request->getPostGet('type_order'))->first()['unit_price'];
+		if (!$price = $this->mdlPrice->select('unit_price')->where('product_id_product', $this->request->getPostGet('product'))->where('type_of_order_id_typeoforder', $this->request->getPostGet('type_order'))->first()) {
+			echo 0;
+			return;
+		}
+		echo $price['unit_price'];
+		return;
+	}
+
+	public function getLastAdress($id_customer)
+	{
+		if (!$customer = $this->mdlCustomer->find($id_customer)) {
+			echo 'null';
+			return;
+		}
+		echo json_encode($customer->getLastAdress());
 		return;
 	}
 }
