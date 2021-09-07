@@ -356,14 +356,15 @@
                                         foreach ($detail_of_order as $row) :
                                             $counter += 1; ?>
                                             <tr>
-                                                <td><?= $counter ?></td>
+                                                <td><b><?= $counter ?> .</b></td>
                                                 <td><?= $row['name_product'] ?><br><?= $row['observation'] ?></td>
                                                 <td><?= $row['reference_num'] ?> - <?= $row['name_reference'] ?></td>
                                                 <td><?= $row['name_size'] ?></td>
                                                 <td>$ <?= number_format($row['pricesale_detailorder']) ?></td>
                                                 <td>
-                                                    <form action="" method="post">
+                                                    <form action="<?= base_url() . route_to('delete_detail_order') ?>" method="post">
                                                         <input type="hidden" name="id_detail_order" value="<?= $row['id_detailorder'] ?>">
+                                                        <input type="hidden" name="id_order" value="<?= $order->id_order ?>">
                                                         <button id="btn_delete_employee" type="submit" class="btn bg-delete">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>

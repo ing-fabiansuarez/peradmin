@@ -312,4 +312,21 @@ class Validation
 			]
 		],
 	];
+
+	public $deleteItemOrder = [
+		'id_detail_order' => [
+			'rules'  => 'required|is_not_unique[detailorder.id_detailorder]',
+			'errors' => [
+				'required' => 'Es requerida.',
+				'is_not_unique' => 'No exite.',
+			]
+		],
+		'id_order' => [
+			'rules'  => 'required|is_not_unique[order.id_order]',
+			'errors' => [
+				'required' => 'Es requerida.',
+				'is_not_unique' => 'No exite.',
+			]
+		],
+	];
 }

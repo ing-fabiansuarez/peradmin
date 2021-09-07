@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Entities\Order as EntitiesOrder;
 use App\Models\CustomerModel;
 use App\Models\DepartmentModel;
+use App\Models\DetailorderModel;
 use App\Models\OrderModel;
 use App\Models\ProductionlineModel;
 use App\Models\ProductModel;
@@ -25,6 +26,7 @@ class Order extends BaseController
         $this->mdlTransporter = new TransporterModel();
         $this->mdlProduct = new ProductModel();
         $this->mdlOrder = new OrderModel();
+        $this->mdlDetailOrder = new DetailorderModel();
         $this->typeidentification = new TypeidentificationModel();
         $this->rulesvalidation = \Config\Services::validation();
     }
@@ -176,12 +178,33 @@ class Order extends BaseController
     {
         //validar los datos del formulario
         if (!($this->validate(
-            $this->rulesvalidation->getRuleGroup('newDetailOrder')
+            $this->rulesvalidation->getRuleGroup('deleteItemOrder')
         ))) {
-            return redirect()->to(base_url() . route_to('view_order'))->with('input_details', $this->validator->getErrors())->withInput();
+            return redirect()->back()->with('msg', [
+                'icon' => '<i class="icon fas fa-exclamation-triangle"></i>',
+                'class' => 'alert-warning',
+                'title' => 'Alerta!',
+                'body' => 'El id es invalido o no existe.'
+            ]);
         }
-
-
-        VAMOS AQUI
+        $order = $this->mdlOrder->find($this->request->getPost('id_order'));
+        //validar si es el dueño del pedido
+        if (session('cedula_employee') != $order->created_by_order) {
+            if (!$this->mdlPermission->hasPermission(16)) {
+                return redirect()->back()->with('msg', [
+                    'icon' => '<i class="icon fas fa-exclamation-triangle"></i>',
+                    'class' => 'alert-warning',
+                    'title' => 'Alerta!',
+                    'body' => 'No puedes modificar este pedido, este pedido no es tuyo.'
+                ]);
+            }
+        }
+        $this->mdlDetailOrder->where('id_detailorder', $this->request->getPost('id_detail_order'))->delete();
+        return redirect()->to(base_url() . route_to('view_order'))->with('msg', [
+            'icon' => '<i class="icon fas fa-check"></i>',
+            'class' => 'alert-success',
+            'title' => 'Eliminado!',
+            'body' => 'Se elimino el producto.'
+        ]);
     }
 }

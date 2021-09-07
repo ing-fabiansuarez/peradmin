@@ -59,6 +59,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->get('cleancustomer', 'Order::clean_customer', ['as' => 'clean_customer']);
 		$routes->post('crear', 'Order::create_order', ['as' => 'create_order']);
 		$routes->post('addproducto', 'Order::add_product', ['as' => 'add_product_order']);
+		$routes->post('deleteitem', 'Order::deleteDetailProduct', ['as' => 'delete_detail_order']);
 	});
 
 	//cliente
