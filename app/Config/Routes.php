@@ -65,6 +65,11 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->get('cargarsesionpedido/(:segment)', 'Order::loadSessionOrder/$1', ['as' => 'load_session_order']);
 	});
 
+	//production
+	$routes->group('produccion', ['namespace' => 'App\Controllers\Production', 'filter' => 'auth'], function ($routes) {
+		$routes->get('', 'Production::index', ['as' => 'view_production']);
+	});
+
 	//cliente
 	$routes->group('cliente', ['namespace' => 'App\Controllers\Order', 'filter' => 'auth'], function ($routes) {
 		$routes->post('crear/(:num)', 'Customer::crud/$1', ['as' => 'create_customer']);

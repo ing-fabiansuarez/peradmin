@@ -322,13 +322,13 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <button type="button" class="btn btn-block btn-outline-success btn-sm">Pasar a producci&oacute;n</button>
+                                        <button type="button" class="btn btn-block btn-outline-danger btn-sm">Pasar a producci&oacute;n</button>
                                     </div>
                                     <div class="col-md-4">
                                         <button type="button" class="btn btn-block btn-outline-success btn-sm">Generar PDF</button>
                                     </div>
                                     <div class="col-md-4">
-                                        <button type="button" class="btn btn-block btn-outline-success btn-sm">Generar R&oacute;tulo</button>
+                                        <button type="button" class="btn btn-block btn-outline-warning btn-sm">Generar R&oacute;tulo</button>
                                     </div>
                                 </div>
                             </div>

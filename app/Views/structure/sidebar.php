@@ -55,6 +55,17 @@
 					</a>
 				</li>
 
+				<li class="nav-header">PRODUCCION</li>
+
+				<li class="nav-item">
+					<a href="<?= base_url() . route_to('view_production') ?>" class="nav-link">
+						<i class="nav-icon fas fa-sort-amount-down-alt"></i>
+						<p>
+							Producci&oacute;n
+						</p>
+					</a>
+				</li>
+
 				<li class="nav-header">PERMISOS SISTEMA</li>
 
 				<li class="nav-item">
