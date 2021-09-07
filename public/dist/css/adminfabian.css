@@ -191,9 +191,10 @@ a:hover {
   background-color: #76b119 !important;
   color: #fff;
 }
-.bg-headerordermayor {
-  background-color: #3194d6  !important;
-  color: #fff;
+.bg-headerorder {
+  background-color: #0000009c !important;
+  color: rgb(255, 255, 255);
+border-color: #000;
 }
 .bg-delete {
   background-color: #df2525f5 !important;

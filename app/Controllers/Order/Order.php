@@ -207,4 +207,42 @@ class Order extends BaseController
             'body' => 'Se elimino el producto.'
         ]);
     }
+
+    public function view_search_order()
+    {
+        return view('contents/order/view_to_load_order');
+    }
+
+    public function viewResultSearch()
+    {
+        //validar los datos del formulario
+        if (!($this->validate(
+            $this->rulesvalidation->getRuleGroup('loadOrder')
+        ))) {
+            return redirect()->to(base_url() . route_to('view_load_order'))->with('input_error', $this->validator->getErrors())->withInput();
+        }
+        $customer = $this->mdlCustomer->where('numberidenti_customer', $this->request->getPost('cedula'))->first();
+        $bulkOrder = $customer->getOrderByTypeOrder(1);
+        $detailOrder = $customer->getOrderByTypeOrder(2);
+
+        return view('contents/order/view_result_research', [
+            'customer' => $customer,
+            'bulkOrder' => $bulkOrder,
+            'detailOrder' => $detailOrder
+        ]);
+    }
+
+    public function loadSessionOrder($id_order)
+    {
+        session()->remove('customer_new_order');
+        session()->remove('order_loaded');
+        $order = $this->mdlOrder->find($id_order);
+        session()->set([
+            'customer_new_order' => $order->customer_id,
+        ]);
+        session()->set([
+            'order_loaded' => $order->id_order,
+        ]);
+        return redirect()->to(base_url() . route_to('view_order'));
+    }
 }

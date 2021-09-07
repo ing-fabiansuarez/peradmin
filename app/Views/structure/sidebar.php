@@ -46,6 +46,14 @@
 						</p>
 					</a>
 				</li>
+				<li class="nav-item">
+					<a href="<?= base_url() . route_to('view_load_order') ?>" class="nav-link">
+						<i class="nav-icon fas fa-search"></i>
+						<p>
+							Cargar Pedido
+						</p>
+					</a>
+				</li>
 
 				<li class="nav-header">PERMISOS SISTEMA</li>
 

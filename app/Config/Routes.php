@@ -60,6 +60,9 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->post('crear', 'Order::create_order', ['as' => 'create_order']);
 		$routes->post('addproducto', 'Order::add_product', ['as' => 'add_product_order']);
 		$routes->post('deleteitem', 'Order::deleteDetailProduct', ['as' => 'delete_detail_order']);
+		$routes->get('cargar', 'Order::view_search_order', ['as' => 'view_load_order']);
+		$routes->post('cargar', 'Order::viewResultSearch', ['as' => 'view_result_search_order']);
+		$routes->get('cargarsesionpedido/(:segment)', 'Order::loadSessionOrder/$1', ['as' => 'load_session_order']);
 	});
 
 	//cliente

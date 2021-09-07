@@ -232,7 +232,7 @@
             </div>
             <div class="col-md-9">
                 <div class="row">
-                    <div class="info-box bg-headerordermayor">
+                    <div class="info-box bg-headerorder">
                         <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
 
                         <div class="info-box-content">

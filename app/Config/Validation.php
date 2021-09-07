@@ -65,7 +65,7 @@ class Validation
 			]
 		],
 		'date_employee'    => [
-			'rules'  => 'required|valid_date[dd/mm/Y]',
+			'rules'  => 'required|valid_date[Y-m-d]',
 			'errors' => [
 				'required' => 'La fecha es requerida.',
 				'valid_date' => 'Por favor ingresa una fecha valida.'
@@ -326,6 +326,16 @@ class Validation
 			'errors' => [
 				'required' => 'Es requerida.',
 				'is_not_unique' => 'No exite.',
+			]
+		],
+	];
+
+	public $loadOrder = [
+		'cedula' => [
+			'rules'  => 'required|is_not_unique[customer.numberidenti_customer]',
+			'errors' => [
+				'required' => 'Es requerida.',
+				'is_not_unique' => 'No existe el cliente.',
 			]
 		],
 	];
