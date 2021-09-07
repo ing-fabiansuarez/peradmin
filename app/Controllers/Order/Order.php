@@ -95,7 +95,6 @@ class Order extends BaseController
         $newOrder = new EntitiesOrder();
         $newOrder->fill([
             'id_order' => time(),
-            'date_production' => $this->request->getPost('date_production'),
             'type_of_order_id' => $this->request->getPost('type_order'),
             'customer_id' => session()->get('customer_new_order'),
             'info_order' => $this->request->getPost('observation_order'),

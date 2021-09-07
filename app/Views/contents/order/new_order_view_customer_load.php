@@ -76,20 +76,7 @@
                             <div class="col-md-4">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="form-group">
-                                            <label>Fecha de Producci&oacute;n</label>
-                                            <input value="<?= old('date_production') ?>" name="date_production" type="date" class="form-control" min="<?= date("Y-m-d") ?>" required>
-                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.date_production') ?></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Linea de Producci&oacute;n</label>
-                                            <select name="prodution_line" class="form-control" required>
-                                                <?php foreach ($productionline as $line) : ?>
-                                                    <option value="<?= $line['id_productionline'] ?>"><?= $line['name_productionline'] ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.prodution_line') ?></p>
-                                        </div>
+                                       
                                         <div class="form-group">
                                             <label>Tipo de pedido</label>
                                             <select name="type_order" class="form-control" required>

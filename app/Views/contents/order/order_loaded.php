@@ -236,7 +236,7 @@
                         <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text"><b>PEDIDO AL <?= $order->getTypeOrder()['name_typeoforder'] ?></b></span>
+                            <span class="info-box-text"><b>PEDIDO AL <?= $order->getTypeOrder()['name_typeoforder'] ?></b> ====> N° <?= $order->id_order ?></span>
                             <span class="info-box-number">Pedido a nombre de <?= $order->getCustomer()->name_customer ?> <?= $order->getCustomer()->surname_customer ?></span>
 
                             <div class="progress">

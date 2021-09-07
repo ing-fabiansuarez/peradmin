@@ -207,21 +207,7 @@ class Validation
 		],
 	];
 
-	public $newOrder = [
-		'date_production' => [
-			'rules'  => 'required|valid_date[Y-m-d]',
-			'errors' => [
-				'required' => 'Fecha requerida.',
-				'valid_date' => 'Fecha invalida.',
-			]
-		],
-		'prodution_line'    => [
-			'rules'  => 'required|is_not_unique[production_line.id_productionline]',
-			'errors' => [
-				'required' => 'Es requerido.',
-				'is_not_unique' => 'No exite la linea de producción.'
-			]
-		],
+	public $newOrder = [ 
 		'type_order'    => [
 			'rules'  => 'required|is_not_unique[type_of_order.id_typeoforder]',
 			'errors' => [
