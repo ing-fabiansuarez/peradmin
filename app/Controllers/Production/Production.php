@@ -4,7 +4,6 @@ namespace App\Controllers\Production;
 
 use App\Controllers\BaseController;
 
-
 class Production extends BaseController
 {
     public function __construct()
@@ -16,7 +15,10 @@ class Production extends BaseController
     public function index()
     {
         return view('contents/production/view_production');
+    }
 
-        vamos aqui
+    public function viewDayProduction($date, $typeorder, $lineproduction)
+    {
+        
     }
 }
