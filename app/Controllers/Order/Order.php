@@ -42,6 +42,7 @@ class Order extends BaseController
             if (!$order = $this->mdlOrder->find(session('order_loaded'))) {
                 $customer = null;
             } else {
+                $order->isProduction();
                 return view('contents/order/order_loaded', [
                     'customer' => $order->getCustomer(),
                     'order' => $order,

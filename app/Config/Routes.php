@@ -68,6 +68,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	//production
 	$routes->group('produccion', ['namespace' => 'App\Controllers\Production', 'filter' => 'auth'], function ($routes) {
 		$routes->get('', 'Production::index', ['as' => 'view_production']);
+		$routes->post('goproduction/(:segment)', 'Production::goToProduction/$1', ['as' => 'go_to_production']);
 		$routes->get('ver/(:segment)/(:segment)/(:segment)', 'Production::viewDayProduction/$1/$2/$3', ['as' => 'view_day_production']);
 	});
 

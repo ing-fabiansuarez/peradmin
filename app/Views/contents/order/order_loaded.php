@@ -251,83 +251,92 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <form action="<?= base_url() . route_to('add_product_order') ?>" method="post">
-                                    <input type="hidden" name="id_order" value="<?= $order->id_order ?>">
-                                    <div class="form-group">
-                                        <label>Producto</label>
-                                        <select name="product_id" id="select_product" class="custom-select">
-                                            <?php foreach ($products as $row) : ?>
-                                                <option value="<?= $row['id_product'] ?>"><?= $row['name_product'] ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.product_id') ?></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Referencia</label>
-                                        <select name="reference_id" id="select_references" class="custom-select">
-                                        </select>
-                                        <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.reference_id') ?></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Tallas</label>
-                                        <select name="size_id" id="select_sizes" class="custom-select">
-                                        </select>
-                                        <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.size_id') ?></p>
-                                    </div>
-                                    <div id="div_observation">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Cantidad</label>
-                                        <select name="quantity" class="custom-select">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                            <option value="11">11</option>
-                                            <option value="12">12</option>
-                                            <option value="13">13</option>
-                                            <option value="14">14</option>
-                                            <option value="15">15</option>
-                                            <option value="16">16</option>
-                                            <option value="17">17</option>
-                                            <option value="18">18</option>
-                                            <option value="19">19</option>
-                                            <option value="20">20</option>
-                                            <option value="30">30</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select>
-                                        <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.quantity') ?></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Precio</label>
-                                        <input id="input_price" name="precio" type="number" class="form-control" placeholder="$">
-                                        <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.precio') ?></p>
-                                    </div>
-                                    <button type="submit" class="btn btn-block btn-secondary btn-sm">AGREGAR</button>
-                                </form>
+                        <?php if (!$order->isProduction()) : ?>
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="<?= base_url() . route_to('add_product_order') ?>" method="post">
+                                        <input type="hidden" name="id_order" value="<?= $order->id_order ?>">
+                                        <div class="form-group">
+                                            <label>Producto</label>
+                                            <select name="product_id" id="select_product" class="custom-select">
+                                                <?php foreach ($products as $row) : ?>
+                                                    <option value="<?= $row['id_product'] ?>"><?= $row['name_product'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.product_id') ?></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Referencia</label>
+                                            <select name="reference_id" id="select_references" class="custom-select">
+                                            </select>
+                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.reference_id') ?></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tallas</label>
+                                            <select name="size_id" id="select_sizes" class="custom-select">
+                                            </select>
+                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.size_id') ?></p>
+                                        </div>
+                                        <div id="div_observation">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Cantidad</label>
+                                            <select name="quantity" class="custom-select">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                                <option value="16">16</option>
+                                                <option value="17">17</option>
+                                                <option value="18">18</option>
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                                <option value="30">30</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>
+                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.quantity') ?></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Precio</label>
+                                            <input id="input_price" name="precio" type="number" class="form-control" placeholder="$">
+                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.precio') ?></p>
+                                        </div>
+                                        <button type="submit" class="btn btn-block btn-secondary btn-sm">AGREGAR</button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
+                        <?php else : ?>
+                            <div class="alert alert-danger alert-dismissible">
+                                <h5><i class="icon fas fa-ban"></i> Pedido en producción!</h5>
+                                El pedido ya esta en producci&oacute;n
+                            </div>
+                        <?php endif ?>
                     </div>
                     <div class="col-md-9">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <button type="button" class="btn btn-block btn-outline-danger btn-sm">Pasar a producci&oacute;n</button>
-                                    </div>
-                                    <div class="col-md-4">
+                                    <?php if (!$order->isProduction()) : ?>
+                                        <div class="col-md">
+                                            <button data-toggle="modal" data-target="#modalDateProduction" type="button" class="btn btn-block btn-outline-danger btn-sm">Pasar a producci&oacute;n</button>
+                                        </div>
+                                    <?php endif ?>
+                                    <div class="col-md">
                                         <button type="button" class="btn btn-block btn-outline-success btn-sm">Generar PDF</button>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md">
                                         <button type="button" class="btn btn-block btn-outline-warning btn-sm">Generar R&oacute;tulo</button>
                                     </div>
                                 </div>
@@ -362,13 +371,15 @@
                                                 <td><?= $row['name_size'] ?></td>
                                                 <td>$ <?= number_format($row['pricesale_detailorder']) ?></td>
                                                 <td>
-                                                    <form action="<?= base_url() . route_to('delete_detail_order') ?>" method="post">
-                                                        <input type="hidden" name="id_detail_order" value="<?= $row['id_detailorder'] ?>">
-                                                        <input type="hidden" name="id_order" value="<?= $order->id_order ?>">
-                                                        <button id="btn_delete_employee" type="submit" class="btn bg-delete">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </button>
-                                                    </form>
+                                                    <?php if (!$order->isProduction()) : ?>
+                                                        <form action="<?= base_url() . route_to('delete_detail_order') ?>" method="post">
+                                                            <input type="hidden" name="id_detail_order" value="<?= $row['id_detailorder'] ?>">
+                                                            <input type="hidden" name="id_order" value="<?= $order->id_order ?>">
+                                                            <button id="btn_delete_employee" type="submit" class="btn bg-delete">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </form>
+                                                    <?php endif ?>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -379,6 +390,39 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalDateProduction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #f4f6f9;">
+                <form action="<?= base_url() . route_to('go_to_production', $order->id_order) ?>" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Generar Formatos de Producci&oacute;n</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <?php foreach ($order->getLineProductions() as $row) : ?>
+                            <div class="card">
+                                <div class="card-body">
+                                    Se generar el Formato de producci&oacute;n para <?= $row['name_productionline'] ?>
+                                    <div class="form-group">
+                                        <label>Fecha de <?= $row['name_productionline'] ?></label>
+                                        <input name="<?= $row['id_productionline'] ?>" type="date" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach ?>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Pasar a Producci&oacute;n</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

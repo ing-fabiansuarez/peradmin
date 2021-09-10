@@ -6,17 +6,21 @@ use App\Models\CustomerModel;
 use App\Models\DetailorderModel;
 use App\Models\EmployeeModel;
 use App\Models\InfoAdressModel;
+use App\Models\ProductionFormatModel;
+use App\Models\ProductionlineModel;
 use App\Models\TypeorderModel;
 use CodeIgniter\Entity\Entity;
 
 class Order extends Entity
 {
     protected $dates = ['created_at_order'];
-    private $mdlDetailOrder;
+    private $mdlDetailOrder, $mdlLineProduction, $mdlProductionFormat;
 
     public function __construct()
     {
         $this->mdlDetailOrder = new DetailorderModel();
+        $this->mdlLineProduction = new ProductionlineModel();
+        $this->mdlProductionFormat = new ProductionFormatModel();
     }
 
     public function setInfoAdress($transporter, $city, $whtapp, $email, $neighborhood, $homeadress)
@@ -75,9 +79,44 @@ class Order extends Entity
             ->get()->getResultArray();
     }
 
+    public  function getLineProductions()
+    {
+        $arrayResult = array();
+        foreach ($this->mdlLineProduction->findAll() as $row) {
+            if ($this->mdlDetailOrder->db->table('detailorder')
+                ->select('*')
+                ->join('product', 'detailorder.reference_product_id = product.id_product')
+                ->where('detailorder.order_id', $this->id_order)
+                ->where('product.production_line_id', $row['id_productionline'])
+                ->get()->getFirstRow()
+            ) {
+                array_push($arrayResult, $row);
+            }
+        }
+        return $arrayResult;
+    }
+
     public function getTypeOrder()
     {
         $this->mdlTypeOrder = new TypeorderModel();
         return $this->mdlTypeOrder->find($this->type_of_order_id);
+    }
+
+    public function genereteProductionFormat($id_lineProduction, $dateProduction)
+    {
+        return $this->mdlProductionFormat->insert([
+            'order_id_order' => $this->id_order,
+            'production_line_id_productionline' => $id_lineProduction,
+            'date_production' => $dateProduction,
+            'print' => 0
+        ]);
+    }
+
+    public function isProduction()
+    {
+        if(!$this->mdlProductionFormat->where('order_id_order', $this->id_order)->findAll()){
+            return false;
+        }
+        return true;
     }
 }
