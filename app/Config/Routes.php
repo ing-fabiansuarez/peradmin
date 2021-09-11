@@ -63,6 +63,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->get('cargar', 'Order::view_search_order', ['as' => 'view_load_order']);
 		$routes->post('cargar', 'Order::viewResultSearch', ['as' => 'view_result_search_order']);
 		$routes->get('cargarsesionpedido/(:segment)', 'Order::loadSessionOrder/$1', ['as' => 'load_session_order']);
+		$routes->get('noestaenproduccion', 'Order::view_orderIsnotProduction', ['as' => 'view_orders_isnot_production']);
 	});
 
 	//production

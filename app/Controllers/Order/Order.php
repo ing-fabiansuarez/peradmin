@@ -245,4 +245,10 @@ class Order extends BaseController
         ]);
         return redirect()->to(base_url() . route_to('view_order'));
     }
+
+    public function view_orderIsnotProduction()
+    {
+        
+        return view('contents/order/view_order_isnot_production');
+    }
 }
