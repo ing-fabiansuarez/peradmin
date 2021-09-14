@@ -46,11 +46,9 @@
                         <div class="form-group">
                             <label>Linea de Producci&oacute;n</label>
                             <select class="form-control">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
-                                <option>option 5</option>
+                                <?php foreach ($lineproduction as $line) : ?>
+                                    <option value="<?= $line['id_productionline'] ?>"><?= $line['name_productionline'] ?></option>
+                                <?php endforeach ?>
                             </select>
                         </div>
                         <button type="button" class="btn btn-block btn-dark btn-sm">Ver dia de Producci&oacute;n</button>
@@ -68,11 +66,9 @@
                         <div class="form-group">
                             <label>Linea de Producci&oacute;n</label>
                             <select class="form-control">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
-                                <option>option 5</option>
+                                <?php foreach ($lineproduction as $line) : ?>
+                                    <option value="<?= $line['id_productionline'] ?>"><?= $line['name_productionline'] ?></option>
+                                <?php endforeach ?>
                             </select>
                         </div>
                         <button type="button" class="btn btn-block btn-dark btn-sm">Ver dia de Producci&oacute;n</button>
@@ -80,43 +76,55 @@
                 </div>
             </div>
             <div class="col-md-8">
-
-
-                <div class="card card-success shadow-sm">
+                <div class="card card-secondary">
                     <div class="card-header">
-                        <h3 class="card-title">ALPARGATAS</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
+                        <h3 class="card-title">IMPRESI&Oacute;N DE LISTAS</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="card card-success shadow-sm">
+                            <div class="card-header">
+                                <h3 class="card-title">ALPARGATAS</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10px">#</th>
+                                            <th>Pedido</th>
+                                            <th>Cliente</th>
+                                            <th style="width: 40px">Acci&oacute;n</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>Update software</td>
+                                            <td>
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge bg-danger">55%</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-body p-0">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th style="width: 10px">#</th>
-                                    <th>Pedido</th>
-                                    <th>Cliente</th>
-                                    <th style="width: 40px">Acci&oacute;n</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>Update software</td>
-                                    <td>
-                                        <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge bg-danger">55%</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
 
+            </div>
+            <div class="col-md-8">
+                <?= $this->include('contents/production/view_order_isnot_production'); ?>
             </div>
         </div>
     </div>

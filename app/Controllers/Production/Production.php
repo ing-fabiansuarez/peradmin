@@ -4,6 +4,7 @@ namespace App\Controllers\Production;
 
 use App\Controllers\BaseController;
 use App\Models\OrderModel;
+use App\Models\ProductionlineModel;
 
 class Production extends BaseController
 {
@@ -12,11 +13,15 @@ class Production extends BaseController
         //inicializacion de los modelos
         $this->rulesvalidation = \Config\Services::validation();
         $this->mdlOrder = new OrderModel();
+        $this->mdlLineProduction = new ProductionlineModel();
     }
 
     public function index()
     {
-        return view('contents/production/view_production');
+
+        return view('contents/production/view_production', [
+            'lineproduction' => $this->mdlLineProduction->findAll()
+        ]);
     }
 
     public function viewDayProduction($date, $typeorder, $lineproduction)

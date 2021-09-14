@@ -54,14 +54,6 @@
 						</p>
 					</a>
 				</li>
-				<li class="nav-item">
-					<a href="<?= base_url() . route_to('view_orders_isnot_production') ?>" class="nav-link">
-						<i class="nav-icon far fa-window-close"></i>
-						<p>
-							Por pasar a producci&oacute;n
-						</p>
-					</a>
-				</li>
 
 				<li class="nav-header">PRODUCCION</li>
 
