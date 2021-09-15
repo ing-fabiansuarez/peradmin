@@ -4,6 +4,7 @@ namespace App\Controllers\Production;
 
 use App\Controllers\BaseController;
 use App\Models\OrderModel;
+use App\Models\ProductionFormatModel;
 use App\Models\ProductionlineModel;
 
 class Production extends BaseController
@@ -14,13 +15,22 @@ class Production extends BaseController
         $this->rulesvalidation = \Config\Services::validation();
         $this->mdlOrder = new OrderModel();
         $this->mdlLineProduction = new ProductionlineModel();
+        $this->mdlProductionFormat = new ProductionFormatModel();
     }
 
     public function index()
     {
-
+        dd($this->mdlOrder->getForPassProduction());
+        $arrayResult = array();
+        foreach ($lineproduction = $this->mdlLineProduction->findAll() as $line) {
+            array_push($arrayResult, [
+                'lineproduction' => $line,
+                'orders' => $this->mdlProductionFormat->where('production_line_id_productionline', $line['id_productionline'])->where('print', 0)->findAll(),
+            ]);
+        }
         return view('contents/production/view_production', [
-            'lineproduction' => $this->mdlLineProduction->findAll()
+            'arrayresult' => $arrayResult,
+            'lineproduction' => $lineproduction
         ]);
     }
 

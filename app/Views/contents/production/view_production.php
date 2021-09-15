@@ -81,40 +81,49 @@
                         <h3 class="card-title">IMPRESI&Oacute;N DE LISTAS</h3>
                     </div>
                     <div class="card-body">
-                        <div class="card card-success shadow-sm">
-                            <div class="card-header">
-                                <h3 class="card-title">ALPARGATAS</h3>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
+                        <?php foreach ($arrayresult as $row) : ?>
+                            <div class="card card-success shadow-sm">
+                                <div class="card-header">
+                                    <h3 class="card-title"><?= $row['lineproduction']['name_productionline'] ?></h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0 table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 10px">#</th>
+                                                <th>Pedido</th>
+                                                <th>N° Formato</th>
+                                                <th>Dia de producci&oacute;n</th>
+                                                <th style="width: 40px">Acci&oacute;n</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $contador = 0;
+                                            foreach ($row['orders'] as $format) : $contador += 1; ?>
+                                                <tr>
+                                                    <td><?= $contador ?>.</td>
+                                                    <td><b><?= $format['order_id_order'] ?></b></td>
+                                                    <td><?= $format['order_id_order'] . '-' . $row['lineproduction']['id_productionline'] ?></td>
+                                                    <td>
+                                                        <?= $format['date_production'] ?>
+                                                    </td>
+                                                    <td>
+                                                        <button id="btn_update_permissions" type="button" class="btn btn-app bg-yellow">
+                                                            <i class="fas fa-print"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach ?>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                            <div class="card-body p-0">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 10px">#</th>
-                                            <th>Pedido</th>
-                                            <th>Cliente</th>
-                                            <th style="width: 40px">Acci&oacute;n</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1.</td>
-                                            <td>Update software</td>
-                                            <td>
-                                                <div class="progress progress-xs">
-                                                    <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                                </div>
-                                            </td>
-                                            <td><span class="badge bg-danger">55%</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <?php endforeach ?>
                     </div>
                 </div>
             </div>
