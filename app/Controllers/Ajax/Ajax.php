@@ -7,6 +7,7 @@ use App\Models\CityModel;
 use App\Models\CustomerModel;
 use App\Models\EmployeeModel;
 use App\Models\JobtitleModel;
+use App\Models\OrderModel;
 use App\Models\PermissionModel;
 use App\Models\PriceModel;
 use App\Models\ReferenceModel;
@@ -23,6 +24,7 @@ class Ajax extends BaseController
 		$this->mdlReference = new ReferenceModel();
 		$this->mdlPrice = new PriceModel();
 		$this->mdlCustomer = new CustomerModel();
+		$this->mdlOrder = new OrderModel();
 	}
 	public function ajaxJobtitlesHtml()
 	{
@@ -155,5 +157,16 @@ class Ajax extends BaseController
 		}
 		echo json_encode($customer->getLastAdress());
 		return;
+	}
+
+	public function ajaxHtmlOrderAsesor($id_order)
+	{
+		if (!$order = $this->mdlOrder->find($id_order)) {
+			echo "ORDEN NO EXITE";
+			return;
+		}
+		return view('reports/view_print_order', [
+			'order' => $order
+		]);
 	}
 }
