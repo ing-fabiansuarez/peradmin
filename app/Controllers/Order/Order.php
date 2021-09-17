@@ -99,7 +99,8 @@ class Order extends BaseController
             'type_of_order_id' => $this->request->getPost('type_order'),
             'customer_id' => session()->get('customer_new_order'),
             'info_order' => $this->request->getPost('observation_order'),
-            'created_by_order' => session()->get('cedula_employee')
+            'created_by_order' => session()->get('cedula_employee'),
+            'inproduction_order' => 0
         ]);
         $newOrder->setInfoAdress($id_transporter, $id_city, $whatApp, $email, $neighborhood, $homeadress);
         $this->mdlOrder->insert($newOrder);

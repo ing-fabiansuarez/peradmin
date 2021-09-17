@@ -20,7 +20,8 @@ class OrderModel extends Model
         'customer_id',
         'info_order',
         'created_by_order',
-        'updated_at_order'
+        'updated_at_order',
+        'inproduction_order'
     ];
 
     protected $useTimestamps = true;
@@ -30,12 +31,4 @@ class OrderModel extends Model
     protected $validationRules    = [];
 
     protected $validationMessages = [];
-
-    public function getForPassProduction()
-    {
-        return $this->db->table('order')
-            ->select('*')
-            ->join('production_format', 'order.id_order = production_format.order_id_order', 'right')
-            ->get()->getResultArray();
-    }
 }

@@ -105,6 +105,24 @@
         });
     }
 </script>
+<script>
+    function imprimirElemento(elemento) {
+        var ventana = window.open('', 'PRINT', 'height=600,width=1000');
+        ventana.document.write('<html><head><title>' + document.title + '</title>');
+        ventana.document.write('</head><body >');
+        ventana.document.write(elemento.innerHTML);
+        ventana.document.write('</body></html>');
+        ventana.document.close();
+        ventana.focus();
+        ventana.print();
+        ventana.close();
+        return true;
+    }
+    document.querySelector("#btnImprimir").addEventListener("click", function() {
+        var div = document.querySelector("#imprimible");
+        imprimirElemento(div);
+    });
+</script>
 <?= $this->endSection() ?>
 
 <!-- ............................................CONTENIDO DE LA PAGINA................................................ -->
@@ -334,7 +352,7 @@
                                         </div>
                                     <?php endif ?>
                                     <div class="col-md">
-                                        <button type="button" class="btn btn-block btn-outline-success btn-sm">Generar PDF</button>
+                                        <button id="btnImprimir" type="button" class="btn btn-block btn-outline-success btn-sm">Generar PDF</button>
                                     </div>
                                     <div class="col-md">
                                         <button type="button" class="btn btn-block btn-outline-warning btn-sm">Generar R&oacute;tulo</button>
@@ -347,7 +365,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Detalle del pedido</h3>
                             </div>
-                            <div class="card-body">
+                            <div id="imprimible" class="card-body">
                                 <table id="detail_order_table" class="table table-hover text-nowrap">
                                     <thead>
                                         <tr>

@@ -20,7 +20,6 @@ class Production extends BaseController
 
     public function index()
     {
-        dd($this->mdlOrder->getForPassProduction());
         $arrayResult = array();
         foreach ($lineproduction = $this->mdlLineProduction->findAll() as $line) {
             array_push($arrayResult, [
@@ -30,7 +29,8 @@ class Production extends BaseController
         }
         return view('contents/production/view_production', [
             'arrayresult' => $arrayResult,
-            'lineproduction' => $lineproduction
+            'lineproduction' => $lineproduction,
+            'ordersbypassproduction' => $this->mdlOrder->where('inproduction_order', 0)->findAll()
         ]);
     }
 
@@ -56,11 +56,11 @@ class Production extends BaseController
                 ]);
             }
         }
-
+        $order->inproduction_order = 1;
         foreach ($this->request->getPost() as $key => $date) {
             $order->genereteProductionFormat($key, $date);
         }
-
+        $this->mdlOrder->save($order);
         return redirect()->to(base_url() . route_to('view_order'));
     }
 }
