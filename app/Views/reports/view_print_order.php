@@ -19,7 +19,7 @@
 
 </head>
 
-<body>
+<body style="font-size: 25px;">
 
     <div class="container-fluid">
 
@@ -28,112 +28,55 @@
                 <img src="<?= base_url() ?>/public/img/corporative/logo.png" class="img-fluid" alt="">
             </div>
             <div class="col-md-10">
+                <br>
+                <div class="text-center">
+                    <h1>FORMATO DE PRODUCCI&Oacute;N</h1>
+                </div>
                 <div class="card">
-                    <h5 class="card-header">
-                        Card title
-                    </h5>
                     <div class="card-body">
-                        <p class="card-text">
-                            Card content
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        Card footer
+                        <table class="table table-hover table-dark">
+                            <thead>
+                                <tr>
+                                    <th scope="row">CLIENTE:</th>
+                                    <td><?= $order->getCustomer()->name_customer . ' ' . $order->getCustomer()->surname_customer ?></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Telefono:</th>
+                                    <td><?= $order->getInfoAdress()['whatsapp_infoadress'] ?></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
 
         </div>
+        <br>
         <div class="row">
             <div class="col-md-12">
-                <table class="table">
+                <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                Product
-                            </th>
-                            <th>
-                                Payment Taken
-                            </th>
-                            <th>
-                                Status
-                            </th>
+                            <th>#</th>
+                            <th>REFERENCIA</th>
+                            <th>TALLA</th>
+                            <th>PRODUCTO</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                TB - Monthly
-                            </td>
-                            <td>
-                                01/04/2012
-                            </td>
-                            <td>
-                                Default
-                            </td>
-                        </tr>
-                        <tr class="table-active">
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                TB - Monthly
-                            </td>
-                            <td>
-                                01/04/2012
-                            </td>
-                            <td>
-                                Approved
-                            </td>
-                        </tr>
-                        <tr class="table-success">
-                            <td>
-                                2
-                            </td>
-                            <td>
-                                TB - Monthly
-                            </td>
-                            <td>
-                                02/04/2012
-                            </td>
-                            <td>
-                                Declined
-                            </td>
-                        </tr>
-                        <tr class="table-warning">
-                            <td>
-                                3
-                            </td>
-                            <td>
-                                TB - Monthly
-                            </td>
-                            <td>
-                                03/04/2012
-                            </td>
-                            <td>
-                                Pending
-                            </td>
-                        </tr>
-                        <tr class="table-danger">
-                            <td>
-                                4
-                            </td>
-                            <td>
-                                TB - Monthly
-                            </td>
-                            <td>
-                                04/04/2012
-                            </td>
-                            <td>
-                                Call in to confirm
-                            </td>
-                        </tr>
+                        <?php $x = 0;
+                        foreach ($order->getDetailList() as $row) : $x += 1;
+                        ?>
+                            <tr>
+                                <th scope="row"><?= $x ?></th>
+                                <td><?= $row['reference_num'] . ' - ' . $row['name_reference']  ?></td>
+                                <td><?= $row['name_size'] ?></td>
+                                <td><?= $row['name_product'] . '<br><b>' . $row['observation'] . '</b>' ?></td>
+                            </tr>
+                        <?php endforeach ?>
                     </tbody>
                 </table>
             </div>
