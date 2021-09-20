@@ -92,6 +92,11 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->add('htmlpedidoasesores/(:segment)', 'Ajax::ajaxHtmlOrderAsesor/$1', ['as' => 'ajax_html_order_asesores']);
 	});
 
+	//Generador de reportes
+	$routes->group('generar', ['namespace' => 'App\Controllers\GenerateReport', 'filter' => 'auth'], function ($routes) {
+		$routes->get('rotulo/(:segment)', 'OrderReport::generateRotulo/$1', ['as' => 'rotulo_order']);
+	});
+
 	//el administrador viejo
 	$routes->group('admin_old', ['namespace' => 'App\Controllers\AdminOld', 'filter' => 'auth'], function ($routes) {
 		$routes->get('reportes/clientesentrefechas/(:segment)/(:segment)', 'ReportAdminOld::reportNewCustomers/$1/$2', ['as' => 'admin_old_report_between_dates']);

@@ -361,7 +361,7 @@
                                         <button id="btnImprimir" type="button" class="btn btn-block btn-outline-success btn-sm">Generar PDF</button>
                                     </div>
                                     <div class="col-md">
-                                        <button type="button" class="btn btn-block btn-outline-warning btn-sm">Generar R&oacute;tulo</button>
+                                        <a href="<?= base_url() . route_to('rotulo_order', $order->id_order) ?>" class="btn btn-block btn-outline-warning btn-sm">Generar R&oacute;tulo</a>
                                     </div>
                                 </div>
                             </div>
