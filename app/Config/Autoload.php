@@ -62,7 +62,9 @@ class Autoload extends AutoloadConfig
 	 *```
 	 * @var array<string, string>
 	 */
-	public $classmap = [];
+	public $classmap = [
+		'FPDF' => APPPATH . 'ThirdParty/fpdf/fpdf.php',
+	];
 
 	/**
 	 * -------------------------------------------------------------------
