@@ -128,6 +128,16 @@ class Order extends Entity
         return $arrayResult;
     }
 
+    public function getProductionFormat()
+    {
+        return $this->mdlProductionFormat->db->table('production_format')
+            ->select('*')
+            ->join('production_line', 'production_format.production_line_id_productionline = production_line.id_productionline')
+            ->where('production_format.order_id_order', $this->id_order)
+            ->get()
+            ->getResultArray();
+    }
+
     public function getTypeOrder()
     {
         $this->mdlTypeOrder = new TypeorderModel();

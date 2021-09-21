@@ -274,7 +274,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <?php if (!$order->isProduction()) : ?>
                             <div class="card">
                                 <div class="card-body">
@@ -346,9 +346,65 @@
                                 <h5><i class="icon fas fa-ban"></i> Pedido en producción!</h5>
                                 El pedido ya esta en producci&oacute;n
                             </div>
+                            <div class="card card-outline card-danger">
+                                <div class="card-header">
+                                    <h3 class="card-title"><b>Formatos de Producci&oacute;n</b></h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body" style="padding: 0.7rem;">
+                                    <div class="card-body p-0">
+
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                <?php foreach ($order->getProductionFormat() as $format) : ?>
+                                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                                        <td>
+                                                            <button type="button" class="btn btn-primary p-0">
+                                                                <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
+                                                            </button>
+                                                            <b><?= $format['name_productionline'] ?></b>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="expandable-body d-none">
+                                                        <td>
+                                                            <div class="p-0" style="display: none;">
+                                                                <table class="table table-hover">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <b>Fecha:</b>
+                                                                            </td>
+                                                                            <td>
+                                                                                <?= $format['date_production'] ?>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2">
+                                                                                <?php if ($format['print'] == 1) : ?>
+                                                                                    YA est&aacute; impreso
+                                                                                <?php else : ?>
+                                                                                    NO est&aacute; impreso
+                                                                                <?php endif ?>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         <?php endif ?>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-8">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -435,7 +491,7 @@
                                     Se generar el Formato de producci&oacute;n para <?= $row['name_productionline'] ?>
                                     <div class="form-group">
                                         <label>Fecha de <?= $row['name_productionline'] ?></label>
-                                        <input name="<?= $row['id_productionline'] ?>" type="date" class="form-control" required>
+                                        <input min="<?= date("Y-m-d"); ?>" name="<?= $row['id_productionline'] ?>" type="date" class="form-control" required>
                                     </div>
                                 </div>
                             </div>
