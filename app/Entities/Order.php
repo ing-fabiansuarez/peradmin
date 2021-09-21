@@ -8,19 +8,22 @@ use App\Models\EmployeeModel;
 use App\Models\InfoAdressModel;
 use App\Models\ProductionFormatModel;
 use App\Models\ProductionlineModel;
+use App\Models\ProductModel;
 use App\Models\TypeorderModel;
 use CodeIgniter\Entity\Entity;
 
 class Order extends Entity
 {
     protected $dates = ['created_at_order'];
-    private $mdlDetailOrder, $mdlLineProduction, $mdlProductionFormat;
+    private $mdlDetailOrder, $mdlLineProduction, $mdlProductionFormat, $mdlInfoAdress, $mdlProduct;
 
     public function __construct()
     {
         $this->mdlDetailOrder = new DetailorderModel();
         $this->mdlLineProduction = new ProductionlineModel();
         $this->mdlProductionFormat = new ProductionFormatModel();
+        $this->mdlInfoAdress = new InfoAdressModel();
+        $this->mdlProduct = new ProductModel();
     }
 
     public function setInfoAdress($transporter, $city, $whtapp, $email, $neighborhood, $homeadress)
@@ -52,8 +55,13 @@ class Order extends Entity
 
     public function getInfoAdress()
     {
-        $mdlInfoAdress = new InfoAdressModel();
-        return $mdlInfoAdress->find($this->info_adress_id);
+        return $this->mdlInfoAdress->table('info_adress')
+            ->select('city_id,whatsapp_infoadress,email_infoadress,neighborhood_infoadress,home_infoadress,name_city,name_department,name_transporter')
+            ->join('city', 'info_adress.city_id = city.id_city')
+            ->join('department', 'city.department_id = department.id_department')
+            ->join('transporter', 'info_adress.transporter_id = transporter.id_transporter')
+            ->where('info_adress.id_infoadress', $this->info_adress_id)
+            ->get()->getFirstRow('array');
     }
 
     public function addDetail($product_id, $reference, $observation, $size_id, $price)
@@ -77,6 +85,30 @@ class Order extends Entity
             ->join('size', 'detailorder.size_id = size.id_size')
             ->where('detailorder.order_id', $this->id_order)
             ->get()->getResultArray();
+    }
+
+    public function getCountEachProduct()
+    {
+        $arrayResult = array();
+        foreach ($this->mdlProduct->select('id_product,name_product')->findAll() as $product) {
+            $counter = 0;
+            if (
+                ($counter = $this->mdlDetailOrder->db->table('detailorder')
+                    ->select('*')
+                    ->join('product', 'detailorder.reference_product_id = product.id_product')
+                    ->where('detailorder.order_id', $this->id_order)
+                    ->where('detailorder.reference_product_id', $product['id_product'])
+                    ->countAllResults())
+                != 0
+            ) {
+                array_push($arrayResult, [
+                    'id_product' => $product['id_product'],
+                    'name_product' => $product['name_product'],
+                    'quantity' => $counter,
+                ]);
+            }
+        }
+        return $arrayResult;
     }
 
     public  function getLineProductions()
@@ -114,7 +146,7 @@ class Order extends Entity
 
     public function isProduction()
     {
-        if(!$this->mdlProductionFormat->where('order_id_order', $this->id_order)->findAll()){
+        if (!$this->mdlProductionFormat->where('order_id_order', $this->id_order)->findAll()) {
             return false;
         }
         return true;

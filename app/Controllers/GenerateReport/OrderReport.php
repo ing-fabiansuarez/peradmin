@@ -5,6 +5,7 @@ namespace App\Controllers\GenerateReport;
 use App\Controllers\BaseController;
 use App\Models\OrderModel;
 use FPDF;
+use JetBrains\PhpStorm\Internal\ReturnTypeContract;
 
 class OrderReport extends BaseController
 {
@@ -19,21 +20,53 @@ class OrderReport extends BaseController
         if (!$order = $this->mdlOrder->find($id_order)) {
             echo "EL PEDIDO NO EXITE";
         }
+        if (!$order->isProduction()) {
+            echo "EL PEDIDO NO ESTA EN PRODUCCION NO SE PUEDE IMPRIMIR ROTULO";
+            return;
+        }
 
         //SE DECLARA LA CLASE DE PDF
-        $pdf = new CustomPDF();
+        $pdf = new CustomPDF('P', 'mm', array(215, 280));
         $pdf->AddPage();
         // Imagen Fondo
-        $pdf->Image('public/img/corporative/rotulo.png', 0, 0, 210);
-        $pdf->SetFont('Arial', 'B', 15);
+        $pdf->Image('public/img/corporative/rotulo.png', 0, 0, 215);
+        $pdf->SetFont('Arial', 'B', 17);
 
-        $pdf->Cell(30, 110, 'B', 1, 1, 'C');
+        $pdf->Cell(30, 85, '', 0, 1, 'C');
 
-        $pdf->SetWidths(array(20, 40, 110));
-        $pdf->SetAligns(array('L', 'L', 'R'));
+        $pdf->SetWidths(array(15, 50, 120));
+        $pdf->SetAligns(array('L', 'L', 'L'));
         $customer = $order->getCustomer();
-        $pdf->Row(['', 'Cliente:', $customer->name_customer . ' ' . $customer->surname_customer]);
-        $pdf->Row(['', 'Documento:', $customer->numberidenti_customer ]);
+        $infoAdress = $order->getInfoAdress();
+
+        $pdf->Row(['', 'Cliente:', $customer->name_customer . ' ' . $customer->surname_customer], 7);
+        $pdf->Row(['', 'Documento:', $customer->numberidenti_customer], 7);
+        $pdf->Row(['', 'Telefono:', $infoAdress['whatsapp_infoadress']], 7);
+        $pdf->Row(['', 'Email:', $infoAdress['email_infoadress']], 7);
+        $pdf->Row(['', 'Ciudad:', $infoAdress['name_city'] . ' - ' . $infoAdress['name_department']], 7);
+        $pdf->Row(['', utf8_decode('Dirección:'), $infoAdress['home_infoadress'] . ' barrio ' . $infoAdress['neighborhood_infoadress']], 7);
+        $pdf->Row(['', 'Transportadora:', $infoAdress['name_transporter']], 7);
+        $pdf->Row(['', 'Detalle:', ''], 7);
+        //seccion
+        $pdf->SetWidths(array(50, 10, 60, 17));
+        $pdf->SetAligns(array('L', 'L', 'L', 'R'));
+        $pdf->SetFont('Arial', 'B', 13);
+        $total = 0;
+        foreach ($order->getCountEachProduct() as $row) {
+            $total += $row['quantity'];
+            $pdf->Row(['', '=>', utf8_decode($row['name_product']), $row['quantity']], 5);
+        }
+
+        $pdf->cell(60);
+        $pdf->cell(60, 8, 'TOTAL', 'T', 0, 'R', 0);
+        $pdf->cell(17, 8, $total, 'T', 1, 'R', 0);
+
+        //seccion
+        $pdf->SetFont('Arial', 'B', 17);
+        $pdf->SetWidths(array(15, 45, 120));
+        $pdf->SetAligns(array('L', 'L', 'L'));
+        $pdf->Row(['', utf8_decode('Obsevación adicional:'), $order->info_order], 7);
+
 
         $this->response->setHeader('Content-Type', 'application/pdf');
         $pdf->Output();
@@ -58,13 +91,13 @@ class CustomPDF extends FPDF
         $this->aligns = $a;
     }
 
-    function Row($data)
+    function Row($data, $altu)
     {
         //Calculate the height of the row
         $nb = 0;
         for ($i = 0; $i < count($data); $i++)
             $nb = max($nb, $this->NbLines($this->widths[$i], $data[$i]));
-        $h = 7 * $nb;
+        $h = $altu * $nb;
         //Issue a page break first if needed
         $this->CheckPageBreak($h);
         //Draw the cells of the row
@@ -75,7 +108,7 @@ class CustomPDF extends FPDF
             $x = $this->GetX();
             $y = $this->GetY();
             //Draw the border
-            $this->Rect($x, $y, $w, $h);
+            //$this->Rect($x, $y, $w, $h);
             //Print the text
             $this->MultiCell($w, 5, $data[$i], 0, $a);
             //Put the position to the right of the cell
