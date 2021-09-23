@@ -78,7 +78,10 @@ class Ajax extends BaseController
 	}
 	public function	ajaxHtmlSizes()
 	{
-		$query = $this->mdlSize->where('product_id', $this->request->getPostGet('product'))->orderBy('name_size', 'ASC')->findAll();
+		$query = $this->mdlSize
+			->where('product_id', $this->request->getPostGet('product'))
+			->where('active_size', 1)
+			->orderBy('name_size', 'ASC')->findAll();
 		$cadena = "
         <option value=''>* Tallas</option>
         ";
@@ -106,7 +109,10 @@ class Ajax extends BaseController
 
 	public function ajaxHtmlReferences()
 	{
-		$query = $this->mdlReference->where('product_id', $this->request->getPostGet('product'))->orderBy('num_reference', 'ASC')->findAll();
+		$query = $this->mdlReference
+			->where('product_id', $this->request->getPostGet('product'))
+			->where('active_reference', 1)
+			->orderBy('num_reference', 'ASC')->findAll();
 		$cadena = "
         <option value=''>* Referencias</option>
         ";

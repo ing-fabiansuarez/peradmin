@@ -445,7 +445,7 @@
                                         foreach ($detail_of_order as $row) :
                                             $counter += 1; ?>
                                             <tr>
-                                                <td><b><?= $counter ?> .</b></td>
+                                                <td><b><?= $counter ?></b></td>
                                                 <td><?= $row['name_product'] ?><br><?= $row['observation'] ?></td>
                                                 <td><?= $row['reference_num'] ?> - <?= $row['name_reference'] ?></td>
                                                 <td><?= $row['name_size'] ?></td>
