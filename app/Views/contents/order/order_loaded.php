@@ -24,7 +24,7 @@
             /* "order": [
                 [1, "desc"]
             ], */
-            responsive: true,
+
             language: {
                 "decimal": "",
                 "emptyTable": "No hay información",
@@ -45,6 +45,7 @@
                     "previous": "Anterior"
                 }
             },
+            responsive: true,
         });
         loadsizes();
         loadreferences();
@@ -414,9 +415,13 @@
                                         </div>
                                     <?php endif ?>
                                     <div class="col-md">
-                                        <button id="btnImprimir" type="button" class="btn btn-block btn-outline-success btn-sm">Generar PDF</button>
+                                        <form action="<?= base_url() . route_to('general_format_order', $order->id_order) ?>" method="post">
+                                            <input type="hidden" name="id_order" value="<?= $order->id_order ?>">
+                                            <button type="submit" class="btn btn-block btn-outline-success btn-sm">Generar PDF</button>
+                                        </form>
                                     </div>
                                     <div class="col-md">
+
                                         <a href="<?= base_url() . route_to('rotulo_order', $order->id_order) ?>" class="btn btn-block btn-outline-warning btn-sm">Generar R&oacute;tulo</a>
                                     </div>
                                 </div>
@@ -427,8 +432,8 @@
                             <div class="card-header">
                                 <h3 class="card-title">Detalle del pedido</h3>
                             </div>
-                            <div id="imprimible" class="card-body">
-                                <table id="detail_order_table" class="table table-hover text-nowrap">
+                            <div class="card-body">
+                                <table id="detail_order_table" class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>N°</th>
@@ -436,7 +441,7 @@
                                             <th>Referencia</th>
                                             <th>Talla</th>
                                             <th>Precio</th>
-                                            <th></th>
+                                            <th>Acci&oacute;n</th>
 
                                         </tr>
                                     </thead>

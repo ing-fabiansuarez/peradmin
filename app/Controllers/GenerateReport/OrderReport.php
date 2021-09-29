@@ -26,7 +26,7 @@ class OrderReport extends BaseController
         }
 
         //SE DECLARA LA CLASE DE PDF
-        $pdf = new CustomPDF('P', 'mm', array(215, 280));
+        $pdf = new RotuloPDF('P', 'mm', array(215, 280));
         $pdf->AddPage();
         // Imagen Fondo
         $pdf->Image('public/img/corporative/rotulo.png', 0, 0, 215);
@@ -71,9 +71,17 @@ class OrderReport extends BaseController
         $this->response->setHeader('Content-Type', 'application/pdf');
         $pdf->Output();
     }
-}
 
-/*************** Clase PDF_AutoPrint basandose en PDF_JavaScript *************/
+    public function generateGeneralFormat($id_order)
+    {
+        $order = $this->mdlOrder->find($id_order);
+        $pdf = new GeneralFormatPDF('P', 'mm', array(215, 280));
+        $pdf->AddPage();
+
+        $this->response->setHeader('Content-Type', 'application/pdf');
+        $pdf->Output();
+    }
+}
 class CustomPDF extends FPDF
 {
     var $widths;
@@ -169,5 +177,62 @@ class CustomPDF extends FPDF
                 $i++;
         }
         return $nl;
+    }
+}
+
+class GeneralFormatPDF extends CustomPDF
+{
+    // Page header
+    function Header()
+    {
+        // Logo
+        $this->Image('public/img/corporative/logopera.png', 10, 6, 20);
+        // Arial bold 15
+        $id_order = $_POST['id_order'];
+        $mdlorder = new OrderModel();
+        $order = $mdlorder->find($id_order);
+        $this->SetFont('Arial', 'B', 15);
+        // Move to the right
+        $this->Cell(80);
+        // Title
+        $this->Cell(30, 10, utf8_decode('FORMATO DEL PEDIDO N° ' . $order->id_order), 0, 1, 'C');
+        $this->SetFont('Arial', 'B', 12);
+        $spaceLeft = 23;
+        $this->Cell($spaceLeft);
+        $this->Cell(85, 6, utf8_decode('Fecha creación: ' . $order->created_at_order), 1, 0, 'L');
+        $this->Cell(85, 6, utf8_decode('Fecha producción: '), 1, 1, 'L');
+        $this->Ln(3);
+        $customer = $order->getCustomer();
+        $this->Cell($spaceLeft);
+        $this->Cell(120, 6, utf8_decode('Cliente: ' . $customer->name_customer . ' ' . $customer->surname_customer), 1, 0, 'L');
+        // Line break
+        $this->Ln(20);
+    }
+
+    // Pie de página
+    function Footer()
+    {
+        // Posición: a 1,5 cm del final
+        $this->SetY(-10);
+        // Arial italic 8
+        $this->SetFont('Arial', 'I', 10);
+        // Número de página
+        $this->Cell(50, 10, 'Pagina ' . $this->PageNo(), 0, 0, 'C');
+        $this->Cell(145, 10, 'Impreso por ' . session()->get('name_employee') . ' (' . session()->get('cedula_employee') . ') el ' . date("Y-m-d H:i:s"), 0, 0, 'C');
+    }
+}
+
+class RotuloPDF extends CustomPDF
+{
+    // Pie de página
+    function Footer()
+    {
+        // Posición: a 1,5 cm del final
+        $this->SetY(-10);
+        // Arial italic 8
+        $this->SetFont('Arial', 'I', 10);
+        // Número de página
+        $this->Cell(50, 10, 'Pagina ' . $this->PageNo(), 0, 0, 'C');
+        $this->Cell(145, 10, 'Impreso el ' . date("Y-m-d H:i:s"), 0, 0, 'C');
     }
 }
