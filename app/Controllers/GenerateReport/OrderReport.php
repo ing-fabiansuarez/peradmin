@@ -193,18 +193,21 @@ class GeneralFormatPDF extends CustomPDF
         $order = $mdlorder->find($id_order);
         $this->SetFont('Arial', 'B', 15);
         // Move to the right
-        $this->Cell(80);
-        // Title
-        $this->Cell(30, 10, utf8_decode('FORMATO DEL PEDIDO N° ' . $order->id_order), 0, 1, 'C');
-        $this->SetFont('Arial', 'B', 12);
-        $spaceLeft = 23;
+        $spaceLeft = 30;
         $this->Cell($spaceLeft);
-        $this->Cell(85, 6, utf8_decode('Fecha creación: ' . $order->created_at_order), 1, 0, 'L');
-        $this->Cell(85, 6, utf8_decode('Fecha producción: '), 1, 1, 'L');
-        $this->Ln(3);
+        // Title
+        $this->Cell(170, 10, utf8_decode('FORMATO DEL PEDIDO N° ' . $order->id_order), 0, 1, 'C');
+        $this->SetFont('Arial', 'B', 12);
+        $this->Cell($spaceLeft);
+        $this->Cell(80, 6, utf8_decode('Fecha creación: ' . $order->created_at_order), 'TL', 0, 'L');
+        $this->Cell(80, 6, utf8_decode('Fecha producción: '), 'TR', 1, 'L');
         $customer = $order->getCustomer();
         $this->Cell($spaceLeft);
-        $this->Cell(120, 6, utf8_decode('Cliente: ' . $customer->name_customer . ' ' . $customer->surname_customer), 1, 0, 'L');
+        $this->Cell(50, 6, utf8_decode('Cliente: '), 'LTR', 0, 'L');
+        $this->Cell(110, 6, utf8_decode($customer->name_customer . ' ' . $customer->surname_customer), 'LTR', 1, 'L');
+        $this->Cell($spaceLeft);
+        $this->Cell(50, 6, utf8_decode('Destino: '), 'LRB', 0, 'L');
+        $this->Cell(110, 6, utf8_decode( $customer->name_customer . ' ' . $customer->surname_customer), 'BLR', 0, 'L');
         // Line break
         $this->Ln(20);
     }
