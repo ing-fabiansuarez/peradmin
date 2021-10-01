@@ -186,28 +186,32 @@ class GeneralFormatPDF extends CustomPDF
     function Header()
     {
         // Logo
-        $this->Image('public/img/corporative/logopera.png', 10, 6, 20);
+        $this->Image('public/img/corporative/logopera.png', 178, 10, 25);
         // Arial bold 15
         $id_order = $_POST['id_order'];
         $mdlorder = new OrderModel();
         $order = $mdlorder->find($id_order);
         $this->SetFont('Arial', 'B', 15);
         // Move to the right
-        $spaceLeft = 30;
-        $this->Cell($spaceLeft);
+
         // Title
-        $this->Cell(170, 10, utf8_decode('FORMATO DEL PEDIDO N° ' . $order->id_order), 0, 1, 'C');
+        $this->Cell(192, 10, utf8_decode('FORMATO DEL PEDIDO N° ' . $order->id_order), 0, 1, 'C');
         $this->SetFont('Arial', 'B', 12);
-        $this->Cell($spaceLeft);
-        $this->Cell(80, 6, utf8_decode('Fecha creación: ' . $order->created_at_order), 'TL', 0, 'L');
-        $this->Cell(80, 6, utf8_decode('Fecha producción: '), 'TR', 1, 'L');
+
+        $this->Cell(30, 6, utf8_decode('Fecha creación: '), 0, 0, 'L');
+        $this->Cell(130, 6, utf8_decode($order->created_at_order), 0, 1, 'R');
+
+        $this->Cell(30, 6, utf8_decode('Fecha producción: '), 0, 0, 'L');
+        $this->Cell(130, 6, utf8_decode('2021-05-09'), 0, 1, 'R');
+
         $customer = $order->getCustomer();
-        $this->Cell($spaceLeft);
-        $this->Cell(50, 6, utf8_decode('Cliente: '), 'LTR', 0, 'L');
-        $this->Cell(110, 6, utf8_decode($customer->name_customer . ' ' . $customer->surname_customer), 'LTR', 1, 'L');
-        $this->Cell($spaceLeft);
-        $this->Cell(50, 6, utf8_decode('Destino: '), 'LRB', 0, 'L');
-        $this->Cell(110, 6, utf8_decode( $customer->name_customer . ' ' . $customer->surname_customer), 'BLR', 0, 'L');
+
+        $this->Cell(30, 6, utf8_decode('Cliente: '), 0, 0, 'L');
+        $this->Cell(130, 6, utf8_decode($customer->name_customer . ' ' . $customer->surname_customer), 0, 1, 'R');
+
+        $this->Cell(30, 6, utf8_decode('Destino: '), 0, 0, 'L');
+        $infoAdress = $order->getInfoAdress();
+        $this->Cell(130, 6, utf8_decode($infoAdress['name_city'] . ' - ' . $infoAdress['name_department']), 0, 0, 'R');
         // Line break
         $this->Ln(20);
     }
