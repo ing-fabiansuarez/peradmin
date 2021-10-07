@@ -415,14 +415,14 @@
                                         </div>
                                     <?php endif ?>
                                     <div class="col-md">
-                                        <form action="<?= base_url() . route_to('general_format_order', $order->id_order) ?>" method="post">
+                                        <form target="_blank" action="<?= base_url() . route_to('general_format_order', $order->id_order) ?>" method="post">
                                             <input type="hidden" name="id_order" value="<?= $order->id_order ?>">
                                             <button type="submit" class="btn btn-block btn-outline-success btn-sm">Generar PDF</button>
                                         </form>
                                     </div>
                                     <div class="col-md">
 
-                                        <a href="<?= base_url() . route_to('rotulo_order', $order->id_order) ?>" class="btn btn-block btn-outline-warning btn-sm">Generar R&oacute;tulo</a>
+                                        <a target="_blank" href="<?= base_url() . route_to('rotulo_order', $order->id_order) ?>" class="btn btn-block btn-outline-warning btn-sm">Generar R&oacute;tulo</a>
                                     </div>
                                 </div>
                             </div>

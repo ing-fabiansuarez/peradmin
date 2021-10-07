@@ -18,4 +18,16 @@ class ProductionFormatModel extends Model
         'date_production',
         'print'
     ];
+
+    public function getFormatsNoPrintBulk($lineProduction)
+    {
+        return $this->db->table('production_format')
+            ->select('*')
+            ->join('order', 'production_format.order_id_order = order.id_order')
+            ->where('production_format.production_line_id_productionline', $lineProduction)
+            ->where('order.type_of_order_id', 1)
+            ->where('production_format.print', 0)
+            ->get()
+            ->getResultArray();
+    }
 }
