@@ -29,7 +29,7 @@ class OrderReport extends BaseController
         $pdf = new RotuloPDF('P', 'mm', array(215, 280));
         $pdf->AddPage();
         // Imagen Fondo
-        $pdf->Image('public/img/corporative/rotulo.png', 0, 0, 215);
+        $pdf->Image('img/corporative/rotulo.png', 0, 0, 215);
         $pdf->SetFont('Arial', 'B', 15);
         $pdf->Cell(30, 85, '', 0, 1, 'C');
         $pdf->SetWidths(array(15, 60, 120));
@@ -67,7 +67,15 @@ class OrderReport extends BaseController
 
     public function generateGeneralFormat($id_order)
     {
-        $order = $this->mdlOrder->find($id_order);
+        //consulta del pedido
+        if (!$order = $this->mdlOrder->find($id_order)) {
+            echo "EL PEDIDO NO EXITE";
+        }
+        if (!$order->isProduction()) {
+            echo "EL PEDIDO NO ESTA EN PRODUCCION NO SE PUEDE IMPRIMIR ROTULO";
+            return;
+        }
+
         $pdf = new GeneralFormatPDF('P', 'mm', array(215, 280));
         //Establecemos el margen inferior:
         $pdf->SetAutoPageBreak(true, 8);
@@ -208,7 +216,7 @@ class GeneralFormatPDF extends CustomPDF
     function Header()
     {
         // Logo
-        $this->Image('public/img/corporative/logopera.png', 178, 10, 25);
+        $this->Image('img/corporative/logopera.png', 178, 10, 25);
         // Arial bold 15
         $id_order = $_POST['id_order'];
         $mdlorder = new OrderModel();

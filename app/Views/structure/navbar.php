@@ -6,7 +6,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="index3.html" class="nav-link">Home</a>
+            <a href="<?= base_url() ?>" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
@@ -49,7 +49,7 @@
                 <span class="dropdown-item dropdown-header"><b>Perfil</b></span>
                 <div class="dropdown-divider"></div>
                 <div class="text-center">
-                    <img src="<?= base_url() ?>/public/img/users/<?= session()->image_employee ?>" alt="" class="img-fluid">
+                    <img src="<?= base_url() ?>/img/users/<?= session()->image_employee ?>" alt="" class="img-fluid">
                 </div>
 
                 <div class="dropdown-divider"></div>

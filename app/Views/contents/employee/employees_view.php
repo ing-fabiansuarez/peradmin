@@ -2,34 +2,34 @@
 <?= $this->section('title') ?>Empleados<?= $this->endSection() ?>
 <?= $this->section('preloader') ?>
 <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="<?= base_url() ?>/public/img/corporative/logo.png" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="<?= base_url() ?>/img/corporative/logo.png" alt="AdminLTELogo" height="60" width="60">
 </div>
 <?= $this->endSection() ?>
 <?= $this->section('css') ?>
 <!-- SweetAlert2 -->
-<link rel="stylesheet" href="<?= base_url() ?>/public/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<link rel="stylesheet" href="<?= base_url() ?>/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 <!-- Toastr -->
-<link rel="stylesheet" href="<?= base_url() ?>/public/plugins/toastr/toastr.min.css">
+<link rel="stylesheet" href="<?= base_url() ?>/plugins/toastr/toastr.min.css">
 <!-- DataTables -->
-<link rel="stylesheet" href="<?= base_url() ?>/public/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" href="<?= base_url() ?>/public/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" href="<?= base_url() ?>/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="<?= base_url() ?>/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <!-- Animation -->
-<link href="<?= base_url() ?>/public/plugins/aos/aos.css" rel="stylesheet">
+<link href="<?= base_url() ?>/plugins/aos/aos.css" rel="stylesheet">
 <?= $this->endSection() ?>
 <?= $this->section('js') ?>
 <!-- SweetAlert2 -->
-<script src="<?= base_url() ?>/public/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="<?= base_url() ?>/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Toastr -->
-<script src="<?= base_url() ?>/public/plugins/toastr/toastr.min.js"></script>
+<script src="<?= base_url() ?>/plugins/toastr/toastr.min.js"></script>
 <!-- DataTables  & Plugins -->
-<script src="<?= base_url() ?>/public/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="<?= base_url() ?>/public/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="<?= base_url() ?>/public/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="<?= base_url() ?>/public/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="<?= base_url() ?>/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?= base_url() ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?= base_url() ?>/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?= base_url() ?>/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <!-- bs-custom-file-input -->
-<script src="<?= base_url() ?>/public/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script src="<?= base_url() ?>/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- animation -->
-<script src="<?= base_url() ?>/public/plugins/aos/aos.js"></script>
+<script src="<?= base_url() ?>/plugins/aos/aos.js"></script>
 <script>
     $(function() {
         bsCustomFileInput.init();
@@ -277,7 +277,7 @@
                         <tbody>
                             <?php foreach ($employees as $employee) : ?>
                                 <tr>
-                                    <td style="max-width: 60px;"><img src="<?= base_url() ?>/public/img/users/<?= $employee->photo_employee ?>" alt="Foto" class="img-fluid prodimg"></td>
+                                    <td style="max-width: 60px;"><img src="<?= base_url() ?>/img/users/<?= $employee->photo_employee ?>" alt="Foto" class="img-fluid prodimg"></td>
                                     <td>
                                         <a href="<?= base_url() . route_to('view_employee_permissions', $employee->id_employee) ?>">
                                             <button id="btn_update_permissions" type="button" class="btn btn-app bg-yellow">
