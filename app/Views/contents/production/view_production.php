@@ -133,7 +133,6 @@
 
             </div>
             <div class="col-md-8">
-                <?= $this->include('contents/production/view_order_isnot_production'); ?>
             </div>
         </div>
     </div>

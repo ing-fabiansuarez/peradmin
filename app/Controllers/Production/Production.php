@@ -30,7 +30,6 @@ class Production extends BaseController
         return view('contents/production/view_production', [
             'arrayresult' => $arrayResult,
             'lineproduction' => $lineproduction,
-            'ordersbypassproduction' => $this->mdlOrder->where('inproduction_order', 0)->findAll()
         ]);
     }
 
