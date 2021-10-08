@@ -23,7 +23,7 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $baseURL = 'http://localhost/peradmin/';
+	public $baseURL = 'http://localhost/peradmin/public/';
 
 	/**
 	 * --------------------------------------------------------------------------
@@ -36,7 +36,7 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $indexPage = '';
+	public $indexPage = 'index.php';
 
 	/**
 	 * --------------------------------------------------------------------------
