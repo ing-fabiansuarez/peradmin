@@ -106,30 +106,6 @@
         });
     }
 </script>
-<script>
-    //script generar pdf para imprmir
-    function imprimirElemento(elemento) {
-        var ventana = window.open('', 'PRINT', 'height=600,width=1000');
-        ventana.document.write(elemento);
-        ventana.document.close();
-        ventana.focus();
-        ventana.print();
-        ventana.close();
-        return true;
-    }
-    document.querySelector("#btnImprimir").addEventListener("click", function() {
-        $.ajax({
-            type: "post",
-            url: "<?= base_url() . route_to('ajax_html_order_asesores', $order->id_order) ?>",
-            success: function(r) {
-                console.log(r);
-                imprimirElemento(r);
-            },
-        });
-        /* var div = document.querySelector("#imprimible");
-        imprimirElemento(div); */
-    });
-</script>
 <?= $this->endSection() ?>
 
 <!-- ............................................CONTENIDO DE LA PAGINA................................................ -->
@@ -166,11 +142,12 @@
                         <?= session('msg.body') ?>
                     </div>
                 <?php endif; ?>
-                <div class="card card-primary collapsed-card">
+                <div class="card card-primary shadow-sm">
                     <div class="card-header">
                         <h3 class="card-title">Cliente</h3>
                         <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
                             </button>
                         </div>
                     </div>
@@ -218,7 +195,10 @@
                                 <b>Fecha de creaci&oacute;n: </b><?= $order->created_at_order->humanize() ?>
                             </li>
                             <li class="nav-item">
-                                <b>Observaci&oacute;n: </b><?= $order->info_order ?>
+                                <div class="form-group">
+                                    <label>Observaci&oacute;n:</label>
+                                    <textarea class="form-control" rows="3" placeholder="Enter ..."><?= $order->info_order ?></textarea>
+                                </div>
                             </li>
                         </ul>
                         <br>
@@ -233,23 +213,47 @@
 
                             </div>
                             <div class="card-body">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <b>Whatsapp: </b><?= $infoadress['whatsapp_infoadress'] ?>
-                                    </li>
-                                    <li class="nav-item">
-                                        <b>Email: </b><?= $infoadress['email_infoadress'] ?>
-                                    </li>
-                                    <li class="nav-item">
-                                        <b>Ciudad: </b><?= $infoadress['city_id'] ?>
-                                    </li>
-                                    <li class="nav-item">
-                                        <b>Barrio: </b><?= $infoadress['neighborhood_infoadress'] ?>
-                                    </li>
-                                    <li class="nav-item">
-                                        <b>Direcci&oacute;n: </b><?= $infoadress['home_infoadress'] ?>
-                                    </li>
-                                </ul>
+                                <form action="<?= base_url() . route_to('update_infoaddress', $order->info_adress_id) ?>" method="post">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <div class="form-group">
+                                                <label>Whatsapp: </label>
+                                                <input name="whatsapp_order" style="border: transparent;" type="text" value="<?= $infoadress['whatsapp_infoadress'] ?>">
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <div class="form-group">
+                                                <label>Email: </label>
+                                                <input name="email_order" style="border: transparent;" type="email" value="<?= $infoadress['email_infoadress'] ?>">
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <div class="form-group">
+                                                <label>Ciudad: </label>
+                                                <input name="city_order" style="border: transparent;" type="text" value="<?= $infoadress['city_id'] ?>">
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <div class="form-group">
+                                                <label>Barrio: </label>
+                                                <input name="neighborhood_order" style="border: transparent;" type="text" value="<?= $infoadress['neighborhood_infoadress'] ?>">
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <div class="form-group">
+                                                <label>Direcci&oacute;n: </label>
+                                                <input name="adress_order" style="border: transparent;" type="text" value="<?= $infoadress['home_infoadress'] ?>">
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <div class="form-group">
+                                                <label>Transportadora: </label>
+                                                <input name="transporter_order" style="border: transparent;" type="text" value="<?= $infoadress['id_transporter'] ?>">
+                                            </div>
+                                        </li>
+                                        <button type="submit" class="btn btn-default btn-block">Guardar Cambios</a>
+                                    </ul>
+                                </form>
                             </div>
                         </div>
                     </div>

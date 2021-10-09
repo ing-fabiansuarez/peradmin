@@ -56,7 +56,7 @@ class Order extends Entity
     public function getInfoAdress()
     {
         return $this->mdlInfoAdress->table('info_adress')
-            ->select('city_id,whatsapp_infoadress,email_infoadress,neighborhood_infoadress,home_infoadress,name_city,name_department,name_transporter')
+            ->select('city_id,whatsapp_infoadress,email_infoadress,neighborhood_infoadress,home_infoadress,name_city,name_department,name_transporter,id_transporter')
             ->join('city', 'info_adress.city_id = city.id_city')
             ->join('department', 'city.department_id = department.id_department')
             ->join('transporter', 'info_adress.transporter_id = transporter.id_transporter')
@@ -150,7 +150,11 @@ class Order extends Entity
             'order_id_order' => $this->id_order,
             'production_line_id_productionline' => $id_lineProduction,
             'date_production' => $dateProduction,
-            'print' => 0
+            'print' => 0,
+            'print_at_format' => null,
+            'created_at_format' => date("Y-m-d H:i:s"),
+            'created_by_format' => session()->get('cedula_employee'),
+            'print_by_format' => null,
         ]);
     }
 

@@ -83,12 +83,12 @@ class OrderReport extends BaseController
 
         //TABLA DE TODO EL PEDIDO
         //Encabezado
-        $pdf->SetWidths(array(10, 15, 60, 20, 60, 30));
-        $pdf->SetAligns(array('C', 'C', 'C', 'C', 'C', 'C'));
+        $pdf->SetWidths(array(10, 10, 50, 20, 40, 35, 30));
+        $pdf->SetAligns(array('C', 'C', 'C', 'C', 'C', 'C', 'C'));
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Row([utf8_decode('N°'), 'Ref', 'Nombre Ref', 'Talla', 'Producto', utf8_decode('observación')], 7, true);
+        $pdf->Row([utf8_decode('N°'), 'Ref', 'Nombre Ref', 'Talla', 'Producto', utf8_decode('observación'), 'Precio'], 7, true);
         //Cuerpo
-        $pdf->SetAligns(array('C', 'C', 'L', 'C', 'L', 'L'));
+        $pdf->SetAligns(array('C', 'C', 'L', 'C', 'L', 'L', 'C'));
         $pdf->SetFont('Arial', '', 12);
 
         $numrow = 1;
@@ -99,7 +99,8 @@ class OrderReport extends BaseController
                 utf8_decode($row['name_reference']),
                 utf8_decode($row['name_size']),
                 utf8_decode($row['name_product']),
-                utf8_decode($row['observation'])
+                utf8_decode($row['observation']),
+                utf8_decode('$ ' . number_format($row['pricesale_detailorder']))
             ], 7, true);
             $numrow += 1;
         }

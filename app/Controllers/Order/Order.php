@@ -7,6 +7,7 @@ use App\Entities\Order as EntitiesOrder;
 use App\Models\CustomerModel;
 use App\Models\DepartmentModel;
 use App\Models\DetailorderModel;
+use App\Models\InfoAdressModel;
 use App\Models\OrderModel;
 use App\Models\ProductionlineModel;
 use App\Models\ProductModel;
@@ -20,6 +21,7 @@ class Order extends BaseController
     {
         //inicializacion de los modelos
         $this->mdlCustomer = new CustomerModel();
+        $this->mdlInfoAddress = new InfoAdressModel();
         $this->mdlProductionLine = new ProductionlineModel();
         $this->mdlTypeOrder = new TypeorderModel();
         $this->mdlDepartment = new DepartmentModel();
@@ -252,6 +254,46 @@ class Order extends BaseController
 
         return view('contents/order/view_order_isnot_production', [
             'ordersbypassproduction' => $this->mdlOrder->where('inproduction_order', 0)->orderBy('created_at_order', 'desc')->findAll()
+        ]);
+    }
+
+    public function updateInfoAddress($id_infoaddress)
+    {
+        //validar los datos del formulario
+        if (!($this->validate(
+            $this->rulesvalidation->getRuleGroup('updateInfoAddress')
+        ))) {
+            $cadena = '';
+            foreach ($this->validator->getErrors() as $error) {
+                $cadena .= '* ' . $error . '<br>';
+            }
+            return redirect()->to(base_url() . route_to('view_order'))->with('msg', [
+                'icon' => '<i class="icon fas fa-exclamation-triangle"></i>',
+                'class' => 'alert-warning',
+                'title' => 'Validación Falló!',
+                'body' => $cadena
+            ]);
+        }
+
+        if (!$infoAddress = $this->mdlInfoAddress->find($id_infoaddress)) {
+            echo "NO SE ENCONTRO LA INFOADDRESS";
+            return;
+        }
+
+        $this->mdlInfoAddress->save([
+            'id_infoadress'=>$id_infoaddress,
+            'transporter_id' => $this->request->getPost('transporter_order'),
+            'city_id' =>  $this->request->getPost('city_order'),
+            'whatsapp_infoadress' =>  $this->request->getPost('whatsapp_order'),
+            'email_infoadress' =>  $this->request->getPost('email_order'),
+            'neighborhood_infoadress' =>  $this->request->getPost('neighborhood_order'),
+            'home_infoadress' =>  $this->request->getPost('adress_order')
+        ]);
+        return redirect()->to(base_url() . route_to('view_order'))->with('msg', [
+            'icon' => '<i class="icon fas fa-check"></i>',
+            'class' => 'alert-success',
+            'title' => 'Actualizado!',
+            'body' => 'Los cambios se guardarón correctamente'
         ]);
     }
 }

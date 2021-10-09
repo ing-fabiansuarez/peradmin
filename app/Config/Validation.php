@@ -207,7 +207,7 @@ class Validation
 		],
 	];
 
-	public $newOrder = [ 
+	public $newOrder = [
 		'type_order'    => [
 			'rules'  => 'required|is_not_unique[type_of_order.id_typeoforder]',
 			'errors' => [
@@ -322,6 +322,53 @@ class Validation
 			'errors' => [
 				'required' => 'Es requerida.',
 				'is_not_unique' => 'No existe el cliente.',
+			]
+		],
+	];
+
+	public $updateInfoAddress = [
+		'transporter_order'    => [
+			'rules'  => 'required|is_not_unique[transporter.id_transporter]',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'is_not_unique' => 'No exite la transportadora.'
+			]
+		],
+		'city_order'    => [
+			'rules'  => 'required|is_not_unique[city.id_city]',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'is_not_unique' => 'No exite la ciudad.'
+			]
+		],
+		'neighborhood_order'    => [
+			'rules'  => 'required|alpha_numeric_punct',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'alpha_numeric_punct' => 'Hay caracteres que no son validos.'
+			]
+		],
+		'adress_order'    => [
+			'rules'  => 'required|alpha_numeric_punct',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'alpha_numeric_punct' => 'Hay caracteres que no son validos.'
+			]
+		],
+		'whatsapp_order'    => [
+			'rules'  => 'required|is_natural|max_length[10]|min_length[10]',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'max_length' => 'Debe contener 10 caracteres.',
+				'min_length' => 'Debe contener 10 caracteres.',
+				'is_natural' => 'Solo se aceptan números naturales'
+			]
+		],
+		'email_order'    => [
+			'rules'  => 'required|valid_email',
+			'errors' => [
+				'required' => 'Es requerido.',
+				'valid_email' => 'Es un correo invalido.'
 			]
 		],
 	];

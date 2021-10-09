@@ -51,7 +51,7 @@ class Production extends BaseController
                     'icon' => '<i class="icon fas fa-exclamation-triangle"></i>',
                     'class' => 'alert-warning',
                     'title' => 'Este pedido no es tuyo!',
-                    'body' => 'No puedes pasar a producción pedidos que no hallas creado.'
+                    'body' => 'No puedes pasar a producción pedidos que no son suyos.'
                 ]);
             }
         }

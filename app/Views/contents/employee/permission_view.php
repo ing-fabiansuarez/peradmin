@@ -8,14 +8,14 @@
 
 <?= $this->section('css') ?>
 <!-- Toastr -->
-<link rel="stylesheet" href="<?= base_url() ?>/public/plugins/toastr/toastr.min.css">
+<link rel="stylesheet" href="<?= base_url() ?>/plugins/toastr/toastr.min.css">
 <!-- iCheck for checkboxes and radio inputs -->
-<link rel="stylesheet" href="<?= base_url() ?>/public/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<link rel="stylesheet" href="<?= base_url() ?>/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
 <!-- Toastr -->
-<script src="<?= base_url() ?>/public/plugins/toastr/toastr.min.js"></script>
+<script src="<?= base_url() ?>/plugins/toastr/toastr.min.js"></script>
 <script>
     $(document).ready(function() {
         getPermissions();
@@ -66,7 +66,7 @@
                     <h5 class="widget-user-desc"><?= $employee->getJobtitle_id_jobtitle()['name_jobtitle'] ?><br>C.C. <?= $employee->id_employee ?></h5>
                 </div>
                 <div class="widget-user-image" style="top: 97px;">
-                    <img class="img-circle elevation-2" src="<?= base_url('public/img/users') . '/' . $employee->photo_employee ?>" alt="User Avatar">
+                    <img class="img-circle elevation-2" src="<?= base_url('img/users') . '/' . $employee->photo_employee ?>" alt="User Avatar">
                 </div>
                 <div class="card-footer">
                     <div class="row">

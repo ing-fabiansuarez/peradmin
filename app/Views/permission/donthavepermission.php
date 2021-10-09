@@ -36,7 +36,7 @@
                     <h5 class="widget-user-desc"><?= session()->jobtitle_name ?></h5>
                 </div>
                 <div class="widget-user-image">
-                    <img class="img-circle elevation-2" src="<?= base_url('public/img/users') . '/' . session()->image_employee ?>" alt="User Avatar">
+                    <img class="img-circle elevation-2" src="<?= base_url('img/users') . '/' . session()->image_employee ?>" alt="User Avatar">
                 </div>
                 <div class="card-footer">
                     <div class="row">

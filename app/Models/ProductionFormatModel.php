@@ -16,7 +16,11 @@ class ProductionFormatModel extends Model
         'order_id_order',
         'production_line_id_productionline',
         'date_production',
-        'print'
+        'print',
+        'print_at_format',
+        'created_at_format',
+        'created_by_format',
+        'print_by_format',
     ];
 
     public function getFormatsNoPrintBulk($lineProduction)
