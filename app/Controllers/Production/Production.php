@@ -24,7 +24,7 @@ class Production extends BaseController
         foreach ($lineproduction = $this->mdlLineProduction->findAll() as $line) {
             array_push($arrayResult, [
                 'lineproduction' => $line,
-                'orders' => $this->mdlProductionFormat->getFormatsNoPrintBulk($line['id_productionline']),
+                'formats' => $this->mdlProductionFormat->getFormatsNoPrintBulk($line['id_productionline']),
             ]);
         }
         return view('contents/production/view_production', [

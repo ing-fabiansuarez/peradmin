@@ -87,6 +87,18 @@ class Order extends Entity
             ->get()->getResultArray();
     }
 
+    public function getDetailListClothes()
+    {
+        return $this->mdlDetailOrder->db->table('detailorder')
+            ->select('*')
+            ->join('product', 'detailorder.reference_product_id = product.id_product')
+            ->join('reference', 'detailorder.reference_num = reference.num_reference AND detailorder.reference_product_id = reference.product_id')
+            ->join('size', 'detailorder.size_id = size.id_size')
+            ->where('detailorder.order_id', $this->id_order)
+            ->where('product.production_line_id', 2)
+            ->get()->getResultArray();
+    }
+
     public function getCountEachProduct()
     {
         $arrayResult = array();

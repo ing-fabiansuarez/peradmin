@@ -34,4 +34,14 @@ class ProductionFormatModel extends Model
             ->get()
             ->getResultArray();
     }
+    public function getProductionFormat($id_order, $id_line_production)
+    {
+        return $this->db->table('production_format')
+            ->select('*')
+            ->join('production_line', 'production_format.production_line_id_productionline = production_line.id_productionline')
+            ->where('production_format.production_line_id_productionline', $id_line_production)
+            ->where('production_format.order_id_order', $id_order)
+            ->get()
+            ->getFirstRow('array');
+    }
 }

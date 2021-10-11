@@ -98,6 +98,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	$routes->group('generar', ['namespace' => 'App\Controllers\GenerateReport', 'filter' => 'auth'], function ($routes) {
 		$routes->get('rotulo/(:segment)', 'OrderReport::generateRotulo/$1', ['as' => 'rotulo_order']);
 		$routes->post('formatogeneral/(:segment)', 'OrderReport::generateGeneralFormat/$1', ['as' => 'general_format_order']);
+		$routes->post('listadeproduccion', 'ListsProduction::generateListProduction', ['as' => 'generate_list_of_production']);
 	});
 
 	//el administrador viejo

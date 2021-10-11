@@ -104,7 +104,7 @@
                                         </thead>
                                         <tbody>
                                             <?php $contador = 0;
-                                            foreach ($row['orders'] as $format) : $contador += 1; ?>
+                                            foreach ($row['formats'] as $format) : $contador += 1; ?>
                                                 <tr>
                                                     <td><?= $contador ?>.</td>
                                                     <td><b><?= $format['order_id_order'] ?></b></td>
@@ -113,9 +113,13 @@
                                                         <?= $format['date_production'] ?>
                                                     </td>
                                                     <td>
-                                                        <button id="btn_update_permissions" type="button" class="btn btn-app bg-yellow">
-                                                            <i class="fas fa-print"></i>
-                                                        </button>
+                                                        <form action="<?= base_url() . route_to('generate_list_of_production') ?>" method="post">
+                                                            <input type="hidden" name="line_production" value="<?= $format['production_line_id_productionline'] ?>">
+                                                            <input type="hidden" name="id_order" value="<?= $format['order_id_order'] ?>">
+                                                            <button type="submit" class="btn btn-app bg-yellow">
+                                                                <i class="fas fa-print"></i>
+                                                            </button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             <?php endforeach ?>
