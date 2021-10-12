@@ -37,39 +37,75 @@ class ListsProduction extends BaseController
         $pdf->SetAutoPageBreak(true, 8);
         $pdf->AddPage();
 
+
+
         //TABLA DE TODO EL PEDIDO
-        //Encabezado
-        $pdf->SetWidths(array(8, 10, 50, 15, 40, 11, 11, 11, 11, 11, 11, 11));
-        $pdf->SetAligns(array('C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C'));
-        $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Row([utf8_decode('N°'), 'Ref', 'Nombre Ref', 'Talla', 'Producto', 'Subl', 'File', 'Caus', 'Coll', 'Marq', 'Cali', 'Bols'], 7, true);
 
         //Cuerpo
-        $pdf->SetAligns(array('C', 'C', 'L', 'C', 'L', 'L', 'C', 'C', 'C', 'C', 'C', 'C'));
-        $pdf->SetFont('Arial', '', 12);
-
-
-        $numrow = 1;
-        foreach ($order->getDetailListClothes() as $row) {
-            $pdf->Row([
-                $numrow,
-                utf8_decode($row['reference_num']),
-                utf8_decode($row['name_reference']),
-                utf8_decode($row['name_size']),
-                utf8_decode($row['name_product']),
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-            ], 7, true);
-            $numrow += 1;
+        switch ($id_line_production) {
+            case 1:
+                $pdf->SetAligns(array('C', 'C', 'L', 'C', 'L', 'L', 'C', 'C', 'C', 'C', 'C', 'C', 'C'));
+                $pdf->SetFont('Arial', '', 12);
+                $numrow = 1;
+                foreach ($order->getDetailListShoes() as $row) {
+                    $pdf->Row([
+                        $numrow,
+                        utf8_decode($row['reference_num']),
+                        utf8_decode($row['name_reference']),
+                        utf8_decode($row['name_size']),
+                        utf8_decode($row['name_product']),
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                    ], 7, true);
+                    $numrow += 1;
+                }
+                break;
+            case 2:
+                $pdf->SetAligns(array('C', 'C', 'L', 'C', 'L', 'L', 'C', 'C', 'C', 'C', 'C', 'C'));
+                $pdf->SetFont('Arial', '', 12);
+                $numrow = 1;
+                foreach ($order->getDetailListClothes() as $row) {
+                    $pdf->Row([
+                        $numrow,
+                        utf8_decode($row['reference_num']),
+                        utf8_decode($row['name_reference']),
+                        utf8_decode($row['name_size']),
+                        utf8_decode($row['name_product']),
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                    ], 7, true);
+                    $numrow += 1;
+                }
+                break;
+            default:
+                $pdf->SetAligns(array('C', 'C', 'L', 'C', 'L', 'L', 'C'));
+                $pdf->SetFont('Arial', '', 12);
+                $numrow = 1;
+                foreach ($order->getDetailListByLineProduction($id_line_production) as $row) {
+                    $pdf->Row([
+                        $numrow,
+                        utf8_decode($row['reference_num']),
+                        utf8_decode($row['name_reference']),
+                        utf8_decode($row['name_size']),
+                        utf8_decode($row['name_product']),
+                        utf8_decode($row['observation']),
+                        '',
+                    ], 7, true);
+                    $numrow += 1;
+                }
+                break;
         }
-
-
-
 
 
         //------------------------------------------
@@ -202,8 +238,8 @@ class ListProduction extends CustomPDF
         // Move to the right
 
         // Title
-        $this->Cell(192, 10, utf8_decode('  FORMATO DE PRODUCCIÓN DE ' . $formatProduction['name_productionline'] . ' ' . $order->getTypeOrder()['name_typeoforder'] . ' ' . $order->id_order . '-' . $id_line_production), 0, 1, 'C');
-
+        $this->Cell(192, 4, utf8_decode('  FORMATO DE PRODUCCIÓN DE ' . $formatProduction['name_productionline']), 0, 1, 'C');
+        $this->Cell(192, 8, utf8_decode($order->getTypeOrder()['name_typeoforder'] . ' ' . $order->id_order . '-' . $id_line_production), 0, 1, 'C');
         $customer = $order->getCustomer();
         $this->SetFont('Arial', 'B', 10);
         $this->Cell(10, 5, utf8_decode(''), 0, 0, 'L');
@@ -233,6 +269,30 @@ class ListProduction extends CustomPDF
         $this->SetFont('Arial', 'B', 12);
         $this->Cell(195, 4, 'Pagina ' . $this->PageNo() . ' de {nb}', 0, 1, 'C');
         $this->Ln(2);
+
+        switch ($id_line_production) {
+            case 1:
+                //encabezado de la tabla
+                $this->SetWidths(array(8, 15, 50, 12, 40, 35, 5, 5, 5, 5, 5, 5, 5));
+                $this->SetAligns(array('C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C'));
+                $this->SetFont('Arial', 'B', 10);
+                $this->Row([utf8_decode('N°'), 'Ref', 'Nombre Ref', 'Talla', 'Producto', utf8_decode('Observación'), 'S', 'T', 'A', 'G', 'B', 'M', 'C'], 7, true);
+                break;
+            case 2:
+                //encabezado de la tabla
+                $this->SetWidths(array(8, 10, 50, 15, 40, 11, 11, 11, 11, 11, 11, 11));
+                $this->SetAligns(array('C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C'));
+                $this->SetFont('Arial', 'B', 10);
+                $this->Row([utf8_decode('N°'), 'Ref', 'Nombre Ref', 'Talla', 'Producto', 'Subl', 'File', 'Caus', 'Coll', 'Marq', 'Cali', 'Bols'], 7, true);
+                break;
+            default:
+                //encabezado de la tabla
+                $this->SetWidths(array(8, 15, 50, 20, 45, 40, 15,));
+                $this->SetAligns(array('C', 'C', 'C', 'C', 'C', 'C', 'C'));
+                $this->SetFont('Arial', 'B', 10);
+                $this->Row([utf8_decode('N°'), 'Ref', 'Nombre Ref', 'Talla', 'Producto', utf8_decode('Observación'), 'Check'], 7, true);
+                break;
+        }
     }
 
     // Pie de página
