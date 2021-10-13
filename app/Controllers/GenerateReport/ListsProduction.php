@@ -32,7 +32,7 @@ class ListsProduction extends BaseController
             return;
         }
 
-        $pdf = new ListProduction('P', 'mm', array(215, 280));
+        $pdf = new ListProductionClothes('P', 'mm', array(215, 280));
         //Establecemos el margen inferior:
         $pdf->SetAutoPageBreak(true, 8);
         $pdf->AddPage();
@@ -44,6 +44,11 @@ class ListsProduction extends BaseController
         //Cuerpo
         switch ($id_line_production) {
             case 1:
+                $pdf = new ListProductionClothes('P', 'mm', array(215, 280));
+                //Establecemos el margen inferior:
+                $pdf->SetAutoPageBreak(true, 8);
+                $pdf->AddPage();
+
                 $pdf->SetAligns(array('C', 'C', 'L', 'C', 'L', 'L', 'C', 'C', 'C', 'C', 'C', 'C', 'C'));
                 $pdf->SetFont('Arial', '', 12);
                 $numrow = 1;
@@ -214,7 +219,7 @@ class CustomPDF extends FPDF
     }
 }
 
-class ListProduction extends CustomPDF
+class ListProductionClothes extends CustomPDF
 {
     // Page header
     function Header()
@@ -224,7 +229,7 @@ class ListProduction extends CustomPDF
         $mdlorder = new OrderModel();
 
         // Logo
-        $this->Image('img/corporative/logopera.png', 178, 10, 25);
+        $this->Image('img/corporative/logopera.png', 185, 5, 15);
 
         //datos
         $id_order = $_POST['id_order'];
@@ -241,28 +246,44 @@ class ListProduction extends CustomPDF
         $this->Cell(192, 4, utf8_decode('  FORMATO DE PRODUCCIÓN DE ' . $formatProduction['name_productionline']), 0, 1, 'C');
         $this->Cell(192, 8, utf8_decode($order->getTypeOrder()['name_typeoforder'] . ' ' . $order->id_order . '-' . $id_line_production), 0, 1, 'C');
         $customer = $order->getCustomer();
+
+
         $this->SetFont('Arial', 'B', 10);
-        $this->Cell(10, 5, utf8_decode(''), 0, 0, 'L');
-        $this->Cell(65, 5, utf8_decode('CLIENTE: '), 0, 0, 'L');
+        $this->Cell(45, 5, utf8_decode('FECHA DE CREACIÓN: '), 0, 0, 'L');
         $this->SetFont('Arial', '', 10);
-        $this->Cell(85, 5, utf8_decode($customer->name_customer . ' ' . $customer->surname_customer), 0, 1, 'R');
+        $this->Cell(42, 5, utf8_decode($order->created_at_order), 0, 0, 'L');
         $this->SetFont('Arial', 'B', 10);
-        $this->Cell(10, 5, utf8_decode(''), 0, 0, 'L');
-        $this->Cell(65, 5, utf8_decode('DESTINO: '), 0, 0, 'L');
+        $this->Cell(45, 5,  utf8_decode('FECHA DE PRODUCCIÓN: '), 0, 0, 'L');
+        $this->SetFont('Arial', '', 10);
+        $this->Cell(35, 5, utf8_decode($formatProduction['date_production']), 0, 1, 'R');
+
+        $this->SetFont('Arial', 'B', 10);
+        $this->Cell(20, 5, utf8_decode('CLIENTE: '), 0, 0, 'L');
+        $this->SetFont('Arial', '', 10);
+        $this->Cell(85, 5, utf8_decode($customer->name_customer . ' ' . $customer->surname_customer), 0, 0, 'L');
+        $this->SetFont('Arial', 'B', 10);
+        $this->Cell(20, 5, utf8_decode('DESTINO: '), 0, 0, 'L');
         $infoAdress = $order->getInfoAdress();
         $this->SetFont('Arial', '', 10);
-        $this->Cell(85, 5, utf8_decode($infoAdress['name_city'] . ' - ' . $infoAdress['name_department']), 0, 1, 'R');
-        $this->SetFont('Arial', 'B', 10);
-        $this->Cell(10, 5, utf8_decode(''), 0, 0, 'L');
-        $this->Cell(65, 5, utf8_decode('FECHA DE CREACIÓN: '), 0, 0, 'L');
-        $this->SetFont('Arial', '', 10);
-        $this->Cell(85, 5, utf8_decode($order->created_at_order), 0, 1, 'R');
-        $this->SetFont('Arial', 'B', 10);
+        $this->Cell(50, 5, utf8_decode($infoAdress['name_city'] . ' - ' . $infoAdress['name_department']), 0, 1, 'R');
 
-        $this->Cell(10, 5, utf8_decode(''), 0, 0, 'L');
-        $this->Cell(65, 4,  utf8_decode('FECHA DE PRODUCCIÓN: '), 0, 0, 'L');
-        $this->SetFont('Arial', '', 10);
-        $this->Cell(85, 5, utf8_decode($formatProduction['date_production']), 0, 1, 'R');
+        $this->ln(3);
+
+
+        $this->Cell(48, 5, 'Supervisor:', 1, 0, 'L');
+        $this->Cell(48, 5, utf8_decode('Sublimación:'), 1, 0, 'L');
+        $this->Cell(48, 5, 'Troquel:', 1, 0, 'L');
+        $this->Cell(48, 5, 'Bodega:', 1, 1, 'L');
+        $this->Cell(48, 5, 'Armado:', 1, 0, 'L');
+        $this->Cell(48, 5, utf8_decode('Guarnecedor:'), 1, 0, 'L');
+        $this->Cell(48, 5, 'Montador:', 1, 0, 'L');
+        $this->Cell(48, 5, 'Calidad:', 1, 1, 'L');
+
+
+
+
+
+
 
 
         $this->Ln(5);
@@ -280,7 +301,7 @@ class ListProduction extends CustomPDF
                 break;
             case 2:
                 //encabezado de la tabla
-                $this->SetWidths(array(8, 10, 50, 15, 40, 11, 11, 11, 11, 11, 11, 11));
+                $this->SetWidths(array(8, 15, 45, 15, 40, 11, 11, 11, 11, 11, 11, 11));
                 $this->SetAligns(array('C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C'));
                 $this->SetFont('Arial', 'B', 10);
                 $this->Row([utf8_decode('N°'), 'Ref', 'Nombre Ref', 'Talla', 'Producto', 'Subl', 'File', 'Caus', 'Coll', 'Marq', 'Cali', 'Bols'], 7, true);

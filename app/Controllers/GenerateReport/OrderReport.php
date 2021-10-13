@@ -83,7 +83,7 @@ class OrderReport extends BaseController
 
         //TABLA DE TODO EL PEDIDO
         //Encabezado
-        $pdf->SetWidths(array(10, 10, 50, 20, 40, 35, 30));
+        $pdf->SetWidths(array(10, 15, 45, 20, 40, 35, 30));
         $pdf->SetAligns(array('C', 'C', 'C', 'C', 'C', 'C', 'C'));
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Row([utf8_decode('N°'), 'Ref', 'Nombre Ref', 'Talla', 'Producto', utf8_decode('observación'), 'Precio'], 7, true);
