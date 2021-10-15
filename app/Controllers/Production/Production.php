@@ -33,8 +33,22 @@ class Production extends BaseController
         ]);
     }
 
-    public function viewDayProduction($date, $typeorder, $lineproduction)
+    public function viewDayProduction()
     {
+        //datos recibidos desde el formulario de view production
+        $date = $this->request->getPostGet('date');
+        $idLineProduction = $this->request->getPostGet('line_production');
+        $idTypeOrder =  $this->request->getPostGet('type_order');
+
+        $formatProdutions =   $this->mdlProductionFormat->getDailyFormatsProductions($date, $idLineProduction, $idTypeOrder);
+        $orders = array();
+        foreach ($formatProdutions as $format) {
+            array_push($orders, $this->mdlOrder->find($format['order_id_order']));
+        }
+        return view('contents/production/view_daily_production', [
+            'orders' => $orders,
+            'date' => $date
+        ]);
     }
 
     public function goToProduction($id_order)

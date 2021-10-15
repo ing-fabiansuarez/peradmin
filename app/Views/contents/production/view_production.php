@@ -38,40 +38,44 @@
                 <h4>MAYOR</h4>
                 <div class="card">
                     <div class="card-body">
-
-                        <div class="form-group">
-                            <label>Dia de Producci&oacute;n</label>
-                            <input type="date" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Linea de Producci&oacute;n</label>
-                            <select class="form-control">
-                                <?php foreach ($lineproduction as $line) : ?>
-                                    <option value="<?= $line['id_productionline'] ?>"><?= $line['name_productionline'] ?></option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
-                        <button type="button" class="btn btn-block btn-dark btn-sm">Ver dia de Producci&oacute;n</button>
+                        <form action="<?= base_url() . route_to('view_day_production') ?>" method="get">
+                            <div class="form-group">
+                                <label>Dia de Producci&oacute;n</label>
+                                <input name="date" type="date" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Linea de Producci&oacute;n</label>
+                                <select name="line_production" class="form-control">
+                                    <?php foreach ($lineproduction as $line) : ?>
+                                        <option value="<?= $line['id_productionline'] ?>"><?= $line['name_productionline'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                            <input type="hidden" name="type_order" value="1">
+                            <button type="submit" class="btn btn-block btn-dark btn-sm">Ver dia de Producci&oacute;n</button>
+                        </form>
                     </div>
                 </div>
 
                 <h4>DETAL</h4>
                 <div class="card">
                     <div class="card-body">
-
-                        <div class="form-group">
-                            <label>Dia de Producci&oacute;n</label>
-                            <input type="date" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Linea de Producci&oacute;n</label>
-                            <select class="form-control">
-                                <?php foreach ($lineproduction as $line) : ?>
-                                    <option value="<?= $line['id_productionline'] ?>"><?= $line['name_productionline'] ?></option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
-                        <button type="button" class="btn btn-block btn-dark btn-sm">Ver dia de Producci&oacute;n</button>
+                        <form action="<?= base_url('view_day_production') ?>" method="post">
+                            <div class="form-group">
+                                <label>Dia de Producci&oacute;n</label>
+                                <input name="date" type="date" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Linea de Producci&oacute;n</label>
+                                <select name="line_production" class="form-control">
+                                    <?php foreach ($lineproduction as $line) : ?>
+                                        <option value="<?= $line['id_productionline'] ?>"><?= $line['name_productionline'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                            <input type="hidden" name="type_order" value="2">
+                            <button type="submit" class="btn btn-block btn-dark btn-sm">Ver dia de Producci&oacute;n</button>
+                        </form>
                     </div>
                 </div>
             </div>
