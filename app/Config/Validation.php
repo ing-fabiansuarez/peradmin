@@ -372,4 +372,32 @@ class Validation
 			]
 		],
 	];
+
+	public $newReceipt = [
+		'id_order'    => [
+			'rules'  => 'required|is_not_unique[order.id_order]',
+			'errors' => [
+				'is_not_unique' => 'No existe el pedido.'
+			]
+		],
+		'aprobacion'    => [
+			'rules'  => 'required',
+			
+		],
+		'valor'    => [
+			'rules'  => 'required|alpha_numeric',
+			
+		],
+		'fecha'    => [
+			'rules'  => 'required|valid_date[Y-m-d]',
+			
+		],
+		'banco'    => [
+			'rules'  => 'required|is_not_unique[bank.id_bank]',
+			
+		],
+		'voucher'    => [
+			'rules'  => 'is_image[voucher]',
+		],
+	];
 }

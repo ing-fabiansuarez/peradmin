@@ -70,6 +70,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	//recibos
 	$routes->group('recibosdecaja', ['namespace' => 'App\Controllers\Receipt', 'filter' => 'auth'], function ($routes) {
 		$routes->get('(:segment)', 'Receipt::index/$1', ['as' => 'view_receipt']);
+		$routes->post('crear', 'Receipt::create', ['as' => 'create_receipt']);
 	});
 
 	//production

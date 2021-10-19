@@ -41,6 +41,17 @@
 
 <section class="content">
     <div class="container">
+        <?php if (session('msg')) : ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert <?= session('msg.class') ?> alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h5><?= session('msg.icon') ?> <?= session('msg.title') ?></h5>
+                        <?= session('msg.body') ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
         <div class="row">
             <div class="col-md-12">
                 <div class="info-box">
@@ -94,26 +105,26 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <form action="" method="post">
+                        <form action="<?= base_url() . route_to('create_receipt') ?>" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="id_order" value="<?= $order->id_order ?>">
                             <div class="form-group">
                                 <label>N&uacute;mero de aprobaci&oacute;n</label>
-                                <input type="text" class="form-control" placeholder="Número de aprobación">
+                                <input name="aprobacion" type="text" class="form-control" placeholder="Número de aprobación">
                                 <p style="margin-bottom: 0;" class="text-danger"></p>
                             </div>
                             <div class="form-group">
                                 <label>Valor del pago</label>
-                                <input type="number" class="form-control" placeholder="Valor">
+                                <input name="valor" type="number" class="form-control" placeholder="Valor">
                                 <p style="margin-bottom: 0;" class="text-danger"></p>
                             </div>
                             <div class="form-group">
                                 <label>Fecha de consignaci&oacute;n</label>
-                                <input max="<?= date("Y-m-d") ?>" type="date" class="form-control">
+                                <input name="fecha" max="<?= date("Y-m-d") ?>" type="date" class="form-control">
                                 <p style="margin-bottom: 0;" class="text-danger"></p>
                             </div>
                             <div class="form-group">
                                 <label>Banco</label>
-                                <select class="custom-select">
+                                <select name="banco" class="custom-select">
                                     <?php foreach ($banks as $bank) : ?>
                                         <option value="<?= $bank['id_bank'] ?>"><?= $bank['name_bank'] ?></option>
                                     <?php endforeach; ?>
@@ -123,14 +134,14 @@
                             <div class="form-group">
                                 <label>Voucher</label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="photo_perfil" value="<?= old('photo_perfil') ?>" required>
+                                    <input accept="image/*" type="file" class="custom-file-input" name="voucher" required>
                                     <label class="custom-file-label" for="customFile">Subir Archivo</label>
                                     <p class="text-danger"></p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Observación adicional</label>
-                                <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                <textarea name="observacion" class="form-control" rows="3" placeholder="Enter ..."></textarea>
                             </div>
                             <button type="submit" class="btn btn-block btn-secondary btn-sm">AGREGAR PAGO</button>
                         </form>
@@ -171,7 +182,7 @@
                             </div>
                             <button type="button" class="btn btn-block btn-outline-secondary">
                                 <i class="fa fa-print"></i>
-                                 Imprimir
+                                Imprimir
                             </button>
                         </div>
                         <div class="col-md-6">
