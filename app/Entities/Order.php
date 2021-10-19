@@ -120,33 +120,44 @@ class Order extends Entity
             ->join('size', 'detailorder.size_id = size.id_size')
             ->where('detailorder.order_id', $this->id_order)
             ->where('product.production_line_id', $id_line_production)
-            ->orderBy('product.name_product','asc')
+            ->orderBy('product.name_product', 'asc')
             ->get()->getResultArray();
     }
 
-
-    public function getCountEachProduct()
+    public function getTotalSale()
     {
+        $detailOrder = $this->getDetailList();
+        $total = 0;
+        foreach ($detailOrder as $detail) :
+            $total += $detail['pricesale_detailorder'];
+        endforeach;
+        return $total;
+    }
+
+    public function getCountEachProduct() //retorna el nombre y la cantidad de productos que hay y el precio total por ellos
+    {
+        $detailOrder = $this->getDetailList();
         $arrayResult = array();
         foreach ($this->mdlProduct->select('id_product,name_product')->findAll() as $product) {
             $counter = 0;
-            if (
-                ($counter = $this->mdlDetailOrder->db->table('detailorder')
-                    ->select('*')
-                    ->join('product', 'detailorder.reference_product_id = product.id_product')
-                    ->where('detailorder.order_id', $this->id_order)
-                    ->where('detailorder.reference_product_id', $product['id_product'])
-                    ->countAllResults())
-                != 0
-            ) {
+            $value = 0;
+
+            foreach ($detailOrder as $detail) :
+                if ($detail['reference_product_id'] == $product['id_product']) :
+                    $counter += 1;
+                    $value += $detail['pricesale_detailorder'];
+                endif;
+            endforeach;
+            if ($counter != 0) {
                 array_push($arrayResult, [
                     'id_product' => $product['id_product'],
                     'name_product' => $product['name_product'],
                     'quantity' => $counter,
+                    'value' => $value,
                 ]);
             }
         }
-        return $arrayResult;
+        return ($arrayResult);
     }
 
     public  function getLineProductions()

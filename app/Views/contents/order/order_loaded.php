@@ -261,21 +261,26 @@
             </div>
             <div class="col-md-9">
                 <div class="row">
-                    <div class="info-box bg-headerorder">
-                        <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
+                    <div class="col-md-9">
+                        <div class="info-box bg-headerorder">
+                            <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
 
-                        <div class="info-box-content">
-                            <span class="info-box-text"><b>PEDIDO AL <?= $order->getTypeOrder()['name_typeoforder'] ?></b> ====> N° <?= $order->id_order ?></span>
-                            <span class="info-box-number">Pedido a nombre de <?= $order->getCustomer()->name_customer ?> <?= $order->getCustomer()->surname_customer ?></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text"><b>PEDIDO AL <?= $order->getTypeOrder()['name_typeoforder'] ?></b> ====> N° <?= $order->id_order ?></span>
+                                <span class="info-box-number">Pedido a nombre de <?= $order->getCustomer()->name_customer ?> <?= $order->getCustomer()->surname_customer ?></span>
 
-                            <div class="progress">
-                                <div class="progress-bar" style="width: 100%"></div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 100%"></div>
+                                </div>
+                                <span class="progress-description">
+                                    Por el total de $ <b><?= number_format($order->getTotalSale()) ?></b>
+                                </span>
                             </div>
-                            <span class="progress-description">
-                                Por el total de $ <b><?= number_format(55000) ?></b>
-                            </span>
+                            <!-- /.info-box-content -->
                         </div>
-                        <!-- /.info-box-content -->
+                    </div>
+                    <div class="col-md-3">
+                        <a href="<?=base_url().route_to('view_receipt',$order->id_order)?>" class="btn btn-block bg-gradient-secondary btn-lg">AGREGAR PAGOS</a>
                     </div>
                 </div>
                 <div class="row">
@@ -408,6 +413,7 @@
                                 </div>
                             </div>
                         <?php endif ?>
+
                     </div>
                     <div class="col-md-8">
                         <div class="card">

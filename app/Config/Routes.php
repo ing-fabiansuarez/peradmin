@@ -67,6 +67,11 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->post('actualizarinfoenvio/(:segment)', 'Order::updateInfoAddress/$1', ['as' => 'update_infoaddress']);
 	});
 
+	//recibos
+	$routes->group('recibosdecaja', ['namespace' => 'App\Controllers\Receipt', 'filter' => 'auth'], function ($routes) {
+		$routes->get('(:segment)', 'Receipt::index/$1', ['as' => 'view_receipt']);
+	});
+
 	//production
 	$routes->group('produccion', ['namespace' => 'App\Controllers\Production', 'filter' => 'auth'], function ($routes) {
 		$routes->get('', 'Production::index', ['as' => 'view_production']);
