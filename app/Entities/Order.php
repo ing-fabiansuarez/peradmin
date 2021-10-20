@@ -9,13 +9,14 @@ use App\Models\InfoAdressModel;
 use App\Models\ProductionFormatModel;
 use App\Models\ProductionlineModel;
 use App\Models\ProductModel;
+use App\Models\ReceiptModel;
 use App\Models\TypeorderModel;
 use CodeIgniter\Entity\Entity;
 
 class Order extends Entity
 {
     protected $dates = ['created_at_order'];
-    private $mdlDetailOrder, $mdlLineProduction, $mdlProductionFormat, $mdlInfoAdress, $mdlProduct;
+    private $mdlDetailOrder, $mdlLineProduction, $mdlProductionFormat, $mdlInfoAdress, $mdlProduct, $mdlReceipt;
 
     public function __construct()
     {
@@ -24,6 +25,7 @@ class Order extends Entity
         $this->mdlProductionFormat = new ProductionFormatModel();
         $this->mdlInfoAdress = new InfoAdressModel();
         $this->mdlProduct = new ProductModel();
+        $this->mdlReceipt = new ReceiptModel();
     }
 
     public function setInfoAdress($transporter, $city, $whtapp, $email, $neighborhood, $homeadress)
@@ -213,5 +215,10 @@ class Order extends Entity
             return false;
         }
         return true;
+    }
+
+    public function getReceipts()
+    {
+        return $this->mdlReceipt->where('order_id', $this->id_order)->orderBy('consecutive_receipt')->get()->getResultArray();
     }
 }

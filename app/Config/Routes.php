@@ -105,6 +105,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->get('rotulo/(:segment)', 'OrderReport::generateRotulo/$1', ['as' => 'rotulo_order']);
 		$routes->post('formatogeneral/(:segment)', 'OrderReport::generateGeneralFormat/$1', ['as' => 'general_format_order']);
 		$routes->post('listadeproduccion', 'ListsProduction::generateListProduction', ['as' => 'generate_list_of_production']);
+		$routes->get('recibo/(:segment)/(:segment)', 'Receipts::generateReceipt/$1/$2', ['as' => 'generate_receipt']);
 	});
 
 	//el administrador viejo

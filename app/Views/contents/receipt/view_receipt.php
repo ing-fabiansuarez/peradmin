@@ -149,49 +149,54 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <div class="callout callout-danger">
-                    <h3 class="text-center"><b>2021-05-01</b></h3>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card card-secondary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Informaci&oacute;n del pago</h3>
+                <?php foreach ($receipts as $receipt) : ?>
+                    <form target="_blank" action="<?= base_url() . route_to('generate_receipt',  $receipt['bank_id_bank'], $receipt['approval_receipt']) ?>" method="get">
+                        <div id="imprimible" class="callout callout-danger">
+                            <h3 class="text-center"><b><?= $receipt['consecutive_receipt'] ?></b></h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card card-secondary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Informaci&oacute;n del pago</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label>N&uacute;mero de aprobaci&oacute;n: </label>
+                                                <?= $receipt['approval_receipt'] ?>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Banco: </label>
+                                                <?= $receipt['bank_id_bank'] ?>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Fecha de consignaci&oacute;n: </label>
+                                                <?= $receipt['date_receipt'] ?>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Informaci&oacute;n adicional: </label>
+                                                <?= $receipt['description_receipt'] ?>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="text-center">
+                                                <h5><b>$ <?= number_format($receipt['value_receipt']) ?></b></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button id="btnImprimir" type="submit" class="btn btn-block btn-outline-secondary">
+                                        <i class="fa fa-print"></i>
+                                        Imprimir
+                                    </button>
                                 </div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label>N&uacute;mero de aprobaci&oacute;n: </label>
-                                        3229243184
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Banco: </label>
-                                        BANCOLOMBIA
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Fecha de consignaci&oacute;n: </label>
-                                        2021-05-1020
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Informaci&oacute;n adicional: </label>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="text-center">
-                                        <h5><b>$ 50,000</b></h5>
+                                <div class="col-md-6">
+                                    <div class="card card-body">
+                                        <img src="<?= base_url($receipt['image_receipt']) ?>" alt="">
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-block btn-outline-secondary">
-                                <i class="fa fa-print"></i>
-                                Imprimir
-                            </button>
                         </div>
-                        <div class="col-md-6">
-                            <div class="card card-body">
-                                <img src="https://www.periodicolaguajira.com/images/stories/sociales/2020/08-agosto/Recibo.jpeg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </form>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>

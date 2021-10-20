@@ -25,10 +25,10 @@ class Receipt extends BaseController
             echo "EL PEDIDO NO EXITE";
             return;
         }
-        $order->getCountEachProduct();
         return view('contents/receipt/view_receipt', [
             'banks' => $this->mdlBank->findAll(),
             'order' => $order,
+            'receipts' => $order->getReceipts()
         ]);
     }
 
@@ -45,9 +45,6 @@ class Receipt extends BaseController
             echo $cadena;
             return;
         }
-        //validar si ya existe un recibo con el mismo numero de aprobacion
-
-
 
         //datos recibidos del formulario
         $id_order = $this->request->getPost('id_order');
@@ -61,14 +58,24 @@ class Receipt extends BaseController
         endif;
         //------
 
-        $consecutive = '2021-10-1';
+        //validar si ya existe un recibo con el mismo numero de aprobacion
+        if ($receipt = $this->mdlReceipt->where('approval_receipt', $approveNumber)->where('bank_id_bank', $bank)->first()) {
+            return redirect()->back()->with('msg', [
+                'title' => 'Ya esta registrado el pago',
+                'body' => "Esta creado en el pedido " . $receipt['order_id'],
+                'icon' => '<i class="icon fas fa-ban"></i>',
+                'class' => 'alert-danger'
+            ]);
+        }
+        $arrayFecha = explode('-', $date); //separa la fecha 
+        $number =  $this->mdlReceipt->where("`date_receipt` LIKE '%" . $arrayFecha[0] . "-" . $arrayFecha[1] . "-%'")->countAllResults() + 1;
+        //crear el consecutivo
+        $consecutive = $arrayFecha[0] . '-' . $arrayFecha[1] . '-' . $number;
 
-
+        //guardar la imagen y el pago
         $file = $this->request->getFile('voucher');
-
         if ($file->isValid() && !$file->hasMoved()) {
             //crea la carpeta donde se va a alojar el recibo si no existe
-            $arrayFecha = explode('-', $date); //separa la fecha 
             $path = 'receipts/' . $arrayFecha[0] . '/' . $arrayFecha[1] . '/';
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
