@@ -16,7 +16,7 @@ use CodeIgniter\Entity\Entity;
 class Order extends Entity
 {
     protected $dates = ['created_at_order'];
-    private $mdlDetailOrder, $mdlLineProduction, $mdlProductionFormat, $mdlInfoAdress, $mdlProduct, $mdlReceipt;
+    private $mdlDetailOrder, $mdlLineProduction, $mdlProductionFormat, $mdlInfoAdress, $mdlProduct, $mdlReceipt, $mdlEmployee;
 
     public function __construct()
     {
@@ -26,6 +26,7 @@ class Order extends Entity
         $this->mdlInfoAdress = new InfoAdressModel();
         $this->mdlProduct = new ProductModel();
         $this->mdlReceipt = new ReceiptModel();
+        $this->mdlEmployee = new EmployeeModel();
     }
 
     public function setInfoAdress($transporter, $city, $whtapp, $email, $neighborhood, $homeadress)
@@ -44,8 +45,7 @@ class Order extends Entity
 
     public function getCreatedByNameComplete()
     {
-        $mdlEmployee = new EmployeeModel();
-        $employee = $mdlEmployee->find($this->created_by_order);
+        $employee = $this->mdlEmployee->find($this->created_by_order);
         return $employee->name_employee . ' ' . $employee->surname_employee;
     }
 
@@ -219,6 +219,12 @@ class Order extends Entity
 
     public function getReceipts()
     {
-        return $this->mdlReceipt->where('order_id', $this->id_order)->orderBy('consecutive_receipt')->get()->getResultArray();
+        return $this->mdlReceipt->db->table('receipt')
+            ->select('*')
+            ->join('bank', 'bank.id_bank = receipt.bank_id_bank')
+            ->where('receipt.order_id', $this->id_order)
+            ->orderBy('receipt.consecutive_receipt')
+            ->get()
+            ->getResultArray();
     }
 }

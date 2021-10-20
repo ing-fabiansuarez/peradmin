@@ -34,6 +34,7 @@ class Receipt extends BaseController
 
     public function create()
     {
+
         //validar los datos del formulario
         if (!($this->validate(
             $this->rulesvalidation->getRuleGroup('newReceipt')
@@ -57,6 +58,20 @@ class Receipt extends BaseController
             $observation = null;
         endif;
         //------
+
+        $order =  $this->mdlOrder->find($id_order);
+
+        //validar si es el dueño del pedido
+        if (session('cedula_employee') != $order->created_by_order) {
+            if (!$this->mdlPermission->hasPermission(18)) {
+                return redirect()->back()->with('msg', [
+                    'icon' => '<i class="icon fas fa-exclamation-triangle"></i>',
+                    'class' => 'alert-warning',
+                    'title' => 'Alerta!',
+                    'body' => 'No puedes modificar este pedido, este pedido no es tuyo.'
+                ]);
+            }
+        }
 
         //validar si ya existe un recibo con el mismo numero de aprobacion
         if ($receipt = $this->mdlReceipt->where('approval_receipt', $approveNumber)->where('bank_id_bank', $bank)->first()) {

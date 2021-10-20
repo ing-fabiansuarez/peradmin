@@ -3,6 +3,7 @@
 namespace App\Controllers\GenerateReport;
 
 use App\Controllers\BaseController;
+use App\Models\BankModel;
 use App\Models\OrderModel;
 use App\Models\ReceiptModel;
 use FPDF;
@@ -15,6 +16,7 @@ class Receipts extends BaseController
         //inicializacion de los modelos
         $this->mdlOrder = new OrderModel();
         $this->mdlReceipt = new ReceiptModel();
+        $this->mklBank = new BankModel();
     }
     public function generateReceipt($idBank, $approveNumber)
     {
@@ -27,6 +29,7 @@ class Receipts extends BaseController
             echo "NO SE ENCONTRO LA ORDEN";
             return;
         }
+        $bank = $this->mklBank->find($receipt['bank_id_bank']);
 
         $customer = $order->getCustomer();
         $infoAdress = $order->getInfoAdress();
@@ -41,7 +44,7 @@ class Receipts extends BaseController
         //logo
         $pdf->Image('img/corporative/logopera.png', 15, 5, 13);
         //voucher
-        $pdf->Image(base_url($receipt['image_receipt']), 135, 15, 75);
+        $pdf->Image(base_url($receipt['image_receipt']), 135, 15, 70);
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Cell(0, 8, utf8_decode('N° ' . $receipt['consecutive_receipt']), 0, 1, 'C');
         $pdf->SetFont('Arial', 'B', 8);
@@ -106,12 +109,22 @@ class Receipts extends BaseController
 
         $pdf->Cell(5);
         $pdf->Cell(45, 4, utf8_decode("BANCO"), 0, 0, 'L');
-        $pdf->Cell(70, 4, utf8_decode($receipt['bank_id_bank']), 0, 1, 'L');
+        $pdf->Cell(70, 4, utf8_decode($bank['name_bank']), 0, 1, 'L');
 
         $pdf->Cell(5);
         $pdf->Cell(45, 4, utf8_decode("VALOR"), 0, 0, 'L');
         $pdf->SetFont('Arial', 'B', 14);
-        $pdf->Cell(70, 4, '$ '.number_format($receipt['value_receipt']), 0, 1, 'R');
+        $pdf->Cell(70, 4, '$ ' . number_format($receipt['value_receipt']), 0, 1, 'R');
+
+        $pdf->Ln(3);
+
+        $pdf->SetFont('Arial', 'B', 8);
+
+        $pdf->SetFillColor(104, 104, 104);
+        $pdf->SetTextColor(255, 255, 255);
+        $pdf->Cell(125, 5, 'Impreso por ' . session()->get('name_employee') . ' (' . session()->get('cedula_employee') . ') el ' . date("Y-m-d H:i:s"), 1, 1, 'C', true);
+        $pdf->Ln(1);
+        $pdf->Cell(125, 5, 'Elaborado por ' . $receipt['created_by_receipt'], 1, 1, 'C', true);
         //---------------
 
         $this->response->setHeader('Content-Type', 'application/pdf');

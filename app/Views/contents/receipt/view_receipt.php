@@ -166,7 +166,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Banco: </label>
-                                                <?= $receipt['bank_id_bank'] ?>
+                                                <?= $receipt['name_bank'] ?>
                                             </div>
                                             <div class="form-group">
                                                 <label>Fecha de consignaci&oacute;n: </label>
