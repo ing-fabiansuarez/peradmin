@@ -45,7 +45,7 @@
                                 </form>
                             </div>
                             <div class="col-md">
-                                <a target="_blank" href="#" class="btn btn-block btn-outline-warning btn-sm">Generar PDF</a>
+                                <a target="_blank" href="#" class="btn btn-block btn-outline-warning btn-sm disabled">Generar PDF</a>
                             </div>
                         </div>
                     </div>
@@ -55,13 +55,13 @@
         <div class="row">
             <?php foreach ($orders as $order) : ?>
                 <div class="col-md-4">
-                    <div class="card card-success">
+                    <div class="card card-success callout callout-warning">
                         <div class="card-header">
                             <?php $customer = $order->getCustomer() ?>
                             <h3 class="card-title"><?= $order->id_order ?></h3>
 
                             <div class="card-tools">
-                                <a href="http://localhost/peradmin/public/pedido/cargarsesionpedido/<?= $order->id_order ?>" class="btn btn-tool" target="_blank">
+                                <a href="<?= base_url() ?>/pedido/cargarsesionpedido/<?= $order->id_order ?>" class="btn btn-tool" target="_blank">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -71,7 +71,7 @@
                             <!-- /.card-tools -->
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body ">
+                        <div class="card-body">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
                                     <?= '<b>Nombre: </b> ' . $customer->name_customer . ' ' . $customer->surname_customer; ?>
@@ -81,7 +81,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <b>Cantidad por linea de producci&oacute;n:</b>
-                                    20
+                                    null
                                 </li>
                                 <li class="nav-item">
                                     <b>Cread&oacute; por:</b>
