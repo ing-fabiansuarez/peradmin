@@ -29,7 +29,7 @@ class Order extends Entity
         $this->mdlEmployee = new EmployeeModel();
     }
 
-    public function setInfoAdress($transporter, $city, $whtapp, $email, $neighborhood, $homeadress)
+    public function setInfoAdress($transporter, $city, $whtapp, $email, $neighborhood, $homeadress, $freight)
     {
         $mdlInfoAdress = new InfoAdressModel();
         $this->attributes['info_adress_id'] = $mdlInfoAdress->insert([
@@ -38,7 +38,8 @@ class Order extends Entity
             'whatsapp_infoadress' => $whtapp,
             'email_infoadress' => $email,
             'neighborhood_infoadress' => $neighborhood,
-            'home_infoadress' => $homeadress
+            'home_infoadress' => $homeadress,
+            'freight_infoadress' => $freight,
         ]);
         return $this;
     }
@@ -58,7 +59,7 @@ class Order extends Entity
     public function getInfoAdress()
     {
         return $this->mdlInfoAdress->table('info_adress')
-            ->select('city_id,whatsapp_infoadress,email_infoadress,neighborhood_infoadress,home_infoadress,name_city,name_department,name_transporter,id_transporter')
+            ->select('city_id,whatsapp_infoadress,email_infoadress,neighborhood_infoadress,home_infoadress,name_city,name_department,name_transporter,id_transporter,freight_infoadress')
             ->join('city', 'info_adress.city_id = city.id_city')
             ->join('department', 'city.department_id = department.id_department')
             ->join('transporter', 'info_adress.transporter_id = transporter.id_transporter')
@@ -133,7 +134,7 @@ class Order extends Entity
         foreach ($detailOrder as $detail) :
             $total += $detail['pricesale_detailorder'];
         endforeach;
-        return $total;
+        return ['totalventa' => $total, 'freight' => $this->getInfoAdress()['freight_infoadress']];
     }
 
     public function getCountEachProduct() //retorna el nombre y la cantidad de productos que hay y el precio total por ellos
@@ -226,5 +227,18 @@ class Order extends Entity
             ->orderBy('receipt.consecutive_receipt')
             ->get()
             ->getResultArray();
+    }
+
+    public function canGoToProduction()
+    {
+        $totalReceipts = 0;
+        $totalForPay = $this->getTotalSale()['totalventa'] + $this->getTotalSale()['freight'];
+        foreach ($this->getReceipts() as $receipts) {
+            $totalReceipts += $receipts['value_receipt'];
+        }
+        if ($totalReceipts >= $totalForPay) {
+            return true;
+        }
+        return false;
     }
 }

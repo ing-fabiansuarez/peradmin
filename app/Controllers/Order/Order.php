@@ -44,7 +44,6 @@ class Order extends BaseController
             if (!$order = $this->mdlOrder->find(session('order_loaded'))) {
                 $customer = null;
             } else {
-                $order->isProduction();
                 return view('contents/order/order_loaded', [
                     'customer' => $order->getCustomer(),
                     'order' => $order,
@@ -94,6 +93,7 @@ class Order extends BaseController
         $email = $this->request->getPost('email_order');
         $neighborhood = $this->request->getPost('neighborhood_order');
         $homeadress = $this->request->getPost('adress_order');
+        $freight = $this->request->getPost('freight_order');
 
         $newOrder = new EntitiesOrder();
         $newOrder->fill([
@@ -104,7 +104,7 @@ class Order extends BaseController
             'created_by_order' => session()->get('cedula_employee'),
             'inproduction_order' => 0
         ]);
-        $newOrder->setInfoAdress($id_transporter, $id_city, $whatApp, $email, $neighborhood, $homeadress);
+        $newOrder->setInfoAdress($id_transporter, $id_city, $whatApp, $email, $neighborhood, $homeadress, $freight);
         $this->mdlOrder->insert($newOrder);
         session()->set([
             'order_loaded' => $newOrder->id_order,
@@ -281,7 +281,7 @@ class Order extends BaseController
         }
 
         $this->mdlInfoAddress->save([
-            'id_infoadress'=>$id_infoaddress,
+            'id_infoadress' => $id_infoaddress,
             'transporter_id' => $this->request->getPost('transporter_order'),
             'city_id' =>  $this->request->getPost('city_order'),
             'whatsapp_infoadress' =>  $this->request->getPost('whatsapp_order'),

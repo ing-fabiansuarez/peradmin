@@ -85,12 +85,12 @@
                                             <tr>
                                                 <th></th>
                                                 <th class="text-right">FLETE</th>
-                                                <th><?= number_format($order->getTotalSale()) ?></th>
+                                                <th><?= number_format($order->getTotalSale()['freight']) ?></th>
                                             </tr>
                                             <tr>
                                                 <th></th>
                                                 <th class="text-right">TOTAL</th>
-                                                <th><?= number_format($order->getTotalSale()) ?></th>
+                                                <th><?= number_format($order->getTotalSale()['totalventa'] + $order->getTotalSale()['freight']) ?></th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -103,6 +103,7 @@
         </div>
         <div class="row">
             <div class="col-md-4">
+                <a href="<?= base_url() . route_to('view_order') ?>" class="btn btn-block btn-outline-secondary btn-lg">Atras</a><br>
                 <div class="card">
                     <div class="card-body">
                         <form action="<?= base_url() . route_to('create_receipt') ?>" method="post" enctype="multipart/form-data">

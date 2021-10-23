@@ -259,6 +259,12 @@ class Validation
 				'valid_email' => 'Es un correo invalido.'
 			]
 		],
+		'freight_order'    => [
+			'rules'  => 'required|greater_than_equal_to[0]|numeric',
+			'errors' => [
+				'required' => 'Es requerido.',
+			]
+		],
 	];
 
 	public $newDetailOrder = [

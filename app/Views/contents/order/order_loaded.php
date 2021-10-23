@@ -273,14 +273,14 @@
                                     <div class="progress-bar" style="width: 100%"></div>
                                 </div>
                                 <span class="progress-description">
-                                    Por el total de $ <b><?= number_format($order->getTotalSale()) ?></b>
+                                    Por el total de $ <b><?= number_format($order->getTotalSale()['totalventa']) . ' + flete por $ ' . number_format($order->getTotalSale()['freight']) . ' = $ ' . number_format($order->getTotalSale()['freight'] + $order->getTotalSale()['totalventa']) ?></b>
                                 </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <a href="<?=base_url().route_to('view_receipt',$order->id_order)?>" class="btn btn-block bg-gradient-secondary btn-lg">AGREGAR PAGOS</a>
+                        <a href="<?= base_url() . route_to('view_receipt', $order->id_order) ?>" class="btn btn-block bg-gradient-secondary btn-lg">AGREGAR PAGOS</a>
                     </div>
                 </div>
                 <div class="row">
@@ -421,7 +421,10 @@
                                 <div class="row">
                                     <?php if (!$order->isProduction()) : ?>
                                         <div class="col-md">
-                                            <button data-toggle="modal" data-target="#modalDateProduction" type="button" class="btn btn-block btn-outline-danger btn-sm">Pasar a producci&oacute;n</button>
+                                            <button <?php if (!$order->canGoToProduction()) : echo " type='button' class='btn btn-block btn-outline-danger btn-sm disabled'";
+                                                    else :
+                                                        echo "data-toggle='modal' data-target='#modalDateProduction' type='button' class='btn btn-block btn-outline-danger btn-sm'";
+                                                    endif; ?>>Pasar a producci&oacute;n</button>
                                         </div>
                                     <?php endif ?>
                                     <div class="col-md">
@@ -521,5 +524,6 @@
             </div>
         </div>
     </div>
+
 </section>
 <?= $this->endSection() ?>

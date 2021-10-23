@@ -18,6 +18,7 @@ class InfoAdressModel extends Model
         'whatsapp_infoadress',
         'email_infoadress',
         'neighborhood_infoadress',
-        'home_infoadress'
+        'home_infoadress',
+        'freight_infoadress',
     ];
 }
