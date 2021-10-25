@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\OrderModel;
 use App\Models\ProductionFormatModel;
 use FPDF;
+use Mpdf\Mpdf;
 
 class ListsProduction extends BaseController
 {
@@ -127,6 +128,36 @@ class ListsProduction extends BaseController
         $pdf->AliasNbPages();
         $this->response->setHeader('Content-Type', 'application/pdf');
         $pdf->Output();
+    }
+
+    public function generateGraphDailyProduction()
+    {
+
+        //datos recibidos desde el formulario de view production
+        $date = $this->request->getGet('date');
+        $idLineProduction = $this->request->getGet('line_production');
+        $idTypeOrder =  $this->request->getGet('type_order');
+
+        $formatProdutions =   $this->mdlFormatProduction->getDailyFormatsProductions($date, $idLineProduction, $idTypeOrder);
+        $orders = array();
+        foreach ($formatProdutions as $format) {
+            array_push($orders, $this->mdlOrder->find($format['order_id_order']));
+        }
+
+
+        //DECLARACON DEL MPDF
+        $mpdf = new Mpdf();
+
+
+        // Write some HTML code:
+        $mpdf->WriteHTML(view('reports/html_report_daily', [
+            'date' => $date,
+            'orders'=> $orders
+        ]));
+
+        // Output a PDF file directly to the browser
+        $this->response->setHeader('Content-Type', 'application/pdf');
+        $mpdf->Output();
     }
 }
 class CustomPDF extends FPDF

@@ -281,6 +281,7 @@
                     </div>
                     <div class="col-md-3">
                         <a href="<?= base_url() . route_to('view_receipt', $order->id_order) ?>" class="btn btn-block bg-gradient-secondary btn-lg">AGREGAR PAGOS</a>
+                        <button type="button" class="btn btn-block btn-info disabled">Novedades</button>
                     </div>
                 </div>
                 <div class="row">

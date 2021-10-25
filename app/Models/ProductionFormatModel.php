@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Entities\ProductionFormat;
 use CodeIgniter\Model;
 
 class ProductionFormatModel extends Model
@@ -9,7 +10,7 @@ class ProductionFormatModel extends Model
     protected $table      = 'production_format';
     protected $primaryKey = 'order_id_order';
 
-    protected $returnType     = 'array';
+    protected $returnType     = ProductionFormat::class;
     protected $useSoftDeletes = false;
 
     protected $allowedFields = [
@@ -21,7 +22,13 @@ class ProductionFormatModel extends Model
         'created_at_format',
         'created_by_format',
         'print_by_format',
+        'consecutive_productionformat',
     ];
+
+    public function getFormatProduction($idOrder, $idLineProduction)
+    {
+        return $this->where('order_id_order', $idOrder)->where('production_line_id_productionline', $idLineProduction);
+    }
 
     public function getFormatsNoPrintBulk($lineProduction)
     {

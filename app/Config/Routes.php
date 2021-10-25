@@ -106,6 +106,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->post('formatogeneral/(:segment)', 'OrderReport::generateGeneralFormat/$1', ['as' => 'general_format_order']);
 		$routes->post('listadeproduccion', 'ListsProduction::generateListProduction', ['as' => 'generate_list_of_production']);
 		$routes->get('recibo/(:segment)/(:segment)', 'Receipts::generateReceipt/$1/$2', ['as' => 'generate_receipt']);
+		$routes->get('grafico-diario-produccion', 'ListsProduction::generateGraphDailyProduction', ['as' => 'generate_daily_graph_production']);
 	});
 
 	//el administrador viejo

@@ -47,7 +47,9 @@ class Production extends BaseController
         }
         return view('contents/production/view_daily_production', [
             'orders' => $orders,
-            'date' => $date
+            'date' => $date,
+            'idLineProduction' => $idLineProduction,
+            'idTypeOrder' => $idTypeOrder
         ]);
     }
 

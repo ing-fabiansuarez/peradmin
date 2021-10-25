@@ -39,8 +39,10 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md">
-                                <form target="_blank" action="" method="post">
-                                    <input type="hidden" name="id_order" value="1634324725">
+                                <form target="_blank" action="<?=base_url().route_to('generate_daily_graph_production')?>" method="get">
+                                    <input type="hidden" name="date" value="<?=$date?>">
+                                    <input type="hidden" name="line_production" value="<?=$idLineProduction?>">
+                                    <input type="hidden" name="type_order" value="<?=$idTypeOrder?>">
                                     <button type="submit" class="btn btn-block btn-outline-success btn-sm">Generar Grafico</button>
                                 </form>
                             </div>

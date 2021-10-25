@@ -198,6 +198,7 @@ class Order extends Entity
 
     public function genereteProductionFormat($id_lineProduction, $dateProduction)
     {
+        $quantity = $this->mdlProductionFormat->where('production_line_id_productionline', $id_lineProduction)->countAllResults();
         return $this->mdlProductionFormat->insert([
             'order_id_order' => $this->id_order,
             'production_line_id_productionline' => $id_lineProduction,
@@ -207,6 +208,7 @@ class Order extends Entity
             'created_at_format' => date("Y-m-d H:i:s"),
             'created_by_format' => session()->get('cedula_employee'),
             'print_by_format' => null,
+            'consecutive_productionformat' => $quantity + 1,
         ]);
     }
 
