@@ -224,14 +224,13 @@ class Order extends BaseController
         ))) {
             return redirect()->to(base_url() . route_to('view_load_order'))->with('input_error', $this->validator->getErrors())->withInput();
         }
+
         $customer = $this->mdlCustomer->where('numberidenti_customer', $this->request->getPost('cedula'))->first();
-        $bulkOrder = $customer->getOrderByTypeOrder(1);
-        $detailOrder = $customer->getOrderByTypeOrder(2);
+        $orders = $customer->getOrders();
 
         return view('contents/order/view_result_research', [
             'customer' => $customer,
-            'bulkOrder' => $bulkOrder,
-            'detailOrder' => $detailOrder
+            'orders' => $orders
         ]);
     }
 

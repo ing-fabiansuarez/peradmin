@@ -77,40 +77,47 @@
             <div class="col-md-1"></div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card card-widget widget-user-2">
                     <div class="widget-user-header bg-corporative">
-                        <b>PEDIDOS AL POR MAYOR</b>
+                        <b>PEDIDOS</b>
                     </div>
                     <div class="card-footer p-0">
-                        <ul class="nav flex-column">
-                            <?php foreach ($bulkOrder as $order) : ?>
-                                <li class="nav-item">
-                                    <a href="<?= base_url() . route_to('load_session_order', $order->id_order) ?>" style="color: #000;" class="nav-link">
-                                        N° <?= $order->id_order ?> - <?= $order->created_at_order->humanize() ?> <br> Creado por <b><?= $order->getCreatedByNameComplete() ?></b><span class="float-right badge bg-info"><?= count($order->getDetailList()) ?></span>
-                                    </a>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>N° Pedido</th>
+                                    <th>Formatos de Producci&oacute;n</th>
+                                    <th style="width: 40px">Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($orders as $order) : ?>
+                                    <tr>
+                                        <td>1.</td>
+                                        <td>
+                                            <a href="<?= base_url() . route_to('load_session_order', $order->id_order) ?>" style="color: #000;" class="nav-link">
+                                                N° <?= $order->id_order ?> - <?= $order->created_at_order->humanize() ?> <br> Creado por <b><?= $order->getCreatedByNameComplete() ?></b>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <ul>
+                                                <?php foreach ($order->getProductionFormat() as $format) : ?>
+                                                    <li>
+                                                        <?= '' . $format['name_productionline'] . ' - ' . $format['name_typeproduction'] ?><br>
+                                                    </li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        </td>
 
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card card-widget widget-user-2">
-                    <div class="widget-user-header bg-corporative">
-                        <b>PEDIDOS AL DETAL</b>
-                    </div>
-                    <div class="card-footer p-0">
-                        <ul class="nav flex-column">
-                            <?php foreach ($detailOrder as $order) : ?>
-                                <li class="nav-item">
-                                    <a href="<?= base_url() . route_to('load_session_order', $order->id_order) ?>" style="color: #000;" class="nav-link">
-                                        N° <?= $order->id_order ?> - <?= $order->created_at_order->humanize() ?> <br> Creado por <b><?= $order->getCreatedByNameComplete() ?></b><span class="float-right badge bg-info"><?= count($order->getDetailList()) ?></span>
-                                    </a>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
+                                        <td>
+                                            <span class="float-right badge bg-info"><?= count($order->getDetailList()) ?></span>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

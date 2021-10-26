@@ -22,10 +22,10 @@ class Customer extends Entity
         return $this->mdlType->find($this->type_of_identification_id);
     }
 
-    public function getOrderByTypeOrder($typeorder)
+    public function getOrders()
     {
         return $this->mdlOrder->where('customer_id', $this->id_customer)
-            ->where('type_of_order_id', $typeorder)->orderBy('created_at_order', 'desc')->findAll();
+            ->orderBy('created_at_order', 'desc')->findAll();
     }
 
     public function getLastAdress()

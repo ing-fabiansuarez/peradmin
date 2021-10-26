@@ -28,7 +28,6 @@
                         <th style="width: 10px">#</th>
                         <th>Pedido</th>
                         <th>Cliente</th>
-                        <th>Tipo de pedido</th>
                         <th>Hecho por</th>
                         <th>Cread&oacute;</th>
                         <th style="width: 40px">Acci&oacute;n</th>
@@ -42,7 +41,6 @@
                             <td><b><?= $row->id_order ?></b></td>
                             <td><b><?php $customer = $row->getCustomer();
                                     echo $customer->getTypeDocument()['abbreviation_typeofidentification'] . ' - ' . $customer->numberidenti_customer . '<br>' . $customer->name_customer . ' ' . $customer->surname_customer ?></b></td>
-                            <td><b><?= $row->getTypeOrder()['name_typeoforder'] ?></b></td>
                             <td>
                                 <?= $row->getCreatedByNameComplete() ?>
                             </td>
