@@ -82,7 +82,7 @@
                                     <?= '<b>' . $customer->getTypeDocument()['abbreviation_typeofidentification'] . '</b> ' . $customer->numberidenti_customer; ?>
                                 </li>
                                 <li class="nav-item">
-                                    <b>Cantidad por linea de producci&oacute;n:</b>
+                                    <b>Cantidad:</b>
                                     null
                                 </li>
                                 <li class="nav-item">

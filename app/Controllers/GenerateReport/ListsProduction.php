@@ -120,8 +120,8 @@ class ListsProduction extends BaseController
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->MultiCell(0, 10, utf8_decode('Este pedido contiene: '), 'TLR', 'C');
         $pdf->SetFont('Arial', '', 12);
-        foreach ($order->getLineProductions() as $lineProduction) {
-            $pdf->Cell(0, 5, $lineProduction['name_productionline'], 'LR', 1, 'C');
+        foreach ($order->getProductionFormat() as $format) {
+            $pdf->Cell(0, 5, utf8_decode($format['name_productionline'] . ' al ' . $format['name_typeproduction'] . ' con salida de producción ' . $format['date_production']), 'LR', 1, 'C');
         }
         $pdf->Cell(0, 1, '', 'LRB', 1, 'C');
         //------------------------------------------
@@ -152,7 +152,7 @@ class ListsProduction extends BaseController
         // Write some HTML code:
         $mpdf->WriteHTML(view('reports/html_report_daily', [
             'date' => $date,
-            'orders'=> $orders
+            'orders' => $orders
         ]));
 
         // Output a PDF file directly to the browser
@@ -285,7 +285,7 @@ class ListProductionShoes extends CustomPDF
 
         // Title
         $this->Cell(192, 4, utf8_decode('  FORMATO DE PRODUCCIÓN DE ' . $formatProduction['name_productionline']), 0, 1, 'C');
-        $this->Cell(192, 8, utf8_decode($order->getTypeOrder()['name_typeoforder'] . ' ' . $order->id_order . '-' . $id_line_production), 0, 1, 'C');
+        $this->Cell(192, 8, utf8_decode($order->id_order . '-' . $id_line_production), 0, 1, 'C');
         $customer = $order->getCustomer();
 
         $this->SetFont('Arial', 'B', 10);
@@ -393,7 +393,7 @@ class ListProductionClothes extends CustomPDF
 
         // Title
         $this->Cell(192, 4, utf8_decode('  FORMATO DE PRODUCCIÓN DE ' . $formatProduction['name_productionline']), 0, 1, 'C');
-        $this->Cell(192, 8, utf8_decode($order->getTypeOrder()['name_typeoforder'] . ' ' . $order->id_order . '-' . $id_line_production), 0, 1, 'C');
+        $this->Cell(192, 8, utf8_decode($order->id_order . '-' . $id_line_production), 0, 1, 'C');
         $customer = $order->getCustomer();
 
         $this->SetFont('Arial', 'B', 10);
@@ -472,7 +472,7 @@ class ListProductionGeneric extends CustomPDF
 
         // Title
         $this->Cell(192, 4, utf8_decode('  FORMATO DE PRODUCCIÓN DE ' . $formatProduction['name_productionline']), 0, 1, 'C');
-        $this->Cell(192, 8, utf8_decode($order->getTypeOrder()['name_typeoforder'] . ' ' . $order->id_order . '-' . $id_line_production), 0, 1, 'C');
+        $this->Cell(192, 8, utf8_decode($order->id_order . '-' . $id_line_production), 0, 1, 'C');
         $customer = $order->getCustomer();
 
         $this->SetFont('Arial', 'B', 10);

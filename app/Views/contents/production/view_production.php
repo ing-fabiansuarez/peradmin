@@ -51,7 +51,7 @@
                                     <?php endforeach ?>
                                 </select>
                             </div>
-                            <input type="hidden" name="type_order" value="1">
+                            <input type="hidden" name="type_production" value="1">
                             <button type="submit" class="btn btn-block btn-dark btn-sm">Ver dia de Producci&oacute;n</button>
                         </form>
                     </div>
@@ -60,7 +60,7 @@
                 <h4>DETAL</h4>
                 <div class="card">
                     <div class="card-body">
-                        <form action="<?= base_url('view_day_production') ?>" method="post">
+                        <form action="<?= base_url() . route_to('view_day_production') ?>" method="get">
                             <div class="form-group">
                                 <label>Dia de Producci&oacute;n</label>
                                 <input name="date" type="date" class="form-control">
@@ -73,7 +73,7 @@
                                     <?php endforeach ?>
                                 </select>
                             </div>
-                            <input type="hidden" name="type_order" value="2">
+                            <input type="hidden" name="type_production" value="2">
                             <button type="submit" class="btn btn-block btn-dark btn-sm">Ver dia de Producci&oacute;n</button>
                         </form>
                     </div>
