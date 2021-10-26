@@ -93,17 +93,17 @@
     }
 
     function setPrice() {
-        $.ajax({
-            type: "post",
-            url: "<?= base_url() . route_to('ajax_price_product') ?>",
-            data: {
-                product: $("#select_product").val(),
-                type_order: <?= $order->type_of_order_id ?>
-            },
-            success: function(r) {
-                $("#input_price").val(r);
-            },
-        });
+        /*  $.ajax({
+             type: "post",
+             url: "<?= base_url() . route_to('ajax_price_product') ?>",
+             data: {
+                 product: $("#select_product").val(),
+                 type_order: <?= $order->type_of_order_id ?>
+             },
+             success: function(r) {
+                 $("#input_price").val(r);
+             },
+         }); */
     }
 </script>
 <?= $this->endSection() ?>
@@ -266,7 +266,7 @@
                             <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text"><b>PEDIDO AL <?= $order->getTypeOrder()['name_typeoforder'] ?></b> ====> N° <?= $order->id_order ?></span>
+                                <span class="info-box-text"><b>PEDIDO N° <?= $order->id_order ?> </b> </span>
                                 <span class="info-box-number">Pedido a nombre de <?= $order->getCustomer()->name_customer ?> <?= $order->getCustomer()->surname_customer ?></span>
 
                                 <div class="progress">
@@ -377,7 +377,7 @@
                                                             <button type="button" class="btn btn-primary p-0">
                                                                 <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
                                                             </button>
-                                                            <b><?= $format['name_productionline'] ?></b>
+                                                            <b><?= $format['name_productionline'] ?> - <?= $format['name_typeproduction'] ?></b>
                                                         </td>
                                                     </tr>
                                                     <tr class="expandable-body d-none">
@@ -510,8 +510,13 @@
                                     Se generar el Formato de producci&oacute;n para <?= $row['name_productionline'] ?>
                                     <div class="form-group">
                                         <label>Fecha de <?= $row['name_productionline'] ?></label>
-                                        <input min="<?= date("Y-m-d"); ?>" name="<?= $row['id_productionline'] ?>" type="date" class="form-control" required>
+                                        <input min="<?= date("Y-m-d"); ?>" name="<?= $row['id_productionline'] ?>-date" type="date" class="form-control" required>
                                     </div>
+                                    <select name="<?= $row['id_productionline'] ?>-typeproduction" class="form-control">
+                                        <?php foreach ($typeformatproduction as $type) : ?>
+                                            <option value="<?= $type['id_typeproduction'] ?>"><?= $type['name_typeproduction'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                             </div>
                         <?php endforeach ?>

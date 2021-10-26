@@ -39,7 +39,6 @@
             success: function(r) {
                 if (r != null) {
                     $("#select_department option[value='" + r['department_id'] + "']").attr("selected", true);
-                    $("#type_order_select option[value='" + r['type_of_order_id'] + "']").attr("selected", true);
                     $("#input_neighborhood").val(r['neighborhood_infoadress']);
                     $("#input_adress").val(r['home_infoadress']);
                     $("#input_whatsapp").val(r['whatsapp_infoadress']);
@@ -103,15 +102,6 @@
                             <div class="col-md-4">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="form-group">
-                                            <label>Tipo de pedido</label>
-                                            <select id="type_order_select" name="type_order" class="form-control" required>
-                                                <?php foreach ($typeorder as $type) : ?>
-                                                    <option value="<?= $type['id_typeoforder'] ?>"><?= $type['name_typeoforder'] ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                            <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.type_order') ?></p>
-                                        </div>
                                         <div class="form-group">
                                             <label>Informaci&oacute;n Rotulo</label>
                                             <textarea value="<?= old('observation_order') ?>" name="observation_order" class="form-control" rows="3" placeholder="Enter ..."></textarea>

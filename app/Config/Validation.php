@@ -208,13 +208,6 @@ class Validation
 	];
 
 	public $newOrder = [
-		'type_order'    => [
-			'rules'  => 'required|is_not_unique[type_of_order.id_typeoforder]',
-			'errors' => [
-				'required' => 'Es requerido.',
-				'is_not_unique' => 'No exite el tipo de pedido.'
-			]
-		],
 		'transporter_order'    => [
 			'rules'  => 'required|is_not_unique[transporter.id_transporter]',
 			'errors' => [

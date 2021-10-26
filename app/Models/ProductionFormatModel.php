@@ -23,6 +23,7 @@ class ProductionFormatModel extends Model
         'created_by_format',
         'print_by_format',
         'consecutive_productionformat',
+        'type_of_production'
     ];
 
     public function getFormatProduction($idOrder, $idLineProduction)

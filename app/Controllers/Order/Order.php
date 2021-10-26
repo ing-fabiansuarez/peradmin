@@ -9,11 +9,12 @@ use App\Models\DepartmentModel;
 use App\Models\DetailorderModel;
 use App\Models\InfoAdressModel;
 use App\Models\OrderModel;
+use App\Models\ProductionFormatModel;
 use App\Models\ProductionlineModel;
 use App\Models\ProductModel;
 use App\Models\TransporterModel;
 use App\Models\TypeidentificationModel;
-use App\Models\TypeorderModel;
+use App\Models\TypeProductionModel;
 
 class Order extends BaseController
 {
@@ -23,12 +24,12 @@ class Order extends BaseController
         $this->mdlCustomer = new CustomerModel();
         $this->mdlInfoAddress = new InfoAdressModel();
         $this->mdlProductionLine = new ProductionlineModel();
-        $this->mdlTypeOrder = new TypeorderModel();
         $this->mdlDepartment = new DepartmentModel();
         $this->mdlTransporter = new TransporterModel();
         $this->mdlProduct = new ProductModel();
         $this->mdlOrder = new OrderModel();
         $this->mdlDetailOrder = new DetailorderModel();
+        $this->mdlTypeProductioFormat = new TypeProductionModel();
         $this->typeidentification = new TypeidentificationModel();
         $this->rulesvalidation = \Config\Services::validation();
     }
@@ -48,6 +49,7 @@ class Order extends BaseController
                     'customer' => $order->getCustomer(),
                     'order' => $order,
                     'infoadress' => $order->getInfoAdress(),
+                    'typeformatproduction' => $this->mdlTypeProductioFormat->findAll(),
                     'products' => $this->mdlProduct->where('active', 1)->findAll(),
                     'detail_of_order' => $order->getDetailList()
                 ]);
@@ -60,7 +62,6 @@ class Order extends BaseController
                     'customer' => $customer,
                     'typeofidentification' =>  $this->typeidentification->findAll(),
                     'productionline' => $this->mdlProductionLine->findAll(),
-                    'typeorder' => $this->mdlTypeOrder->findAll(),
                     'departments' => $this->mdlDepartment->findAll(),
                     'transporters' => $this->mdlTransporter->findAll()
                 ]);
@@ -98,7 +99,6 @@ class Order extends BaseController
         $newOrder = new EntitiesOrder();
         $newOrder->fill([
             'id_order' => time(),
-            'type_of_order_id' => $this->request->getPost('type_order'),
             'customer_id' => session()->get('customer_new_order'),
             'info_order' => $this->request->getPost('observation_order'),
             'created_by_order' => session()->get('cedula_employee'),

@@ -185,18 +185,13 @@ class Order extends Entity
         return $this->mdlProductionFormat->db->table('production_format')
             ->select('*')
             ->join('production_line', 'production_format.production_line_id_productionline = production_line.id_productionline')
+            ->join('type_of_production', 'type_of_production.id_typeproduction = production_format.type_of_production')
             ->where('production_format.order_id_order', $this->id_order)
             ->get()
             ->getResultArray();
     }
 
-    public function getTypeOrder()
-    {
-        $this->mdlTypeOrder = new TypeorderModel();
-        return $this->mdlTypeOrder->find($this->type_of_order_id);
-    }
-
-    public function genereteProductionFormat($id_lineProduction, $dateProduction)
+    public function genereteProductionFormat($id_lineProduction, $dateProduction, $typeProduction)
     {
         $quantity = $this->mdlProductionFormat->where('production_line_id_productionline', $id_lineProduction)->countAllResults();
         return $this->mdlProductionFormat->insert([
@@ -209,6 +204,7 @@ class Order extends Entity
             'created_by_format' => session()->get('cedula_employee'),
             'print_by_format' => null,
             'consecutive_productionformat' => $quantity + 1,
+            'type_of_production' => $typeProduction
         ]);
     }
 

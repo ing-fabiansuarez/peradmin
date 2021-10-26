@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\OrderModel;
 use App\Models\ProductionFormatModel;
 use App\Models\ProductionlineModel;
+use App\Models\TypeProductionModel;
 
 class Production extends BaseController
 {
@@ -16,6 +17,7 @@ class Production extends BaseController
         $this->mdlOrder = new OrderModel();
         $this->mdlLineProduction = new ProductionlineModel();
         $this->mdlProductionFormat = new ProductionFormatModel();
+        $this->mdlTypeProduction = new TypeProductionModel();
     }
 
     public function index()
@@ -71,10 +73,31 @@ class Production extends BaseController
                 ]);
             }
         }
+        d($this->request->getPost());
+        //aqui se le agrega la bandera para saber si esta en produccion
         $order->inproduction_order = 1;
-        foreach ($this->request->getPost() as $key => $date) {
-            $order->genereteProductionFormat($key, $date);
+        d($this->mdlTypeProduction->findAll());
+        foreach ($this->mdlLineProduction->findAll() as $type) {
+            $idLineProduction = '';
+            $dateProduction = '';
+            $typeProduction = '';
+            foreach ($this->request->getPost() as $key => $value) {
+                $arrayCadena = explode('-', $key);
+
+                if ($arrayCadena[0] == $type['id_productionline']) {
+                    $idLineProduction = $arrayCadena[0];
+                    if ($arrayCadena[1] == 'date') {
+                        $dateProduction = $value;
+                    } elseif ($arrayCadena[1] == 'typeproduction') {
+                        $typeProduction = $value;
+                    }
+                }
+            }
+            if ($idLineProduction != '' && $dateProduction != '' && $typeProduction != '') {
+                $order->genereteProductionFormat($idLineProduction, $dateProduction, $typeProduction);
+            }
         }
+
         $this->mdlOrder->save($order);
         return redirect()->to(base_url() . route_to('view_order'));
     }
