@@ -42,6 +42,9 @@ class Production extends BaseController
         $idLineProduction = $this->request->getPostGet('line_production');
         $idTypeProduction =  $this->request->getPostGet('type_production');
 
+        $lineProduction =  $this->mdlLineProduction->find($idLineProduction);
+        $typeProduction =  $this->mdlTypeProduction->find($idTypeProduction);
+
         $formatProdutions =   $this->mdlProductionFormat->getDailyFormatsProductions($date, $idLineProduction, $idTypeProduction);
         $orders = array();
         foreach ($formatProdutions as $format) {
@@ -50,8 +53,8 @@ class Production extends BaseController
         return view('contents/production/view_daily_production', [
             'orders' => $orders,
             'date' => $date,
-            'idLineProduction' => $idLineProduction,
-            'idTypeOrder' => $idTypeProduction
+            'lineProduction' => $lineProduction,
+            'typeProduction' => $typeProduction
         ]);
     }
 

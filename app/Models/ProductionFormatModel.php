@@ -64,4 +64,12 @@ class ProductionFormatModel extends Model
             ->get()
             ->getResultArray();
     }
+
+    public function getObjectDailyFormatsProductions($date, $id_line_production, $type_of_production)
+    {
+        return $this->where('date_production', $date)
+            ->where('production_line_id_productionline', $id_line_production)
+            ->where('type_of_production', $type_of_production)
+            ->findAll();
+    }
 }

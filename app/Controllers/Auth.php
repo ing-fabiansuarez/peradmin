@@ -33,7 +33,7 @@ class Auth extends BaseController
         if (!$employee = $modelEmployee->getEmployeeLogin('id_employee', $user)) {
             return redirect()->back()->with('msg', ['body' => 'Este usuario no se encuentra registrado en el sistema'])->withInput();
         }
-        if (md5($password) != $employee->pass_employee) {
+        if (($password) != $employee->pass_employee) {
             return redirect()->back()->with('msg', ['body' => 'Credeciales invalidas para ' . $employee->name_employee])->withInput();
         }
         $mdlPermission = new PermissionModel();

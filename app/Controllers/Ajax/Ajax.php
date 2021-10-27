@@ -131,9 +131,9 @@ class Ajax extends BaseController
 					<div class='form-group'>
                         <label>Observación</label>
 						<select name='observation' id='select_product' class='custom-select'>
-							<option value=''>* Ninguna</option>
-							<option value='un empeine'>Con empeine</option>
-							<option value='doble empeine'>Con bastante empeine</option>
+							<option value=''>Ninguna</option>
+							<option value='un empeine'>Un empeine</option>
+							<option value='doble empeine'>Doble empeine</option>
 							<option value='pie delgado'>Pie delgado</option>
 						</select>
 					</div>

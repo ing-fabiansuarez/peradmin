@@ -293,7 +293,7 @@
                                         <input type="hidden" name="id_order" value="<?= $order->id_order ?>">
                                         <div class="form-group">
                                             <label>Producto</label>
-                                            <select name="product_id" id="select_product" class="custom-select">
+                                            <select name="product_id" id="select_product" class="custom-select" required>
                                                 <?php foreach ($products as $row) : ?>
                                                     <option value="<?= $row['id_product'] ?>"><?= $row['name_product'] ?></option>
                                                 <?php endforeach; ?>
@@ -302,13 +302,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Referencia</label>
-                                            <select name="reference_id" id="select_references" class="custom-select">
+                                            <select name="reference_id" id="select_references" class="custom-select" required>
                                             </select>
                                             <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.reference_id') ?></p>
                                         </div>
                                         <div class="form-group">
                                             <label>Tallas</label>
-                                            <select name="size_id" id="select_sizes" class="custom-select">
+                                            <select name="size_id" id="select_sizes" class="custom-select" required>
                                             </select>
                                             <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.size_id') ?></p>
                                         </div>
@@ -316,7 +316,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Cantidad</label>
-                                            <select name="quantity" class="custom-select">
+                                            <select name="quantity" class="custom-select" required>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -345,7 +345,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Precio</label>
-                                            <input id="input_price" name="precio" type="number" class="form-control" placeholder="$">
+                                            <input id="input_price" name="precio" type="number" class="form-control" placeholder="$" required>
                                             <p style="margin-bottom: 0;" class="text-danger"><?= session('input_details.precio') ?></p>
                                         </div>
                                         <button type="submit" class="btn btn-block btn-secondary btn-sm">AGREGAR</button>

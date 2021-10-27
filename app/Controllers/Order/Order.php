@@ -50,7 +50,7 @@ class Order extends BaseController
                     'order' => $order,
                     'infoadress' => $order->getInfoAdress(),
                     'typeformatproduction' => $this->mdlTypeProductioFormat->findAll(),
-                    'products' => $this->mdlProduct->where('active', 1)->findAll(),
+                    'products' => $this->mdlProduct->where('active', 1)->orderBy('order_product')->findAll(),
                     'detail_of_order' => $order->getDetailList()
                 ]);
             }

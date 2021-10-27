@@ -55,11 +55,12 @@
 <body>
     <div class="header">
         <img class="logo" src="img/corporative/logo.png"><br>
-        <b>DIA PRODUCCI&Oacute;N DEL <?= $date ?></b>
+        <b>DIA PRODUCCI&Oacute;N DE <?= $lineProduction['name_productionline'] ?> AL <?= $typeProduction['name_typeproduction'] ?> DEL <?= $date ?></b>
         <br>Impreso por <?= session()->get('cedula_employee') . ' - ' . session()->get('name_employee') . ' - ' . date("Y-m-d H:i:s") ?>
         <br>Revisado por: ______________________________
     </div>
-    <?php foreach ($orders as $order) :
+    <?php foreach ($porductionFormats as $format) :
+        $order = $format->getOrder();
         $customer = $order->getCustomer();
         $infoAdress = $order->getInfoAdress();
     ?>
@@ -67,6 +68,7 @@
             <div class="cliente">
                 <?= $customer->name_customer . ' ' . $customer->surname_customer ?>
             </div>
+            # <?=$format->consecutive_productionformat?><br>
             <?= '<b>' . $customer->getTypeDocument()['abbreviation_typeofidentification'] . '</b> ' . $customer->numberidenti_customer ?> <br>
             <b>Wps:</b> <?= $infoAdress['whatsapp_infoadress'] ?><br>
             <b>Ciudad:</b> <?= $infoAdress['name_city'] . ' - ' . $infoAdress['name_department'] ?> <br>

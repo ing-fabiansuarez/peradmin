@@ -19,7 +19,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Producci&oacute;n del dia <?= $date ?></h1>
+                <h1>Producci&oacute;n de <?= $lineProduction['name_productionline'] ?> al <?= $typeProduction['name_typeproduction'] ?> del dia <?= $date ?></h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -39,10 +39,10 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md">
-                                <form target="_blank" action="<?=base_url().route_to('generate_daily_graph_production')?>" method="get">
-                                    <input type="hidden" name="date" value="<?=$date?>">
-                                    <input type="hidden" name="line_production" value="<?=$idLineProduction?>">
-                                    <input type="hidden" name="type_order" value="<?=$idTypeOrder?>">
+                                <form target="_blank" action="<?= base_url() . route_to('generate_daily_graph_production') ?>" method="get">
+                                    <input type="hidden" name="date" value="<?= $date ?>">
+                                    <input type="hidden" name="line_production" value="<?= $lineProduction['id_productionline'] ?>">
+                                    <input type="hidden" name="type_production" value="<?= $typeProduction['id_typeproduction'] ?>">
                                     <button type="submit" class="btn btn-block btn-outline-success btn-sm">Generar Grafico</button>
                                 </form>
                             </div>

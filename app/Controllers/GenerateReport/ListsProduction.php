@@ -5,6 +5,8 @@ namespace App\Controllers\GenerateReport;
 use App\Controllers\BaseController;
 use App\Models\OrderModel;
 use App\Models\ProductionFormatModel;
+use App\Models\ProductionlineModel;
+use App\Models\TypeProductionModel;
 use FPDF;
 use Mpdf\Mpdf;
 
@@ -15,6 +17,8 @@ class ListsProduction extends BaseController
         //inicializacion de los modelos
         $this->mdlOrder = new OrderModel();
         $this->mdlFormatProduction = new ProductionFormatModel();
+        $this->mdlLineProduction = new ProductionlineModel();
+        $this->mdlTypeProduction = new TypeProductionModel();
     }
     public function generateListProduction()
     {
@@ -136,13 +140,12 @@ class ListsProduction extends BaseController
         //datos recibidos desde el formulario de view production
         $date = $this->request->getGet('date');
         $idLineProduction = $this->request->getGet('line_production');
-        $idTypeOrder =  $this->request->getGet('type_order');
+        $idTypeProduction =  $this->request->getGet('type_production');
 
-        $formatProdutions =   $this->mdlFormatProduction->getDailyFormatsProductions($date, $idLineProduction, $idTypeOrder);
-        $orders = array();
-        foreach ($formatProdutions as $format) {
-            array_push($orders, $this->mdlOrder->find($format['order_id_order']));
-        }
+        ($formatProdutions =   $this->mdlFormatProduction->getObjectDailyFormatsProductions($date, $idLineProduction, $idTypeProduction));
+
+        $lineProduction =  $this->mdlLineProduction->find($idLineProduction);
+        $typeProduction =  $this->mdlTypeProduction->find($idTypeProduction);
 
 
         //DECLARACON DEL MPDF
@@ -152,7 +155,9 @@ class ListsProduction extends BaseController
         // Write some HTML code:
         $mpdf->WriteHTML(view('reports/html_report_daily', [
             'date' => $date,
-            'orders' => $orders
+            'porductionFormats' => $formatProdutions,
+            'lineProduction' => $lineProduction,
+            'typeProduction' => $typeProduction
         ]));
 
         // Output a PDF file directly to the browser
