@@ -10,7 +10,6 @@ use App\Models\ProductionFormatModel;
 use App\Models\ProductionlineModel;
 use App\Models\ProductModel;
 use App\Models\ReceiptModel;
-use App\Models\TypeorderModel;
 use CodeIgniter\Entity\Entity;
 
 class Order extends Entity
@@ -46,7 +45,7 @@ class Order extends Entity
 
     public function getCreatedByNameComplete()
     {
-        $employee = $this->mdlEmployee->find($this->created_by_order);
+        $employee = $this->mdlEmployee->withDeleted()->find($this->created_by_order);
         return $employee->name_employee . ' ' . $employee->surname_employee;
     }
 

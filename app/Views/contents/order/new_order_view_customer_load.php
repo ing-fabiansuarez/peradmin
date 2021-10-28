@@ -55,6 +55,30 @@
         });
     }
 </script>
+
+<!----SCRIPT PARA VALIDACION DEL FORMULARIO ------>
+<!-- <script>
+    $(document).ready(function() {
+        inputwhps = $("#input_whatsapp");
+        inputwhps.keyup(function() {
+            validarPhone();
+        });
+        inputwhps.blur(function() {
+            validarPhone();
+        });
+
+        function validarPhone() {
+            console.log("algo ha pasado");
+            exp = /\d{10}[-]/;
+            if (exp.test(inputwhps.val())) {
+                console.log("VALIDO");
+            } else {
+                console.log("INVALIDO");
+            }
+        }
+    });
+</script> -->
+
 <?= $this->endSection() ?>
 
 <!-- ............................................CONTENIDO DE LA PAGINA................................................ -->
@@ -96,7 +120,7 @@
 
         <div class="col-md-9">
             <div class="card">
-                <form action="<?= base_url() . route_to('create_order') ?>" method="post">
+                <form id="form_new_order" action="<?= base_url() . route_to('create_order') ?>" method="post">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
