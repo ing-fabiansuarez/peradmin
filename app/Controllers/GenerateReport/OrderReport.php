@@ -21,8 +21,12 @@ class OrderReport extends BaseController
             echo "EL PEDIDO NO EXITE";
         }
         if (!$order->isProduction()) {
-            echo "EL PEDIDO NO ESTA EN PRODUCCION NO SE PUEDE IMPRIMIR ROTULO";
-            return;
+            return redirect()->to(base_url() . route_to('view_order'))->with('msg', [
+                'icon' => '<i class="icon fas fa-exclamation-triangle"></i>',
+                'class' => 'alert-warning',
+                'title' => 'Alerta!',
+                'body' => 'EL PEDIDO NO ESTA EN PRODUCCION NO SE PUEDE IMPRIMIR ROTULO.'
+            ]);
         }
 
         //SE DECLARA LA CLASE DE PDF
@@ -30,8 +34,14 @@ class OrderReport extends BaseController
         $pdf->AddPage();
         // Imagen Fondo
         $pdf->Image('img/corporative/rotulo.png', 0, 0, 215);
+        
+        $pdf->Cell(30, 75, '', 0, 1, 'C');
+        $pdf->SetFont('Arial', 'B', 25);
+        $pdf->SetTextColor(255, 0, 0);
+        $pdf->Cell(0, 15, utf8_decode('N° '.$order->id_order), 0, 1, 'C');
+        $pdf->Ln(3);
+        $pdf->SetTextColor(0, 0, 0);
         $pdf->SetFont('Arial', 'B', 15);
-        $pdf->Cell(30, 85, '', 0, 1, 'C');
         $pdf->SetWidths(array(15, 60, 120));
         $pdf->SetAligns(array('L', 'L', 'L'));
         $customer = $order->getCustomer();
@@ -72,7 +82,12 @@ class OrderReport extends BaseController
             echo "EL PEDIDO NO EXITE";
         }
         if (!$order->isProduction()) {
-            echo "EL PEDIDO NO ESTA EN PRODUCCION NO SE PUEDE IMPRIMIR ROTULO";
+            return redirect()->to(base_url() . route_to('view_order'))->with('msg', [
+                'icon' => '<i class="icon fas fa-exclamation-triangle"></i>',
+                'class' => 'alert-warning',
+                'title' => 'Alerta!',
+                'body' => 'EL PEDIDO NO ESTA EN PRODUCCION NO SE PUEDE IMPRIMIR ROTULO.'
+            ]);
             return;
         }
 
@@ -226,7 +241,7 @@ class GeneralFormatPDF extends CustomPDF
         // Move to the right
 
         // Title
-        $this->Cell(192, 10, utf8_decode($order->getTypeOrder()['name_typeoforder'] . ' - FORMATO DEL PEDIDO N° ' . $order->id_order), 0, 1, 'C');
+        $this->Cell(192, 10, utf8_decode( 'FORMATO DEL PEDIDO N° ' . $order->id_order), 0, 1, 'C');
 
         $this->SetFont('Arial', 'B', 12);
 

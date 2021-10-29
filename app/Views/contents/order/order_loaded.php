@@ -20,6 +20,7 @@
 <script src="<?= base_url() ?>/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <script>
     $(document).ready(function() {
+
         tableDetailOrder = $("#detail_order_table").DataTable({
             /* "order": [
                 [1, "desc"]
@@ -56,6 +57,9 @@
             loadsizes();
             loadobservations();
             setPrice();
+        });
+        $("#select_department").change(function() {
+            reloadcities();
         });
     });
 
@@ -104,6 +108,17 @@
                  $("#input_price").val(r);
              },
          }); */
+    }
+
+    function reloadcities() {
+        $.ajax({
+            type: "post",
+            url: "<?= base_url() . route_to('ajax_html_cities') ?>",
+            data: "department=" + $("#select_department").val(),
+            success: function(r) {
+                $("#cities_select").html(r);
+            },
+        });
     }
 </script>
 <?= $this->endSection() ?>
@@ -169,7 +184,9 @@
                             </ul>
                             <input type="hidden" name="identification" value="<?= $customer->id_customer ?>">
                             <input type="hidden" name="type" value="<?= $customer->type_of_identification_id ?>">
-                            <button type="submit" class="btn btn-default btn-block">Guardar Cambios</a>
+                            <?php if (!$order->isProduction()) : ?>
+                                <button type="submit" class="btn btn-default btn-block">Guardar Cambios</a>
+                                <?php endif; ?>
                         </form>
                     </div>
                 </div>
@@ -185,8 +202,8 @@
                     </div>
                     <div class="card-body">
                         <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <b>N° </b><?= $order->id_order ?>
+                            <li style="color: red;font-size: 30px;" class="nav-item">
+                                <b>N° <?= $order->id_order ?></b>
                             </li>
                             <li class="nav-item">
                                 <b>Creado por: </b><?= $order->getCreatedByNameComplete() ?>
@@ -194,43 +211,59 @@
                             <li class="nav-item">
                                 <b>Fecha de creaci&oacute;n: </b><?= $order->created_at_order->humanize() ?>
                             </li>
-                            <li class="nav-item">
-                                <div class="form-group">
-                                    <label>Observaci&oacute;n:</label>
-                                    <textarea class="form-control" rows="3" placeholder="Enter ..."><?= $order->info_order ?></textarea>
-                                </div>
-                            </li>
+                            <form action="<?= base_url() . route_to('update_observation_order') ?>" method="post">
+                                <input type="hidden" name="id_order" value="<?= $order->id_order ?>">
+                                <li class="nav-item">
+                                    <div class="form-group">
+                                        <label>Observaci&oacute;n:</label>
+                                        <textarea name="observation_order" class="form-control" rows="3" placeholder="Enter ..."><?= $order->info_order ?></textarea>
+                                    </div>
+                                </li>
+                                <button type="submit" class="btn btn-default btn-block">Guardar Cambios</a>
+                            </form>
                         </ul>
                         <br>
-                        <div class="card card-outline card-success">
+                        <div class="card card-outline card-success collapsed-card">
                             <div class="card-header">
                                 <h3 class="card-title">Datos de envio</h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
+                                        <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
-
                             </div>
                             <div class="card-body">
                                 <form action="<?= base_url() . route_to('update_infoaddress', $order->info_adress_id) ?>" method="post">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <div class="form-group">
-                                                <label>Whatsapp: </label>
-                                                <input name="whatsapp_order" style="border: transparent;" type="text" value="<?= $infoadress['whatsapp_infoadress'] ?>">
+                                                <label>Transportadora: </label>
+                                                <select name="transporter_order" class="form-control">
+                                                    <?php foreach ($transporters as $transporter) : ?>
+                                                        <option value="<?= $transporter['id_transporter'] ?>" <?php if ($transporter['id_transporter'] == $infoadress['id_transporter']) {
+                                                                                                                    echo 'selected';
+                                                                                                                } ?>><?= $transporter['name_transporter'] ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
                                             </div>
                                         </li>
                                         <li class="nav-item">
                                             <div class="form-group">
-                                                <label>Email: </label>
-                                                <input name="email_order" style="border: transparent;" type="email" value="<?= $infoadress['email_infoadress'] ?>">
-                                            </div>
-                                        </li>
-                                        <li class="nav-item">
-                                            <div class="form-group">
-                                                <label>Ciudad: </label>
-                                                <input name="city_order" style="border: transparent;" type="text" value="<?= $infoadress['city_id'] ?>">
+                                                <label>Departamento - Ciudad: </label>
+                                                <select id="select_department" class="form-control">
+                                                    <?php foreach ($departments as $department) : ?>
+                                                        <option value="<?= $department['id_department'] ?>" <?php if ($department['id_department'] == $infoadress['id_department']) {
+                                                                                                                echo 'selected';
+                                                                                                            } ?>><?= $department['name_department'] ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <select name="city_order" id="cities_select" class="form-control">
+                                                    <?php foreach ($cities_of_department as $city) : ?>
+                                                        <option value="<?= $city['id_city'] ?>" <?php if ($city['id_city'] == $infoadress['city_id']) {
+                                                                                                    echo 'selected';
+                                                                                                } ?>><?= $city['name_city'] ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
                                             </div>
                                         </li>
                                         <li class="nav-item">
@@ -247,11 +280,19 @@
                                         </li>
                                         <li class="nav-item">
                                             <div class="form-group">
-                                                <label>Transportadora: </label>
-                                                <input name="transporter_order" style="border: transparent;" type="text" value="<?= $infoadress['id_transporter'] ?>">
+                                                <label>Whatsapp: </label>
+                                                <input name="whatsapp_order" style="border: transparent;" type="text" value="<?= $infoadress['whatsapp_infoadress'] ?>">
                                             </div>
                                         </li>
-                                        <button type="submit" class="btn btn-default btn-block">Guardar Cambios</a>
+                                        <li class="nav-item">
+                                            <div class="form-group">
+                                                <label>Email: </label>
+                                                <input name="email_order" style="border: transparent;" type="email" value="<?= $infoadress['email_infoadress'] ?>">
+                                            </div>
+                                        </li>
+                                        <?php if (!$order->isProduction()) : ?>
+                                            <button type="submit" class="btn btn-default btn-block">Guardar Cambios</a>
+                                            <?php endif; ?>
                                     </ul>
                                 </form>
                             </div>
@@ -266,7 +307,7 @@
                             <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text"><b>PEDIDO N° <?= $order->id_order ?> </b> </span>
+                                <span style="font-size: 25px;" class="info-box-text"><b>PEDIDO N° <?= $order->id_order ?> </b> </span>
                                 <span class="info-box-number">Pedido a nombre de <?= $order->getCustomer()->name_customer ?> <?= $order->getCustomer()->surname_customer ?></span>
 
                                 <div class="progress">
@@ -368,7 +409,6 @@
                                 </div>
                                 <div class="card-body" style="padding: 0.7rem;">
                                     <div class="card-body p-0">
-
                                         <table class="table table-hover">
                                             <tbody>
                                                 <?php foreach ($order->getProductionFormat() as $format) : ?>
@@ -429,14 +469,18 @@
                                         </div>
                                     <?php endif ?>
                                     <div class="col-md">
-                                        <form target="_blank" action="<?= base_url() . route_to('general_format_order', $order->id_order) ?>" method="post">
+                                        <form <?php if ($order->isProduction()) {
+                                                    echo "target='_blank'";
+                                                } ?> action="<?= base_url() . route_to('general_format_order', $order->id_order) ?>" method="post">
                                             <input type="hidden" name="id_order" value="<?= $order->id_order ?>">
                                             <button type="submit" class="btn btn-block btn-outline-success btn-sm">Generar PDF</button>
                                         </form>
                                     </div>
                                     <div class="col-md">
 
-                                        <a target="_blank" href="<?= base_url() . route_to('rotulo_order', $order->id_order) ?>" class="btn btn-block btn-outline-warning btn-sm">Generar R&oacute;tulo</a>
+                                        <a <?php if ($order->isProduction()) {
+                                                echo "target='_blank'";
+                                            } ?> href="<?= base_url() . route_to('rotulo_order', $order->id_order) ?>" class="btn btn-block btn-outline-warning btn-sm">Generar R&oacute;tulo</a>
                                     </div>
                                 </div>
                             </div>

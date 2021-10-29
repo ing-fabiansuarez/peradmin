@@ -4,6 +4,7 @@ namespace App\Controllers\Order;
 
 use App\Controllers\BaseController;
 use App\Entities\Order as EntitiesOrder;
+use App\Models\CityModel;
 use App\Models\CustomerModel;
 use App\Models\DepartmentModel;
 use App\Models\DetailorderModel;
@@ -25,6 +26,7 @@ class Order extends BaseController
         $this->mdlInfoAddress = new InfoAdressModel();
         $this->mdlProductionLine = new ProductionlineModel();
         $this->mdlDepartment = new DepartmentModel();
+        $this->mdlCity = new CityModel();
         $this->mdlTransporter = new TransporterModel();
         $this->mdlProduct = new ProductModel();
         $this->mdlOrder = new OrderModel();
@@ -40,7 +42,6 @@ class Order extends BaseController
         if (!$this->mdlPermission->hasPermission(12)) {
             return view('permission/donthavepermission');
         }
-
         if (!empty(session('order_loaded'))) {
             if (!$order = $this->mdlOrder->find(session('order_loaded'))) {
                 $customer = null;
@@ -48,10 +49,13 @@ class Order extends BaseController
                 return view('contents/order/order_loaded', [
                     'customer' => $order->getCustomer(),
                     'order' => $order,
-                    'infoadress' => $order->getInfoAdress(),
+                    'infoadress' => $info = $order->getInfoAdress(),
                     'typeformatproduction' => $this->mdlTypeProductioFormat->findAll(),
                     'products' => $this->mdlProduct->where('active', 1)->orderBy('order_product')->findAll(),
-                    'detail_of_order' => $order->getDetailList()
+                    'detail_of_order' => $order->getDetailList(),
+                    'departments' => $this->mdlDepartment->findAll(),
+                    'cities_of_department' => $this->mdlCity->where('department_id', $info['id_department'])->findAll(),
+                    'transporters' => $this->mdlTransporter->findAll()
                 ]);
             }
         } else if (!empty(session('customer_new_order'))) {
@@ -296,6 +300,34 @@ class Order extends BaseController
             'class' => 'alert-success',
             'title' => 'Actualizado!',
             'body' => 'Los cambios se guardarón correctamente'
+        ]);
+    }
+
+    public function updateObservationOrder()
+    {
+        $this->request->getPost();
+        $order = $this->mdlOrder->find($this->request->getPost('id_order'));
+        //validar si es el dueño del pedido
+        if (session('cedula_employee') != $order->created_by_order) {
+            if (!$this->mdlPermission->hasPermission(19)) {
+                return redirect()->back()->with('msg', [
+                    'icon' => '<i class="icon fas fa-exclamation-triangle"></i>',
+                    'class' => 'alert-warning',
+                    'title' => 'Alerta!',
+                    'body' => 'No puedes modificar este pedido, este pedido no es tuyo.'
+                ]);
+            }
+        }
+        $order->info_order = $this->request->getPost('observation_order');
+        $this->mdlOrder->save([
+            'id_order' => $order->id_order,
+            'info_order' => $order->info_order
+        ]);
+        return redirect()->to(base_url() . route_to('view_order'))->with('msg', [
+            'icon' => '<i class="icon fas fa-check"></i>',
+            'class' => 'alert-success',
+            'title' => 'Actualizado!',
+            'body' => 'Se agrego la información adicional del pedido'
         ]);
     }
 }

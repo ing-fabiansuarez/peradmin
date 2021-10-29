@@ -65,6 +65,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->get('cargarsesionpedido/(:segment)', 'Order::loadSessionOrder/$1', ['as' => 'load_session_order']);
 		$routes->get('porpasaraproduccion', 'Order::viewOrderToPassProduction', ['as' => 'view_to_pass_producction']);
 		$routes->post('actualizarinfoenvio/(:segment)', 'Order::updateInfoAddress/$1', ['as' => 'update_infoaddress']);
+		$routes->post('actualizarobservacion', 'Order::updateObservationOrder', ['as' => 'update_observation_order']);
 	});
 
 	//recibos

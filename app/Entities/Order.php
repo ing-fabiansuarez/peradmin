@@ -58,7 +58,7 @@ class Order extends Entity
     public function getInfoAdress()
     {
         return $this->mdlInfoAdress->table('info_adress')
-            ->select('city_id,whatsapp_infoadress,email_infoadress,neighborhood_infoadress,home_infoadress,name_city,name_department,name_transporter,id_transporter,freight_infoadress')
+            ->select('city_id,whatsapp_infoadress,email_infoadress,neighborhood_infoadress,home_infoadress,name_city,name_department,name_transporter,id_transporter,freight_infoadress,id_department')
             ->join('city', 'info_adress.city_id = city.id_city')
             ->join('department', 'city.department_id = department.id_department')
             ->join('transporter', 'info_adress.transporter_id = transporter.id_transporter')
