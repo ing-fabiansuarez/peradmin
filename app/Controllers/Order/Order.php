@@ -95,6 +95,9 @@ class Order extends BaseController
         $neighborhood = $this->request->getPost('neighborhood_order');
         $homeadress = $this->request->getPost('adress_order');
         $freight = $this->request->getPost('freight_order');
+        if ($email == '') {
+            $email = null;
+        }
 
         $newOrder = new EntitiesOrder();
         $newOrder->fill([

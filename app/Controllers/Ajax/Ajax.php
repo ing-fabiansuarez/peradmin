@@ -125,7 +125,7 @@ class Ajax extends BaseController
 
 	public function ajaxHtmlObsevation()
 	{
-		if ($this->request->getPostGet('product') == 1 || $this->request->getPostGet('product') == 2 || $this->request->getPostGet('product') == 3) {
+		if ($this->request->getPostGet('product') == 1 || $this->request->getPostGet('product') == 2 || $this->request->getPostGet('product') == 3|| $this->request->getPostGet('product') == 23) {
 			$cadena =
 				"
 					<div class='form-group'>

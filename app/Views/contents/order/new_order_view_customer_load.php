@@ -178,7 +178,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Correo Electr&oacute;nico</label>
-                                            <input id="input_email" value="<?= old('email_order') ?>" name="email_order" type="email" class="form-control" required>
+                                            <input id="input_email" value="<?= old('email_order') ?>" name="email_order" type="email" class="form-control">
                                             <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.email_order') ?></p>
                                         </div>
                                         <div class="form-group">
