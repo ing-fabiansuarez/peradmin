@@ -4,6 +4,7 @@ namespace App\Controllers\Production;
 
 use App\Controllers\BaseController;
 use App\Models\OrderModel;
+use App\Models\PositiveBalanceModel;
 use App\Models\ProductionFormatModel;
 use App\Models\ProductionlineModel;
 use App\Models\TypeProductionModel;
@@ -18,6 +19,7 @@ class Production extends BaseController
         $this->mdlLineProduction = new ProductionlineModel();
         $this->mdlProductionFormat = new ProductionFormatModel();
         $this->mdlTypeProduction = new TypeProductionModel();
+        $this->mdlPostiveBalance = new PositiveBalanceModel();
     }
 
     public function index()
@@ -60,6 +62,9 @@ class Production extends BaseController
 
     public function goToProduction($id_order)
     {
+        //VALIDACIONES
+
+        //validar si exiiste la orden
         if (!$order = $this->mdlOrder->find($id_order)) {
             echo "NO EXISTE ESA ORDEN";
             return;
@@ -76,10 +81,9 @@ class Production extends BaseController
                 ]);
             }
         }
-        d($this->request->getPost());
+
         //aqui se le agrega la bandera para saber si esta en produccion
         $order->inproduction_order = 1;
-        d($this->mdlTypeProduction->findAll());
         foreach ($this->mdlLineProduction->findAll() as $type) {
             $idLineProduction = '';
             $dateProduction = '';
@@ -101,6 +105,27 @@ class Production extends BaseController
             }
         }
 
+        //se crea los saldos a favor por pasar un pedido a produccion
+        //determina cuanto se debe pagar
+        $moneyToPay = $order->getTotalSale();
+        //determina cuanto ha pagado
+        $moneyPaid = 0;
+        foreach ($order->getReceipts() as $receipt) {
+            $moneyPaid += $receipt['value_receipt'];
+        }
+        echo $moneyToPay['totalventa'] . '<br>';
+        echo $moneyPaid;
+        if ($moneyToPay['totalventa'] < $moneyPaid) {
+            $this->mdlPostiveBalance->insert([
+                'id_positive_balance' => '',
+                'value' => $moneyPaid - $moneyToPay['totalventa'],
+                'customer_id' => $order->customer_id,
+                'create_by_employee_id' => session()->get('cedula_employee'),
+                'active_post_balace' => true,
+                'obs_posbal' => '',
+            ]);
+        }
+        dd();
         $this->mdlOrder->save($order);
         return redirect()->to(base_url() . route_to('view_order'));
     }

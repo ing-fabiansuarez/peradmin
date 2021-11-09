@@ -433,10 +433,10 @@ class ListProductionClothes extends CustomPDF
         $this->Ln(2);
 
         //encabezado de la tabla
-        $this->SetWidths(array(8, 15, 45, 15, 40, 11, 11, 11, 11, 11, 11, 11));
+        $this->SetWidths(array(8, 12, 45, 24, 45, 9, 9, 9, 9, 9, 9, 9));
         $this->SetAligns(array('C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C'));
         $this->SetFont('Arial', 'B', 10);
-        $this->Row([utf8_decode('N°'), 'Ref', 'Nombre Ref', 'Talla', 'Producto', 'Subl', 'File', 'Caus', 'Coll', 'Marq', 'Cali', 'Bols'], 7, true);
+        $this->Row([utf8_decode('N°'), 'Ref', 'Nombre Ref', 'Talla', 'Producto', 'Sub', 'Fil', 'Cau', 'Col', 'Mar', 'Cal', 'Bol'], 7, true);
     }
 
     // Pie de página
