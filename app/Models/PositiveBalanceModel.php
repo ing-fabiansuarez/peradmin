@@ -25,5 +25,6 @@ class PositiveBalanceModel extends Model
         'updated_at_posbal',
         'create_at_posbal',
         'obs_posbal',
+        'order_id'
     ];
 }

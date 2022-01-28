@@ -69,7 +69,7 @@
                                             <tr>
                                                 <th style="width: 50px">Catidad</th>
                                                 <th>Producto</th>
-                                                <th style="width: 40px">Precio</th>
+                                                <th style="width: 60px">Precio</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -82,6 +82,17 @@
                                             <?php endforeach; ?>
                                         </tbody>
                                         <tfoot>
+                                            <?php
+                                            $positiveBalance = 0;
+                                            if (!$order->isProduction()) :
+                                                $positiveBalance = $order->getPositiveBalance()['value'];
+                                            ?>
+                                                <tr>
+                                                    <th></th>
+                                                    <th class="text-right">Sal favor</th>
+                                                    <th>-<?= number_format($positiveBalance) ?></th>
+                                                </tr>
+                                            <?php endif; ?>
                                             <tr>
                                                 <th></th>
                                                 <th class="text-right">FLETE</th>
@@ -90,7 +101,7 @@
                                             <tr>
                                                 <th></th>
                                                 <th class="text-right">TOTAL</th>
-                                                <th><?= number_format($order->getTotalSale()['totalventa'] + $order->getTotalSale()['freight']) ?></th>
+                                                <th><?= number_format($order->getTotalSale()['total_global'] - $positiveBalance) ?></th>
                                             </tr>
                                         </tfoot>
                                     </table>

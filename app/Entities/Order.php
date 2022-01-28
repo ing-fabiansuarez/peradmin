@@ -6,6 +6,7 @@ use App\Models\CustomerModel;
 use App\Models\DetailorderModel;
 use App\Models\EmployeeModel;
 use App\Models\InfoAdressModel;
+use App\Models\PositiveBalanceModel;
 use App\Models\ProductionFormatModel;
 use App\Models\ProductionlineModel;
 use App\Models\ProductModel;
@@ -15,7 +16,7 @@ use CodeIgniter\Entity\Entity;
 class Order extends Entity
 {
     protected $dates = ['created_at_order'];
-    private $mdlDetailOrder, $mdlLineProduction, $mdlProductionFormat, $mdlInfoAdress, $mdlProduct, $mdlReceipt, $mdlEmployee;
+    private $mdlDetailOrder, $mdlLineProduction, $mdlProductionFormat, $mdlInfoAdress, $mdlProduct, $mdlReceipt, $mdlEmployee, $mdlPosBalance;
 
     public function __construct()
     {
@@ -26,6 +27,7 @@ class Order extends Entity
         $this->mdlProduct = new ProductModel();
         $this->mdlReceipt = new ReceiptModel();
         $this->mdlEmployee = new EmployeeModel();
+        $this->mdlPosBalance = new PositiveBalanceModel();
     }
 
     public function setInfoAdress($transporter, $city, $whtapp, $email, $neighborhood, $homeadress, $freight)
@@ -133,7 +135,11 @@ class Order extends Entity
         foreach ($detailOrder as $detail) :
             $total += $detail['pricesale_detailorder'];
         endforeach;
-        return ['totalventa' => $total, 'freight' => $this->getInfoAdress()['freight_infoadress']];
+        return [
+            'totalventa' => $total,
+            'freight' => $this->getInfoAdress()['freight_infoadress'],
+            'total_global' => $total + $this->getInfoAdress()['freight_infoadress']
+        ];
     }
 
     public function getCountEachProduct() //retorna el nombre y la cantidad de productos que hay y el precio total por ellos
@@ -229,7 +235,7 @@ class Order extends Entity
     public function canGoToProduction()
     {
         $totalReceipts = 0;
-        $totalForPay = $this->getTotalSale()['totalventa'] + $this->getTotalSale()['freight'];
+        $totalForPay = $this->getTotalSale()['total_global'] - $this->getPositiveBalance()['value'];
         foreach ($this->getReceipts() as $receipts) {
             $totalReceipts += $receipts['value_receipt'];
         }
@@ -237,5 +243,11 @@ class Order extends Entity
             return true;
         }
         return false;
+    }
+
+    public function getPositiveBalance()
+    {
+        $customer = $this->getCustomer();
+        return $this->mdlPosBalance->where('customer_id', $customer->id_customer)->where('active_post_balace', true)->first();
     }
 }
