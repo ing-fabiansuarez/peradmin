@@ -13,11 +13,7 @@
 <body>
     <div class="login-wrap">
         <div class="login-html">
-            
-
-            <h1>PeRa DK</h1>
-            
-
+            <img src="<?= base_url('img/corporative/logo.png') ?>" alt="logo" class="img-fluid">
             <br>
             <br>
             <?php if (session('msg')) : ?>
@@ -25,19 +21,12 @@
                     <?= session('msg.body') ?>
                 </div>
             <?php endif ?>
-
-
-
             <br>
             <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Entrar</label>
             <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
-
-
             <div class="login-form">
-
                 <form action="<?= base_url() . route_to('check_login') ?>" method="post">
                     <div class="sign-in-htm">
-
                         <div class="group">
                             <label for="user" class="label">Usuario</label>
                             <input name="user" type="text" class="input" value="<?= old('user') ?>">
@@ -56,15 +45,11 @@
                             <input type="submit" class="button" value="Iniciar Sesión">
                         </div>
                         <div class="hr"></div>
-
                     </div>
-
                 </form>
-
             </div>
         </div>
     </div>
-
 </body>
 
 </html>

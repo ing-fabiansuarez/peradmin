@@ -1,235 +1,260 @@
-.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
-.sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
-  background-color: #76b119;
-  color: #fff;
+:root {
+    --white-color-corporative: #fff;
+    --black-color-corporative: #000;
+    --primary-color-corporative: #D290F4;
+    --second-color-corporative: #B46ee5;
+    --third-color-corporative: #b46ee5;
+    --fifth-color-corporative: #deacfc;
+    --light-color-corporative: #d390f442;
+}
+
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active,
+.sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+    background-color: var(--primary-color-corporative);
+    color: #fff;
 }
 
 a {
-  color: #76b119;
+    color: var(--primary-color-corporative);
 }
+
 a:hover {
-  color: #93d823;
+    color: var(--primary-color-corporative);
 }
 
 .form-control {
-  padding: 0rem 0.75rem;
-  color: black;
-  height: calc(2rem + 2px);
+    padding: 0rem 0.75rem;
+    color: black;
+    height: calc(2rem + 2px);
 }
+
 .custom-select {
-  height: calc(2rem + 2px);
-  padding: 0rem 1.75rem 0rem 0.75rem;
+    height: calc(2rem + 2px);
+    padding: 0rem 1.75rem 0rem 0.75rem;
 }
 
 .card-verdepera {
-  background-color: #76b119;
+    background-color: var(--primary-color-corporative);
 }
 
-.card-success:not(.card-outline) > .card-header {
-  background-color: #76b119;
+.card-success:not(.card-outline)>.card-header {
+    background-color: var(--primary-color-corporative);
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #76b119;
-  border-color: #76b119;
+    color: #fff;
+    background-color: var(--primary-color-corporative);
+    border-color: var(--primary-color-corporative);
 }
+
 .btn-primary:hover {
-  color: #fff;
-  background-color: #202020;
-  border-color: #76b119;
+    color: #fff;
+    background-color: #202020;
+    border-color: var(--primary-color-corporative);
 }
+
 .btn-primary:active {
-  color: #fff;
-  background-color: #202020;
-  border-color: #76b119;
+    color: #fff;
+    background-color: #202020;
+    border-color: var(--primary-color-corporative);
 }
+
 .btn-primary:focus {
-  color: #fff;
-  background-color: #202020;
-  border-color: #76b119;
+    color: #fff;
+    background-color: #202020;
+    border-color: var(--primary-color-corporative);
 }
+
 .card-header {
-  padding: 0.3rem 1.25rem;
+    padding: 0.3rem 1.25rem;
 }
+
 .form-group {
-  margin-bottom: 0.3rem;
+    margin-bottom: 0.3rem;
 }
 
 .section-title h2 {
-  text-align: center;
-  font-family: "Patrick Hand", cursive;
-  font-size: 32px;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  position: relative;
-  color: #76b119;
+    text-align: center;
+    font-family: "Patrick Hand", cursive;
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    color: var(--primary-color-corporative);
 }
+
 .section-title h2::after {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 40px;
-  height: 3px;
-  background: #76b119;
-  bottom: 0;
-  left: calc(50% - 20px);
+    content: "";
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: var(--primary-color-corporative);
+    bottom: 0;
+    left: calc(50% - 20px);
 }
 
 .prodimg {
-  height: 50px;
-  border-radius: 10%;
+    height: 50px;
+    border-radius: 10%;
 }
 
 .padding-0 {
-  padding: 0;
+    padding: 0;
 }
 
 .height-100 {
-  height: 100%;
+    height: 100%;
 }
-.card-primary:not(.card-outline) > .card-header {
-  background-color: #76b119;
+
+.card-primary:not(.card-outline)>.card-header {
+    background-color: var(--primary-color-corporative);
 }
 
 .projects .table-avatar img,
 .projects img.table-avatar {
-  height: 2.5rem;
+    height: 2.5rem;
 }
 
 .header-list {
-  background-color: #707070;
+    background-color: #707070;
 }
+
 .body-background {
-  background-color: #e0e0e0d3;
+    background-color: #e0e0e0d3;
 }
+
 .h1reportdaily {
-  text-align: center;
-  font-family: "Patrick Hand", cursive;
-  font-size: 32px;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  position: relative;
-  color: #76b119;
+    text-align: center;
+    font-family: "Patrick Hand", cursive;
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    color: var(--primary-color-corporative);
 }
 
 .h1reportdaily::after {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 40px;
-  height: 3px;
-  background: #76b119;
-  bottom: 0;
-  left: calc(50% - 20px);
+    content: "";
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: var(--primary-color-corporative);
+    bottom: 0;
+    left: calc(50% - 20px);
 }
 
 .navbar-white .navbar-nav .nav-link {
-  color: #000;
+    color: #000;
 }
 
 .navbar-white {
-  background-color: #ffffff;
-  border-bottom-left-radius: 60px;
-
-  border-bottom-color: #76b119;
-  border-width: 5px;
+    background-color: #ffffff;
+    border-bottom-left-radius: 60px;
+    border-bottom-color: var(--primary-color-corporative);
+    border-width: 5px;
 }
 
 [class*="sidebar-dark-"] .sidebar a {
-  color: #fff;
+    color: #fff;
 }
+
 [class*="sidebar-dark-"] {
-  background-color: #202020;
+    background-color: #202020;
 }
 
 .maintitle h2 {
-  padding-top: 20px;
-  line-height: 1.2;
-  font-family: "Patrick Hand", cursive;
-  font-size: 28px;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  position: relative;
-  color: #76b119;
-  text-align: center;
+    padding-top: 20px;
+    line-height: 1.2;
+    font-family: "Patrick Hand", cursive;
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    color: var(--primary-color-corporative);
+    text-align: center;
 }
 
 .maintitle h2::after {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 40px;
-  height: 3px;
-  background: #76b119;
-  bottom: 0;
-  left: calc(50% - 20px);
+    content: "";
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: var(--primary-color-corporative);
+    bottom: 0;
+    left: calc(50% - 20px);
 }
 
 .btn-app {
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  font-size: 12px;
-  height: 50px;
-  margin: 0 0 0px 0px;
-  min-width: 50px;
-  padding: 5px 0px;
-  position: relative;
-  text-align: center;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 12px;
+    height: 50px;
+    margin: 0 0 0px 0px;
+    min-width: 50px;
+    padding: 5px 0px;
+    position: relative;
+    text-align: center;
 }
+
 .btn-app:hover {
-  color: #000;
+    color: #000;
 }
 
 .bg-corporative {
-  background-color: #76b119 !important;
-  color: #fff;
+    background-color: var(--primary-color-corporative) !important;
+    color: #fff;
 }
+
 .bg-headerorder {
-  background-color: #454545 !important;
-  color: rgb(255, 255, 255);
-  border-color: #000;
+    background-color: #454545 !important;
+    color: rgb(255, 255, 255);
+    border-color: #000;
 }
+
 .bg-delete {
-  background-color: #df2525f5 !important;
-  color: #fff;
+    background-color: #df2525f5 !important;
+    color: #fff;
 }
+
 .bg-yellow {
-  background-color: #ffee00 !important;
-  color: #fff;
+    background-color: #ffee00 !important;
+    color: #fff;
 }
 
 .bg-hola {
-  border-top: 5px solid #ff0000;
-  background-color: #ffe7e7 !important;
-  color: #000;
+    border-top: 5px solid #ff0000;
+    background-color: #ffe7e7 !important;
+    color: #000;
 }
 
 label {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .member {
-  position: relative;
-  box-shadow: 0px 2px 15px rgb(0 0 0 / 10%);
-  padding: 15px;
-  border-radius: 5px;
-  background: rgb(156, 156, 156);
-  transition: 0.5s;
-  margin-bottom: 15px;
+    position: relative;
+    box-shadow: 0px 2px 15px rgb(0 0 0 / 10%);
+    padding: 15px;
+    border-radius: 5px;
+    background: rgb(156, 156, 156);
+    transition: 0.5s;
+    margin-bottom: 15px;
 }
 
 .widget-user .card-footer {
-  padding-top: 100px;
+    padding-top: 100px;
 }
 
 .user-panel img {
-  height: auto;
-  width: 6rem;
+    height: auto;
+    width: 6rem;
 }
