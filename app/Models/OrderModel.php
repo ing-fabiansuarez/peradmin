@@ -21,7 +21,7 @@ class OrderModel extends Model
         'info_order',
         'created_by_order',
         'updated_at_order',
-        'inproduction_order'
+        'state_active_order'
     ];
 
     protected $useTimestamps = true;

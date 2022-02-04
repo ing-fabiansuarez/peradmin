@@ -42,7 +42,7 @@ class Receipts extends BaseController
         $pdf->AddPage();
         //ENCABEZADO
         //logo
-        $pdf->Image('img/corporative/logopera.png', 15, 5, 13);
+        $pdf->Image('img/corporative/logo.png', 15, 5, 13);
         //voucher
         $pdf->Image(base_url($receipt['image_receipt']), 135, 15, 70);
         $pdf->SetFont('Arial', 'B', 14);
@@ -56,7 +56,7 @@ class Receipts extends BaseController
         //------
         //CUERPO
         $pdf->SetFont('Arial', 'B', 10);
-        $pdf->SetFillColor(118, 177, 25);
+        $pdf->SetFillColor(210, 144, 244);
         $pdf->SetTextColor(255, 255, 255);
         $pdf->Cell(125, 5, utf8_decode('Información del cliente'), 0, 1, 'C', true);
         $pdf->Ln(1);
@@ -91,7 +91,7 @@ class Receipts extends BaseController
         $pdf->Ln(3);
 
         $pdf->SetFont('Arial', 'B', 10);
-        $pdf->SetFillColor(118, 177, 25);
+        $pdf->SetFillColor(210, 144, 244);
         $pdf->SetTextColor(255, 255, 255);
         $pdf->Cell(125, 5, utf8_decode('Información de la consignación'), 0, 1, 'C', true);
         $pdf->Ln(1);

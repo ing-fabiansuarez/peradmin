@@ -109,13 +109,15 @@ class Order extends BaseController
             'customer_id' => session()->get('customer_new_order'),
             'info_order' => $this->request->getPost('observation_order'),
             'created_by_order' => session()->get('cedula_employee'),
-            'inproduction_order' => 0
+            'state_active_order' => 1
         ]);
         $newOrder->setInfoAdress($id_transporter, $id_city, $whatApp, $email, $neighborhood, $homeadress, $freight);
         $this->mdlOrder->insert($newOrder);
         session()->set([
             'order_loaded' => $newOrder->id_order,
         ]);
+        //se puso el estado de creado
+        $newOrder->changeState(1);
         return redirect()->to(base_url() . route_to('view_order'));
     }
 

@@ -109,7 +109,11 @@ class Production extends BaseController
 
         //se crea los saldos a favor por pasar un pedido a produccion
         //determina cuanto se debe pagar
-        $moneyToPay = $order->getTotalSale()['total_global'] - $order->getPositiveBalance()['value'];
+        $postivebal = 0;
+        if ($order->getPositiveBalance()) {
+            $postivebal = $order->getPositiveBalance()['value'];
+        }
+        $moneyToPay = $order->getTotalSale()['total_global'] - $postivebal;
         //determina cuanto ha pagado
         $moneyPaid = 0;
         foreach ($order->getReceipts() as $receipt) {
@@ -133,7 +137,10 @@ class Production extends BaseController
                 'order_id' => $order->id_order
             ]);
         }
+        //aqui la orden cambia de estado
+        $order->changeState(2);
         $this->mdlOrder->save($order);
+
         return redirect()->to(base_url() . route_to('view_order'));
     }
 }

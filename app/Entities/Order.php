@@ -6,6 +6,7 @@ use App\Models\CustomerModel;
 use App\Models\DetailorderModel;
 use App\Models\EmployeeModel;
 use App\Models\InfoAdressModel;
+use App\Models\OrderHasStatesModel;
 use App\Models\PositiveBalanceModel;
 use App\Models\ProductionFormatModel;
 use App\Models\ProductionlineModel;
@@ -16,7 +17,7 @@ use CodeIgniter\Entity\Entity;
 class Order extends Entity
 {
     protected $dates = ['created_at_order'];
-    private $mdlDetailOrder, $mdlLineProduction, $mdlProductionFormat, $mdlInfoAdress, $mdlProduct, $mdlReceipt, $mdlEmployee, $mdlPosBalance;
+    private $mdlDetailOrder, $mdlLineProduction, $mdlProductionFormat, $mdlInfoAdress, $mdlProduct, $mdlReceipt, $mdlEmployee, $mdlPosBalance, $mdlOrderHasState;
 
     public function __construct()
     {
@@ -28,6 +29,7 @@ class Order extends Entity
         $this->mdlReceipt = new ReceiptModel();
         $this->mdlEmployee = new EmployeeModel();
         $this->mdlPosBalance = new PositiveBalanceModel();
+        $this->mdlOrderHasState = new OrderHasStatesModel();
     }
 
     public function setInfoAdress($transporter, $city, $whtapp, $email, $neighborhood, $homeadress, $freight)
@@ -254,5 +256,15 @@ class Order extends Entity
     {
         $customer = $this->getCustomer();
         return $this->mdlPosBalance->where('customer_id', $customer->id_customer)->where('active_post_balace', true)->first();
+    }
+
+    public function changeState($idState)
+    {
+        return $this->mdlOrderHasState->insert([
+            'order_id_order' => $this->id_order,
+            'state_order_id_state' => $idState,
+            'create_at' => date("Y-m-d H:i:s"),
+            'create_by' => session()->get('cedula_employee')
+        ]);
     }
 }
