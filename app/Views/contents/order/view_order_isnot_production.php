@@ -6,6 +6,8 @@
 </div>
 <?= $this->endSection() ?>
 
+<?= $this->section('active-por-pasar') ?>active<?= $this->endSection() ?>
+
 <?= $this->section('css') ?>
 <?= $this->endSection() ?>
 

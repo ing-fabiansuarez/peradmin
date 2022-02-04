@@ -6,6 +6,8 @@
 </div>
 <?= $this->endSection() ?>
 
+<?= $this->section('active-ingresar') ?>active<?= $this->endSection() ?>
+
 <?= $this->section('css') ?>
 <!-- DataTables -->
 <link rel="stylesheet" href="<?= base_url() ?>/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">

@@ -6,6 +6,8 @@
 </div>
 <?= $this->endSection() ?>
 
+<?= $this->section('active-ingresar') ?>active<?= $this->endSection() ?>
+
 <?= $this->section('css') ?>
 <?= $this->endSection() ?>
 
@@ -85,7 +87,9 @@
                                             <?php
                                             $positiveBalance = 0;
                                             if (!$order->isProduction()) :
-                                                $positiveBalance = $order->getPositiveBalance()['value'];
+                                                if ($order->getPositiveBalance()) {
+                                                    $positiveBalance = $order->getPositiveBalance()['value'];
+                                                }
                                             ?>
                                                 <tr>
                                                     <th></th>

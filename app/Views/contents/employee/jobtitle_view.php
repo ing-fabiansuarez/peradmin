@@ -5,6 +5,8 @@
     <img class="animation__shake" src="<?= base_url() ?>/img/corporative/logo.png" alt="AdminLTELogo" height="60" width="60">
 </div>
 <?= $this->endSection() ?>
+
+<?= $this->section('active-cargos') ?>active<?= $this->endSection() ?>
 <?= $this->section('css') ?>
 <!-- SweetAlert2 -->
 <link rel="stylesheet" href="<?= base_url() ?>/public/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">

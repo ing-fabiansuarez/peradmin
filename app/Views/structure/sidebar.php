@@ -27,8 +27,8 @@
 
 		<nav class="mt-2">
 			<ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
-				<li class="nav-item menu-open">
-					<a href="<?= base_url() ?>" class="nav-link active">
+				<li class="nav-item">
+					<a href="<?= base_url() ?>" class="nav-link <?= $this->renderSection('active-home') ?>">
 						<i class="nav-icon fas fa-home"></i>
 						<p>
 							Inicio
@@ -39,7 +39,7 @@
 				<li class="nav-header">PEDIDOS</li>
 
 				<li class="nav-item">
-					<a href="<?= base_url() . route_to('view_order') ?>" class="nav-link">
+					<a href="<?= base_url() . route_to('view_order') ?>" class="nav-link <?= $this->renderSection('active-ingresar') ?>">
 						<i class="nav-icon fas fa-plus-square"></i>
 						<p>
 							Ingresar
@@ -47,7 +47,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="<?= base_url() . route_to('view_load_order') ?>" class="nav-link">
+					<a href="<?= base_url() . route_to('view_load_order') ?>" class="nav-link <?= $this->renderSection('active-cargar-pedido') ?>">
 						<i class="nav-icon fas fa-search"></i>
 						<p>
 							Cargar Pedido
@@ -55,7 +55,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="<?= base_url() . route_to('view_to_pass_producction') ?>" class="nav-link">
+					<a href="<?= base_url() . route_to('view_to_pass_producction') ?>" class="nav-link <?= $this->renderSection('active-por-pasar') ?>">
 						<i class="nav-icon fas fa-unlock-alt"></i>
 						<p>
 							Por pasar a producci&oacute;n
@@ -66,7 +66,7 @@
 				<li class="nav-header">PRODUCCION</li>
 
 				<li class="nav-item">
-					<a href="<?= base_url() . route_to('view_production') ?>" class="nav-link">
+					<a href="<?= base_url() . route_to('view_production') ?>" class="nav-link <?= $this->renderSection('active-produccion') ?>">
 						<i class="nav-icon fas fa-sort-amount-down-alt"></i>
 						<p>
 							Producci&oacute;n
@@ -77,7 +77,7 @@
 				<li class="nav-header">PERMISOS SISTEMA</li>
 
 				<li class="nav-item">
-					<a href="<?= base_url() . route_to('view_jobtitles') ?>" class="nav-link">
+					<a href="<?= base_url() . route_to('view_jobtitles') ?>" class="nav-link <?= $this->renderSection('active-cargos') ?>">
 						<i class="nav-icon far fa-image"></i>
 						<p>
 							Cargos
@@ -86,7 +86,7 @@
 				</li>
 
 				<li class="nav-item">
-					<a href="<?= base_url() . route_to('view_employee') ?>" class="nav-link">
+					<a href="<?= base_url() . route_to('view_employee') ?>" class="nav-link <?= $this->renderSection('active-empleados') ?>">
 						<i class="nav-icon far fa-image"></i>
 						<p>
 							Empleados
@@ -96,7 +96,7 @@
 				<li class="nav-header" style="margin-top: 40px;">ADMIN OLD</li>
 				<li class="nav-header">Reportes</li>
 				<li class="nav-item">
-					<a href="<?= base_url() . route_to('admin_old_report_between_dates', date("Y-m-d"), date("Y-m-d")) ?>" class="nav-link">
+					<a href="<?= base_url() . route_to('admin_old_report_between_dates', date("Y-m-d"), date("Y-m-d")) ?>" class="nav-link <?= $this->renderSection('active-clientes') ?>">
 						<i class="nav-icon fas fa-users"></i>
 						<p>
 							Clientes
@@ -104,7 +104,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="<?= base_url() . route_to('admin_old_report_by_references') ?>" class="nav-link">
+					<a href="<?= base_url() . route_to('admin_old_report_by_references') ?>" class="nav-link <?= $this->renderSection('active-referencias') ?>">
 						<i class="nav-icon fab fa-firefox"></i>
 						<p>
 							Referencias

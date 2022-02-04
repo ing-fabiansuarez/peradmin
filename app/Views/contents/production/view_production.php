@@ -6,6 +6,8 @@
 </div>
 <?= $this->endSection() ?>
 
+<?= $this->section('active-produccion') ?>active<?= $this->endSection() ?>
+
 <?= $this->section('css') ?>
 <?= $this->endSection() ?>
 

@@ -5,6 +5,7 @@
     <img class="animation__shake" src="<?= base_url() ?>/img/corporative/logo.png" alt="AdminLTELogo" height="60" width="60">
 </div>
 <?= $this->endSection() ?>
+<?= $this->section('active-cargar-pedido') ?>active<?= $this->endSection() ?>
 
 <?= $this->section('css') ?>
 <?= $this->endSection() ?>

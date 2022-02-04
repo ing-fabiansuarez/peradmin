@@ -6,6 +6,8 @@
 </div>
 <?= $this->endSection() ?>
 
+<?= $this->section('active-cargar-pedido') ?>active<?= $this->endSection() ?>
+
 <?= $this->section('css') ?>
 <?= $this->endSection() ?>
 

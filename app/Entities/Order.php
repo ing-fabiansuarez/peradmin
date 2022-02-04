@@ -235,7 +235,12 @@ class Order extends Entity
     public function canGoToProduction()
     {
         $totalReceipts = 0;
-        $totalForPay = $this->getTotalSale()['total_global'] - $this->getPositiveBalance()['value'];
+        $valuePositiveBalance = 0;
+        //verifica si hay saldo a favor
+        if ($this->getPositiveBalance()) {
+            $valuePositiveBalance = $this->getPositiveBalance()['value'];
+        }
+        $totalForPay = $this->getTotalSale()['total_global'] - $valuePositiveBalance;
         foreach ($this->getReceipts() as $receipts) {
             $totalReceipts += $receipts['value_receipt'];
         }
