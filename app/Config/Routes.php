@@ -117,6 +117,11 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->get('reportes/referencias', 'ReportAdminOld::view_report_references', ['as' => 'admin_old_report_by_references']);
 		$routes->post('reportes/referencias', 'ReportAdminOld::view_report_references_genered', ['as' => 'admin_old_report_by_references_genered']);
 	});
+
+	//cotizador
+	$routes->group('cotizador', ['namespace' => 'App\Controllers\Quoter', 'filter' => 'auth'], function ($routes) {
+		$routes->add('normal', 'Quoter::Normal', ['as' => 'quoter_normal']);
+	});
 });
 
 //routes of auth

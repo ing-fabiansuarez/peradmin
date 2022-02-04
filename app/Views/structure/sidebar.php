@@ -36,6 +36,30 @@
 					</a>
 				</li>
 
+				<li class="nav-item has-treeview <?= $this->renderSection('menu-cotizador') ?>">
+					<a href="#" class="nav-link <?= $this->renderSection('active-cotizador') ?>">
+						<i class="nav-icon fas fa-chart-pie"></i>
+						<p>
+							Cotizadores
+							<i class="right fas fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="<?= base_url() . route_to('quoter_normal') ?>" class="nav-link <?= $this->renderSection('active-cotizador-normal') ?>">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Normal</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="pages/charts/flot.html" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Promoci&oacute;n</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+
 				<li class="nav-header">PEDIDOS</li>
 
 				<li class="nav-item">

@@ -258,3 +258,14 @@ label {
     height: auto;
     width: 6rem;
 }
+
+.celdatotal {
+    background-color: #000;
+    color: #fff;
+    font-size: 1.3em;
+}
+
+.colortabla {
+    background-color: var(--light-color-corporative);
+    font-size: .9em;
+}
