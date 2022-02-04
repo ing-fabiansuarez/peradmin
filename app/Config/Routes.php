@@ -121,6 +121,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	//cotizador
 	$routes->group('cotizador', ['namespace' => 'App\Controllers\Quoter', 'filter' => 'auth'], function ($routes) {
 		$routes->add('normal', 'Quoter::Normal', ['as' => 'quoter_normal']);
+		$routes->add('promocion', 'Quoter::Promotion', ['as' => 'quoter_promotion']);
 	});
 });
 

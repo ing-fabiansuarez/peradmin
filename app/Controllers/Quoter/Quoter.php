@@ -10,4 +10,9 @@ class Quoter extends BaseController
     {
         return view('contents/quoter/normal');
     }
+
+    public function Promotion()
+    {
+        return view('contents/quoter/promotion');
+    }
 }

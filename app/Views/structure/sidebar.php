@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 	<a href="<?= base_url() ?>" class="brand-link">
 		<img src="<?= base_url() ?>/img/corporative/logo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-		<span class="brand-text font-weight-light">PeRa DK</span>
+		<span class="brand-text font-weight-light">PERACOLOMBIA</span>
 	</a>
 	<div class="sidebar">
 		<div class="user-panel justify-content-center mt-1 pb-1 mb-1 d-flex">
@@ -52,7 +52,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="pages/charts/flot.html" class="nav-link">
+							<a href="<?= base_url() . route_to('quoter_promotion') ?>" class="nav-link <?= $this->renderSection('active-cotizador-promotion') ?>">
 								<i class="far fa-circle nav-icon"></i>
 								<p>Promoci&oacute;n</p>
 							</a>
