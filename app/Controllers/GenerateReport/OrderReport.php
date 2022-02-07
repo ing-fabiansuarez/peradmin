@@ -33,29 +33,29 @@ class OrderReport extends BaseController
         $pdf = new RotuloPDF('P', 'mm', array(215, 280));
         $pdf->AddPage();
         // Imagen Fondo
-        $pdf->Image('img/corporative/rotulo.png', 0, 0, 215);
+        $pdf->Image('img/corporative/rotulo.jpg', 0, 0, 215);
         
-        $pdf->Cell(30, 75, '', 0, 1, 'C');
+        $pdf->Cell(30, 55, '', 0, 1, 'C');
         $pdf->SetFont('Arial', 'B', 25);
         $pdf->SetTextColor(255, 0, 0);
         $pdf->Cell(0, 15, utf8_decode('N° '.$order->id_order), 0, 1, 'C');
         $pdf->Ln(3);
         $pdf->SetTextColor(0, 0, 0);
         $pdf->SetFont('Arial', 'B', 15);
-        $pdf->SetWidths(array(15, 60, 120));
-        $pdf->SetAligns(array('L', 'L', 'L'));
+        $pdf->SetWidths(array(10, 55, 10,120));
+        $pdf->SetAligns(array('L', 'R','C', 'L'));
         $customer = $order->getCustomer();
         $infoAdress = $order->getInfoAdress();
-        $pdf->Row(['', 'CLIENTE:', $customer->name_customer . ' ' . $customer->surname_customer], 7);
-        $pdf->Row(['', 'DOCUMENTO:', $customer->numberidenti_customer], 7);
-        $pdf->Row(['', 'TELEFONO:', $infoAdress['whatsapp_infoadress']], 7);
-        $pdf->Row(['', 'EMAIL:', $infoAdress['email_infoadress']], 7);
-        $pdf->Row(['', 'CIUDAD:', $infoAdress['name_city'] . ' - ' . $infoAdress['name_department']], 7);
-        $pdf->Row(['', utf8_decode('DIRECCION:'), $infoAdress['home_infoadress'] . ' barrio ' . $infoAdress['neighborhood_infoadress']], 7);
-        $pdf->Row(['', 'TRANSPORTADORA:', $infoAdress['name_transporter']], 7);
-        $pdf->Row(['', 'DETALLE:', ''], 7);
+        $pdf->Row(['', 'CLIENTE:','', $customer->name_customer . ' ' . $customer->surname_customer], 7);
+        $pdf->Row(['', 'DOCUMENTO:', '',$customer->numberidenti_customer], 7);
+        $pdf->Row(['', 'TELEFONO:','', $infoAdress['whatsapp_infoadress']], 7);
+        $pdf->Row(['', 'EMAIL:','', $infoAdress['email_infoadress']], 7);
+        $pdf->Row(['', 'CIUDAD:', '',$infoAdress['name_city'] . ' - ' . $infoAdress['name_department']], 7);
+        $pdf->Row(['', utf8_decode('DIRECCION:'),'', $infoAdress['home_infoadress'] . ' barrio ' . $infoAdress['neighborhood_infoadress']], 7);
+        $pdf->Row(['', 'TRANSPORTADORA:', '',$infoAdress['name_transporter']], 7);
+        $pdf->Row(['', 'DETALLE:', '',''],7);
         //seccion
-        $pdf->SetWidths(array(50, 10, 60, 17));
+        $pdf->SetWidths(array(60, 10, 60, 17));
         $pdf->SetAligns(array('L', 'L', 'L', 'R'));
         $pdf->SetFont('Arial', 'B', 13);
         $total = 0;
@@ -64,7 +64,7 @@ class OrderReport extends BaseController
             $pdf->Row(['', '=>', utf8_decode($row['name_product']), $row['quantity']], 5);
         }
         $pdf->cell(60);
-        $pdf->cell(60, 8, 'TOTAL', 'T', 0, 'R', 0);
+        $pdf->cell(70, 8, 'TOTAL', 'T', 0, 'R', 0);
         $pdf->cell(17, 8, $total, 'T', 1, 'R', 0);
         //seccion
         $pdf->SetFont('Arial', 'B', 17);
