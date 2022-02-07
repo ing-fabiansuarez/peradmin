@@ -82,9 +82,6 @@ class Production extends BaseController
             }
         }
 
-        //aqui se le agrega la bandera para saber si esta en produccion
-        $order->inproduction_order = 1;
-
         //aqui se generan los formatos de produccion
         foreach ($this->mdlLineProduction->findAll() as $type) {
             $idLineProduction = '';
@@ -120,12 +117,14 @@ class Production extends BaseController
             $moneyPaid += $receipt['value_receipt'];
         }
 
+        //si hay saldos positivos anteriores se deshabilitan
+        $this->mdlPostiveBalance->where('customer_id', $order->customer_id)
+            ->set(['active_post_balace' => false])
+            ->update();
+
         //qui se determina si hay saldo a favor para crearlo
         if ($moneyToPay < $moneyPaid) {
-            //si hay saldos positivos anteriores se deshabilitan
-            $this->mdlPostiveBalance->where('customer_id', $order->customer_id)
-                ->set(['active_post_balace' => false])
-                ->update();
+
             //aqui se crea el saldo positivo
             $this->mdlPostiveBalance->insert([
                 'id_positive_balance' => '',
@@ -139,7 +138,6 @@ class Production extends BaseController
         }
         //aqui la orden cambia de estado
         $order->changeState(2);
-        $this->mdlOrder->save($order);
 
         return redirect()->to(base_url() . route_to('view_order'));
     }

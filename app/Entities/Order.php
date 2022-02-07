@@ -7,6 +7,7 @@ use App\Models\DetailorderModel;
 use App\Models\EmployeeModel;
 use App\Models\InfoAdressModel;
 use App\Models\OrderHasStatesModel;
+use App\Models\OrderModel;
 use App\Models\PositiveBalanceModel;
 use App\Models\ProductionFormatModel;
 use App\Models\ProductionlineModel;
@@ -17,10 +18,11 @@ use CodeIgniter\Entity\Entity;
 class Order extends Entity
 {
     protected $dates = ['created_at_order'];
-    private $mdlDetailOrder, $mdlLineProduction, $mdlProductionFormat, $mdlInfoAdress, $mdlProduct, $mdlReceipt, $mdlEmployee, $mdlPosBalance, $mdlOrderHasState;
+    private $mdlDetailOrder, $mdlLineProduction, $mdlProductionFormat, $mdlInfoAdress, $mdlProduct, $mdlReceipt, $mdlEmployee, $mdlPosBalance, $mdlOrderHasState, $model;
 
     public function __construct()
     {
+        $this->model = new OrderModel();
         $this->mdlDetailOrder = new DetailorderModel();
         $this->mdlLineProduction = new ProductionlineModel();
         $this->mdlProductionFormat = new ProductionFormatModel();
@@ -260,6 +262,8 @@ class Order extends Entity
 
     public function changeState($idState)
     {
+        $this->state_active_order = $idState;
+        $this->model->save($this);
         return $this->mdlOrderHasState->insert([
             'order_id_order' => $this->id_order,
             'state_order_id_state' => $idState,

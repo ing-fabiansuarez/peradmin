@@ -259,9 +259,8 @@ class Order extends BaseController
 
     public function viewOrderToPassProduction()
     {
-
         return view('contents/order/view_order_isnot_production', [
-            'ordersbypassproduction' => $this->mdlOrder->where('inproduction_order', 0)->orderBy('created_at_order', 'desc')->findAll()
+            'ordersbypassproduction' => $this->mdlOrder->where('state_active_order', 1)->orderBy('created_at_order', 'desc')->findAll()
         ]);
     }
 
