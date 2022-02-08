@@ -117,6 +117,14 @@
 						</p>
 					</a>
 				</li>
+				<li class="nav-item">
+					<a href="<?= base_url() . route_to('view_employee') ?>" class="nav-link <?= $this->renderSection('active-empleados') ?>">
+						<i class="nav-icon far fa-image"></i>
+						<p>
+							OJO CALENDARIO
+						</p>
+					</a>
+				</li>
 				<li class="nav-header" style="margin-top: 40px;">ADMIN OLD</li>
 				<li class="nav-header">Reportes</li>
 				<li class="nav-item">

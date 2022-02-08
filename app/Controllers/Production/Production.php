@@ -152,11 +152,11 @@ class Production extends BaseController
         $idLineProduction = $this->request->getPostGet('line_production');
         $idTypeProduction =  $this->request->getPostGet('type_production');
 
-        $lineProduction =  $this->mdlLineProduction->find($idLineProduction);
-        $typeProduction =  $this->mdlTypeProduction->find($idTypeProduction);
-
         return view('contents/production/view_daily_list_products', [
-            'products' => $this->mdlDetailOrder->getListDailyProducts($date, $idLineProduction, $idTypeProduction)
+            'products' => $this->mdlDetailOrder->getListDailyProducts($date, $idLineProduction, $idTypeProduction),
+            'date' => $date,
+            'line_production' => $idLineProduction,
+            'type_production' => $idTypeProduction,
         ]);
     }
 }

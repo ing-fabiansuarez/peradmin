@@ -31,6 +31,7 @@ class DetailorderModel extends Model
             ->join('reference', 'reference.num_reference = detailorder.reference_num AND reference.product_id = detailorder.reference_product_id')
             ->join('size', 'size.id_size = detailorder.size_id')
             ->join('customer', 'customer.id_customer = order.customer_id')
+            ->join('employee', 'employee.id_employee = order.created_by_order')
             ->join('production_format', 'production_format.order_id_order = order.id_order')
             ->where('production_format.date_production', $date)
             ->where('production_format.production_line_id_productionline', $id_line_production)

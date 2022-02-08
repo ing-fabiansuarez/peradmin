@@ -74,6 +74,14 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <form action="<?= base_url() . route_to('generate_daily_list_products') ?>" method="post">
+                <input type="hidden" name="date" value="<?= $date ?>">
+                <input type="hidden" name="line_production" value="<?= $line_production ?>">
+                <input type="hidden" name="type_production" value="<?= $type_production ?>">
+                <button type="submit" class="btn btn-block bg-gradient-info"><i class="fas fa-print"></i> Generar pdf</button>
+            </form>
+        </div>
     </div>
 </section>
 <?= $this->endSection() ?>

@@ -3,6 +3,7 @@
 namespace App\Controllers\GenerateReport;
 
 use App\Controllers\BaseController;
+use App\Models\DetailorderModel;
 use App\Models\OrderModel;
 use App\Models\ProductionFormatModel;
 use App\Models\ProductionlineModel;
@@ -19,6 +20,7 @@ class ListsProduction extends BaseController
         $this->mdlFormatProduction = new ProductionFormatModel();
         $this->mdlLineProduction = new ProductionlineModel();
         $this->mdlTypeProduction = new TypeProductionModel();
+        $this->mdlDetailOrder = new DetailorderModel();
     }
     public function generateListProduction()
     {
@@ -164,6 +166,41 @@ class ListsProduction extends BaseController
         $this->response->setHeader('Content-Type', 'application/pdf');
         $mpdf->Output();
     }
+
+    public function generateListProductsDaily()
+    {
+        //datos recibidos desde el formulario
+        $date = $this->request->getPostGet('date');
+        $idLineProduction = $this->request->getPostGet('line_production');
+        $idTypeProduction =  $this->request->getPostGet('type_production');
+
+        $pdf = new ListProductsDaily('P', 'mm', array(215, 280));
+        $pdf->AddPage();
+
+
+        //___________________________________________________
+        $counter = 0;
+        foreach ($this->mdlDetailOrder->getListDailyProducts($date, $idLineProduction, $idTypeProduction) as $item) {
+            $counter += 1;
+            $pdf->SetFont('Arial', '', 10);
+            $pdf->Cell(10, 6, $counter, 'LRT', 0, 'C');
+            $pdf->Cell(50, 6, utf8_decode($item['reference_num'] . ' - ' . $item['name_reference']), 1, 0, 'C');
+            $pdf->Cell(50, 6, utf8_decode($item['name_product']), 1, 0, 'C');
+            $pdf->Cell(20, 6, utf8_decode($item['name_size']), 1, 0, 'C');
+            $pdf->Cell(12.4, 6, '', 1, 0, 'C');
+            $pdf->Cell(12.4, 6, '', 1, 0, 'C');
+            $pdf->Cell(12.4, 6, '', 1, 0, 'C');
+            $pdf->Cell(12.4, 6, '', 1, 0, 'C');
+            $pdf->Cell(12.4, 6, '', 1, 1, 'C');
+            $pdf->Cell(10, 6, '', 'BLR', 0, 'C');
+            $pdf->Cell(182, 6, $item['name_customer'] . ' ' . $item['surname_customer'] . ' ---- Recep: ' . $item['name_employee'] . ' ' . $item['surname_employee'], 1, 1, 'L');
+            $pdf->Ln(5);
+        }
+        //------------------------------------------
+        $pdf->AliasNbPages();
+        $this->response->setHeader('Content-Type', 'application/pdf');
+        $pdf->Output();
+    }
 }
 class CustomPDF extends FPDF
 {
@@ -262,6 +299,63 @@ class CustomPDF extends FPDF
                 $i++;
         }
         return $nl;
+    }
+}
+
+class ListProductsDaily extends CustomPDF
+{
+    // Page header
+    function Header()
+    {
+        // Logo
+        $this->Image('img/corporative/logopera.png', 175, 7, 20);
+
+        $this->SetFont('Arial', 'B', 14);
+        // Move to the right
+
+        //modelos
+        $mdlLineProduction = new ProductionlineModel();
+
+        $date = $_POST['date'];
+        $idLineProduction = $_POST['line_production'];
+
+        $lineProduction = $mdlLineProduction->find($idLineProduction);
+
+        // Title
+        $this->Cell(192, 4, utf8_decode('FORMATO DIARIO DEL DETAL - ' . $lineProduction['name_productionline']), 0, 1, 'C');
+        $this->Ln(2);
+        $this->SetFont('Arial', 'B', 10);
+        $this->Cell(30);
+        $this->Cell(132, 5, 'FECHA: ' . $date, 1, 1, 'C');
+        $this->Cell(30);
+        $this->Cell(66, 5, 'Guarnecedor: ', 1, 0, 'L');
+        $this->Cell(66, 5, 'Montador: ', 1, 1, 'L');
+        $this->Ln(5);
+
+        //encabezado de la tabla
+        $this->SetFont('Arial', 'B', 10);
+        $this->Cell(10, 7, '#', 1, 0, 'C');
+        $this->Cell(50, 7, 'Referencia', 1, 0, 'C');
+        $this->Cell(50, 7, 'Producto', 1, 0, 'C');
+        $this->Cell(20, 7, 'Talla', 1, 0, 'C');
+        $this->Cell(12.4, 7, utf8_decode('Cr'), 1, 0, 'C');
+        $this->Cell(12.4, 7, utf8_decode('Am'), 1, 0, 'C');
+        $this->Cell(12.4, 7, utf8_decode('Cs'), 1, 0, 'C');
+        $this->Cell(12.4, 7, utf8_decode('Bl'), 1, 0, 'C');
+        $this->Cell(12.4, 7, utf8_decode('Mn'), 1, 1, 'C');
+        $this->Ln(3);
+    }
+
+    // Pie de página
+    function Footer()
+    {
+        // Posición: a 1,5 cm del final
+        $this->SetY(-10);
+        // Arial italic 8
+        $this->SetFont('Arial', 'I', 10);
+        // Número de página
+        $this->Cell(50, 10, 'Pagina ' . $this->PageNo() . ' de {nb}', 0, 0, 'C');
+        $this->Cell(145, 10, 'Impreso por ' . session()->get('name_employee') . ' (' . session()->get('cedula_employee') . ') el ' . date("Y-m-d H:i:s"), 0, 0, 'C');
     }
 }
 
