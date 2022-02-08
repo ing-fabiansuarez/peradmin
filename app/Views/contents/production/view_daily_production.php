@@ -51,6 +51,16 @@
                             <div class="col-md">
                                 <a target="_blank" href="#" class="btn btn-block btn-outline-warning btn-sm disabled">Generar PDF</a>
                             </div>
+                            <?php if ($typeProduction['id_typeproduction'] == 2) : ?>
+                                <div class="col-md">
+                                    <form action="<?= base_url() . route_to('production.viewListProductsProduction') ?>" method="post">
+                                        <input type="hidden" name="date" value="<?= $date ?>">
+                                        <input type="hidden" name="line_production" value="<?= $lineProduction['id_productionline'] ?>">
+                                        <input type="hidden" name="type_production" value="<?= $typeProduction['id_typeproduction'] ?>">
+                                        <button type="submit" class="btn btn-block btn-outline-secondary btn-sm">Listado</button>
+                                    </form>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

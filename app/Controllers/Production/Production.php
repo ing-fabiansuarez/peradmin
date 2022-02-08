@@ -3,6 +3,7 @@
 namespace App\Controllers\Production;
 
 use App\Controllers\BaseController;
+use App\Models\DetailorderModel;
 use App\Models\OrderModel;
 use App\Models\PositiveBalanceModel;
 use App\Models\ProductionFormatModel;
@@ -20,6 +21,7 @@ class Production extends BaseController
         $this->mdlProductionFormat = new ProductionFormatModel();
         $this->mdlTypeProduction = new TypeProductionModel();
         $this->mdlPostiveBalance = new PositiveBalanceModel();
+        $this->mdlDetailOrder = new DetailorderModel();
     }
 
     public function index()
@@ -140,5 +142,21 @@ class Production extends BaseController
         $order->changeState(2);
 
         return redirect()->to(base_url() . route_to('view_order'));
+    }
+
+    //AQUI ES DONDE SE LISTARAN LOS PRODUCTOS DIARIOS PARA EL DETAL
+    public function viewListProductsProduction()
+    {
+        //datos recibidos desde el formulario de view production
+        $date = $this->request->getPostGet('date');
+        $idLineProduction = $this->request->getPostGet('line_production');
+        $idTypeProduction =  $this->request->getPostGet('type_production');
+
+        $lineProduction =  $this->mdlLineProduction->find($idLineProduction);
+        $typeProduction =  $this->mdlTypeProduction->find($idTypeProduction);
+
+        return view('contents/production/view_daily_list_products', [
+            'products' => $this->mdlDetailOrder->getListDailyProducts($date, $idLineProduction, $idTypeProduction)
+        ]);
     }
 }

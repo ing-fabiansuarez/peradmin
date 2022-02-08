@@ -19,7 +19,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
 	<div class="wrapper">
 
 		<?= $this->renderSection('preloader') ?>

@@ -79,6 +79,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->get('', 'Production::index', ['as' => 'view_production']);
 		$routes->post('goproduction/(:segment)', 'Production::goToProduction/$1', ['as' => 'go_to_production']);
 		$routes->get('producciondiaria', 'Production::viewDayProduction', ['as' => 'view_day_production']);
+		$routes->post('lista-productos-diario', 'Production::viewListProductsProduction', ['as' => 'production.viewListProductsProduction']);
 	});
 
 	//cliente
