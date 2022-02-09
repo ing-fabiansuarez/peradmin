@@ -34,10 +34,18 @@ class ListsProduction extends BaseController
             echo "EL PEDIDO NO ESTA EN PRODUCCION NO SE PUEDE IMPRIMIR ROTULO";
             return;
         }
-        if (!$this->mdlFormatProduction->getProductionFormat($id_order, $id_line_production)) {
+        if (!$formatProd = $this->mdlFormatProduction->getProductionFormat($id_order, $id_line_production)) {
             echo "NO EXITE EL FORMATO DE PRODUCCION";
             return;
         }
+        $formatProd['print'] = true;
+        $formatProd['print_at_format'] = date("Y-m-d H:i:s");
+        $formatProd['print_by_format'] = session()->get('cedula_employee');
+        $this->mdlFormatProduction
+            ->where('order_id_order', $formatProd['order_id_order'])
+            ->where('production_line_id_productionline', $formatProd['production_line_id_productionline'])
+            ->set($formatProd)
+            ->update();
 
         //TABLA DE TODO EL PEDIDO
 

@@ -61,6 +61,7 @@ class ProductionFormatModel extends Model
             ->where('production_format.date_production', $date)
             ->where('production_format.production_line_id_productionline', $id_line_production)
             ->where('production_format.type_of_production', $type_of_production)
+            ->orderBy('production_format.consecutive_productionformat')
             ->get()
             ->getResultArray();
     }
@@ -70,6 +71,7 @@ class ProductionFormatModel extends Model
         return $this->where('date_production', $date)
             ->where('production_line_id_productionline', $id_line_production)
             ->where('type_of_production', $type_of_production)
+            ->orderBy('consecutive_productionformat')
             ->findAll();
     }
 }

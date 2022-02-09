@@ -200,6 +200,14 @@ class Order extends Entity
             ->getResultArray();
     }
 
+    public function getProductionFormatByID($id_line)
+    {
+        return $this->mdlProductionFormat
+            ->where('order_id_order', $this->id_order)
+            ->where('production_line_id_productionline', $id_line)
+            ->first();
+    }
+
     public function genereteProductionFormat($id_lineProduction, $dateProduction, $typeProduction)
     {
         $quantity = $this->mdlProductionFormat->where('production_line_id_productionline', $id_lineProduction)->countAllResults();

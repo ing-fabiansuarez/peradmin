@@ -437,11 +437,11 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td colspan="2">
-                                                                                <?php if ($format['print'] == 1) : ?>
+                                                                                <?php if ($format['print']) : ?>
                                                                                     YA est&aacute; impreso
                                                                                 <?php else : ?>
                                                                                     NO est&aacute; impreso
-                                                                                <?php endif ?>
+                                                                                <?php endif; ?>
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>

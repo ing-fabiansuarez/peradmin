@@ -68,7 +68,8 @@
             <div class="cliente">
                 <?= $customer->name_customer . ' ' . $customer->surname_customer ?>
             </div>
-            # <?=$format->consecutive_productionformat?><br>
+            # <?= $format->consecutive_productionformat ?><br>
+            <b>N <?= $order->id_order ?></b><br>
             <?= '<b>' . $customer->getTypeDocument()['abbreviation_typeofidentification'] . '</b> ' . $customer->numberidenti_customer ?> <br>
             <b>Wps:</b> <?= $infoAdress['whatsapp_infoadress'] ?><br>
             <b>Ciudad:</b> <?= $infoAdress['name_city'] . ' - ' . $infoAdress['name_department'] ?> <br>
@@ -80,6 +81,13 @@
             ________________ <br>
             <b>Guia:</b> <br>
             ________________ <br>
+            <span style="color:red">
+                <?php foreach ($order->getProductionFormat() as $item) {
+                    if ($item['production_line_id_productionline'] != $format->production_line_id_productionline) {
+                        echo '<b>' . $item['name_productionline'] . ' </b>al ' . $item['name_typeproduction'] . ' con salida de producción ' . $item['date_production'] . '<br>';
+                    }
+                }  ?>
+            </span>
         </div>
     <?php endforeach; ?>
 </body>

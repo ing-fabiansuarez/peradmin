@@ -67,7 +67,9 @@
             </div>
         </div>
         <div class="row">
-            <?php foreach ($orders as $order) : ?>
+            <?php foreach ($orders as $order) :
+                $formatProduc = $order->getProductionFormatByID($lineProduction['id_productionline']);
+            ?>
                 <div class="col-md-4">
                     <div class="card card-success callout callout-warning">
                         <div class="card-header">
@@ -87,6 +89,9 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <ul class="nav flex-column">
+                                <li class="nav-item text-center">
+                                    <b># <?= $formatProduc->consecutive_productionformat ?></b>
+                                </li>
                                 <li class="nav-item">
                                     <?= '<b>Nombre: </b> ' . $customer->name_customer . ' ' . $customer->surname_customer; ?>
                                 </li>
