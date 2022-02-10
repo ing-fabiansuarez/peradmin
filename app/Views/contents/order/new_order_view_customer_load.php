@@ -46,6 +46,7 @@
                     $("#input_whatsapp").val(r['whatsapp_infoadress']);
                     $("#input_email").val(r['email_infoadress']);
                     $("#select_trasporter option[value='" + r['id_transporter'] + "']").attr("selected", true);
+                    $("#input_freight").val(r['freight_infoadress']);
                     reloadcities();
                     $("#cities_select option[value='" + r['id_city'] + "']").attr("selected", true);
                     console.log(r);
@@ -185,7 +186,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Valor del Flete</label>
-                                            <input min="0" value="<?= old('freight_order') ?>" name="freight_order" type="number" class="form-control" required>
+                                            <input id="input_freight" min="0" value="<?= old('freight_order') ?>" name="freight_order" type="number" class="form-control" required>
                                             <p style="margin-bottom: 0;" class="text-danger"><?= session('input_order.freight_order') ?></p>
                                         </div>
                                     </div>
