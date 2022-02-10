@@ -102,7 +102,7 @@
 
 				<li class="nav-item">
 					<a href="<?= base_url() . route_to('view_jobtitles') ?>" class="nav-link <?= $this->renderSection('active-cargos') ?>">
-						<i class="nav-icon far fa-image"></i>
+						<i class="nav-icon fas fa-user-graduate"></i>
 						<p>
 							Cargos
 						</p>
@@ -111,17 +111,17 @@
 
 				<li class="nav-item">
 					<a href="<?= base_url() . route_to('view_employee') ?>" class="nav-link <?= $this->renderSection('active-empleados') ?>">
-						<i class="nav-icon far fa-image"></i>
+						<i class="nav-icon fas fa-users"></i>
 						<p>
 							Empleados
 						</p>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="<?= base_url() . route_to('view_employee') ?>" class="nav-link <?= $this->renderSection('active-empleados') ?>">
-						<i class="nav-icon far fa-image"></i>
+					<a href="<?= base_url() . route_to('calendar_stores') ?>" class="nav-link <?= $this->renderSection('active-calendar') ?>">
+						<i class="nav-icon far fa-calendar"></i>
 						<p>
-							OJO CALENDARIO
+							Calendario
 						</p>
 					</a>
 				</li>

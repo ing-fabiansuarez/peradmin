@@ -125,6 +125,13 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 		$routes->add('normal', 'Quoter::Normal', ['as' => 'quoter_normal']);
 		$routes->add('promocion', 'Quoter::Promotion', ['as' => 'quoter_promotion']);
 	});
+
+	//calendario
+	$routes->resource('calendar', [
+		'only' => ['index', 'create', 'update', 'delete'],
+		'as' => 'calendar_stores',
+		'namespace' => 'App\Controllers\Calendar'
+	]);
 });
 
 //routes of auth
